@@ -1,0 +1,5 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["tests/fixtures/invalid-game-state-schema.ts"],
+  "exclude": ["node_modules", "dist"]
+}

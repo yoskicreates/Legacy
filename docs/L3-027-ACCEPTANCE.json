@@ -1,0 +1,27 @@
+{
+  "project": "LEGACY 3.0",
+  "task_id": "L3-027",
+  "title": "Define state schema version",
+  "status": "ACCEPTANCE_REVIEW",
+  "total_tasks": 272,
+  "completed_after_acceptance": 27,
+  "parent_source_file": "LEGACY_3_0_L3-026_COMPLETE_SOURCE.zip",
+  "parent_sha256": "931a679e498afdfc63973995cfe31f0d4c3b541ecbe49b16ffdb8844545e3360",
+  "github_base_commit": "b58227a369a3a7800f6b4fc6ea1c8a7383b98182",
+  "acceptance_criteria": {
+    "AC-01": "PASS: literal V1 envelope with required career identity, clock and algorithm-pinned RNG",
+    "AC-02": "PASS: runtime validator rejects malformed, unsupported and contradictory state",
+    "AC-03": "PASS: valid snapshot is deep frozen, independent, and values unchanged; rejected inputs not modified",
+    "AC-04": "PASS: TypeScript smoke and 5 negative compiler diagnostics",
+    "AC-05": "PASS: static domain graph and I/O-free validator",
+    "AC-06": "PENDING_GITHUB_CI: complete clean networked npm, Vite, browser QA and regressions",
+    "AC-07": "PENDING: finalized numbered checkpoint manifest/CRC/hash audit"
+  },
+  "local_tests": { "schema_runtime": "20/20 PASS", "strict_typecheck_state": "PASS", "negative_schema_diagnostics": 5, "domain_lint": "PASS" },
+  "local_npm_ci": "BLOCKED: external npm registry unreachable and Vite not cached; must check in GitHub CI",
+  "physical_iphone_safari": "NOT_RUN",
+  "decisions": {"approved_respected": ["DEC-001", "DEC-006", "DEC-007", "DEC-009"], "rejected_respected": ["DEC-014", "DEC-015"], "open_unchanged": ["DEC-030", "DEC-031", "DEC-032", "DEC-035"]},
+  "exclusions": ["L3-028 IndexedDB", "autosave", "manual save slots", "import/export", "migration", "gameplay", "new user interface"],
+  "next_task": "L3-028",
+  "next_status": "NOT_STARTED"
+}

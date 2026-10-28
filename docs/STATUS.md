@@ -1,12 +1,11 @@
 # LEGACY 3.0 TASK STATUS
 
-**L3-026 — Define domain events: COMPLETE / ACCEPTED**  
-**Progress: 26/272 tasks**  
-**Next: L3-027 — Define state schema version (NOT STARTED)**
+**L3-027 — Define state schema version: ACCEPTANCE REVIEW**  
+**Progress after acceptance: 27/272 tasks**  
+**Next: L3-028 — Implement IndexedDB wrapper (NOT STARTED)**
 
-Accepted October 28, 2026. Added compile-only event contracts for fights, training, purchases, and relationships in `core`, without event handling or gameplay. Eight headless event tests and six intentionally invalid TypeScript payload cases passed; positive type contracts compiled. Clean npm ci, strict TypeScript, architecture rules, lint, full Node tests and real Vite production build passed. Seven GitHub workflows (L3-020–L3-026) and 20/20 Chromium development/preview browser regression checks passed.
+Core V1 schema now includes literal version, required neutral career/fighter identifiers, the L3-024 independent clocks, and L3-025 versioned RNG snapshot. Runtime validation rejects malformed and unsupported inputs; valid data is returned as an independent, deep-frozen, structurally identical object. No automatic migration, repair, storage, event processing, or gameplay was added.
 
-QA reference: https://github.com/yoskicreates/Legacy/actions/runs/40779088803
-Review: https://github.com/yoskicreates/Legacy/pull/7
+Local TypeScript compiler (5.8.3), isolated schema checks, negative fixture, architecture policy, and 20 new headless tests passed. Full dependency installation and Vite/Chromium checks require connected GitHub Actions: local npm registry is inaccessible. Actual iPhone Safari is NOT_RUN. The application remains a non-playable foundation.
 
-Physical iPhone Safari testing NOT_RUN. Current app is a non-playable foundation; no simulation, event delivery, runtime JSON validation, saves or L3-027 implementation.
+Acceptance references will be recorded in `docs/L3-027-ACCEPTANCE.json` after cloud verification. See [the state schema specification](L3-027-STATE-SCHEMA.md).

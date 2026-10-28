@@ -1,0 +1,4 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["src/domain/core/index.ts", "src/domain/core/state-schema.ts", "src/tooling/game-state-schema-types-smoke.ts"]
+}

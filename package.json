@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "LEGACY 3.0 L3-020 web foundation with genuine Vite 6.3.6 and TypeScript 5.8.3; gameplay not yet implemented",
+  "description": "LEGACY 3.0 L3-021 foundation: isolated Preact menus and PixiJS render layer; no gameplay",
   "engines": {
     "node": ">=22"
   },
@@ -25,5 +25,9 @@
   "devDependencies": {
     "typescript": "5.8.3",
     "vite": "6.3.6"
+  },
+  "dependencies": {
+    "preact": "10.29.8",
+    "pixi.js": "8.20.1"
   }
 }

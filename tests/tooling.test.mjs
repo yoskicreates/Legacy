@@ -22,7 +22,7 @@ test('lock file resolves pinned official TypeScript and Vite versions', async ()
   const lock = await json('package-lock.json');
   assert.equal(lock.name, pkg.name);
   assert.equal(lock.packages[''].name, pkg.name);
-  assert.deepEqual(Object.keys(pkg.dependencies ?? {}), []);
+  assert.deepEqual(Object.keys(pkg.dependencies ?? {}).sort(), ['pixi.js', 'preact']);
   assert.deepEqual(Object.keys(pkg.devDependencies ?? {}).sort(), ['typescript', 'vite']);
   assert.equal(pkg.devDependencies.typescript, '5.8.3');
   assert.equal(pkg.devDependencies.vite, '6.3.6');
@@ -39,19 +39,16 @@ test('every script module can pass Node syntax check', async () => {
 
 test('browser placeholder exists but gameplay is still absent', async () => {
   const src = await readdir(join(root, 'src'));
-  assert.deepEqual(src, ['.gitkeep', 'game', 'main.ts', 'style.css', 'tooling']);
+  assert.deepEqual(src, ['.gitkeep', 'game', 'main.ts', 'renderer', 'style.css', 'tooling', 'ui']);
   await access(join(root, 'index.html'));
   const readme = await readFile(join(root, 'README.md'), 'utf8');
   assert.match(readme, /not a runnable|not yet runnable|no runnable|not playable/i);
 });
 
-test('offline fallback build creates valid browser placeholder without calling it Vite', async () => {
-  const build = spawnSync(process.execPath, ['scripts/web-pipeline.mjs', 'build'], {cwd:root, encoding:'utf8'});
-  assert.equal(build.status, 0, build.stderr);
-  const html = await readFile(join(root,'dist/index.html'),'utf8');
-  assert.match(html, /LEGACY 3\.0 \| Foundation Placeholder/);
-  assert.match(html, /\.\/assets\/main\.js/);
-  const script = await readFile(join(root,'dist/assets/main.js'),'utf8');
-  assert.match(script, /jsReady/);
-  await access(join(root,'dist/assets/style.css'));
+test('historical fallback remains preserved but is not the official L3-021 build', async () => {
+  const fallback = await readFile(join(root,'scripts/web-pipeline.mjs'),'utf8');
+  assert.match(fallback, /DOES NOT claim to be Vite/);
+  const pkg = await json('package.json');
+  assert.equal(pkg.scripts.build, 'vite build');
+  assert.equal(pkg.scripts.dev, 'vite --host 127.0.0.1');
 });

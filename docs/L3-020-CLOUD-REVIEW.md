@@ -1,5 +1,11 @@
-# L3-020 cloud acceptance request
+# L3-020 Cloud Review
 
-This review branch intentionally starts from the imported L3-020 partial project. Its workflow must restore and verify the original pinned TypeScript 5.8.3 tarball, install genuine Vite 6.3.6, run strict lint/typecheck/unit tests, build real Vite output, and run Chromium QA against genuine Vite development and preview servers at 375, 390, 402, 430, and 1280 pixels.
+Task: L3-020 — genuine Vite development pipeline. The full request was accepted on October 28, 2026 after a successful clean-install CI and real Vite Chromium tests.
 
-No acceptance claim is authorized until the GitHub Actions logs and artifact evidence confirm passing checks. Preserve original ZIP checkpoints in ChatGPT Library `/LEGACY_3_0/` and keep the 272-task progression frozen until verification.
+Final passing run: https://github.com/yoskicreates/Legacy/actions/runs/40765680964
+Original passing run: https://github.com/yoskicreates/Legacy/actions/runs/40765111151
+Merged PR: https://github.com/yoskicreates/Legacy/pull/1
+
+The TypeScript 5.8.3 vendor archive used in prior offline checkpoint has a different compressed checksum from the official npm archive. The version remained 5.8.3 while the online reproducible npm install was made the source of truth for this Vite task. Original archived binary and Git history preserved in ChatGPT Library.
+
+Browser QA on real Vite dev and preview: 375/390/402/430/1280 px, 10/10 pass. Placeholder only; no gameplay, L3-021 not started.

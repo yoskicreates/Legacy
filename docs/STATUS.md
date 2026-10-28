@@ -1,18 +1,12 @@
 # LEGACY 3.0 TASK STATUS
 
-**L3-020 — Set Vite Development Pipeline: ACCEPTED (20/272)**  
-**L3-021: NOT STARTED**  
-Acceptance date: October 28, 2026.
+**L3-021 — Set UI and renderer boundary: COMPLETE / ACCEPTED**
+**Progress: 21/272 tasks**
+**Next: L3-022 — Set domain module boundaries (NOT STARTED)**
 
-## Verified by GitHub Actions
+Verified on October 28, 2026: independent Preact menus and PixiJS rendering canvas mount, unmount and remount, real Vite dev/preview on 375/390/402/430/1280 CSS px, strict TypeScript and prior L3-020 regression.
 
-- Clean npm installation from pinned official TypeScript 5.8.3 and Vite 6.3.6 lockfile: PASS.
-- Strict TypeScript compilation, negative regression fixture, lint and Node test suite: PASS.
-- Genuine Vite production bundling, development server and production preview: PASS.
-- Chromium checks against real dev and preview servers at 375, 390, 402, 430 and 1280 px: 10/10 PASS.
-- User-interaction button, readable layout, no horizontal overflow or browser JavaScript/HTTP errors: PASS.
-- Build output, logs and screenshots saved in the GitHub Actions artifact.
+L3-021 run: https://github.com/yoskicreates/Legacy/actions/runs/40769540599
+L3-020 regression run: https://github.com/yoskicreates/Legacy/actions/runs/40769540629
 
-Evidence: https://github.com/yoskicreates/Legacy/actions/runs/40765111151
-
-The current application is only a browser foundation placeholder, **not a playable MMA simulator**. The earlier Git history and original local TypeScript tarball remain preserved in ChatGPT Library `/LEGACY_3_0/`; the new GitHub repository uses fresh import history and official npm dependency archives.
+No gameplay or fighter art implemented. Physical iPhone Safari testing NOT_RUN. Source and historical Git checkpoint stored separately in ChatGPT Library `/LEGACY_3_0/`.

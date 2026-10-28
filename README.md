@@ -1,6 +1,6 @@
-# LEGACY 3.0 — L3-029 Atomic Autosave Transaction (in review)
+# LEGACY 3.0 — L3-029 Atomic Autosave Transaction (accepted)
 
-L3-028 accepted (28/272). L3-029 proposes a transactional, cancellable single-record autosave operation and tests. **Not merged/accepted yet; not a playable game.** No background autosave scheduler, slots or L3-030. See [spec](docs/L3-029-AUTOSAVE.md), [evidence](docs/L3-029-ACCEPTANCE.json) and [status](docs/STATUS.md).
+L3-029 accepted (29/272). The transactional, cancellable single-record autosave operation passed full cloud acceptance and rollback/reload tests. **Not a playable game.** No background autosave scheduler, slots or L3-030. See [spec](docs/L3-029-AUTOSAVE.md), [evidence](docs/L3-029-ACCEPTANCE.json) and [status](docs/STATUS.md).
 
 ---
 

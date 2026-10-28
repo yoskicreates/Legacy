@@ -1,6 +1,12 @@
-# L3-029 IN PROGRESS / REVIEW ONLY
+# LEGACY 3.0 TASK STATUS
 
-L3-028 is accepted (28/272). L3-029 adds atomic cancellable autosave transaction and verifies rollback; full cloud and checkpoint gates remain pending. No L3-030 implementation. Do not advance task register until accepted.
+**L3-029 — Implement autosave transaction: COMPLETE / ACCEPTED**  
+**Progress: 29 accepted / 272**  
+**Next: L3-030 — Implement manual save slots (NOT STARTED)**
+
+The L3-029 module saves one explicitly supplied V1 snapshot using L3-028 IndexedDB and waits for actual transaction commit. An AbortSignal can cancel pending writes; a real aborted transaction does not destroy the last committed save. Cloud Chromium passed 120/120 rollback/reload assertions plus prior regressions. No automatic scheduling triggers, actual career gameplay, manual slots, migrations, or export/import exist.
+
+Physical iPhone Safari: NOT_RUN. This remains a non-playable game foundation.
 
 ---
 

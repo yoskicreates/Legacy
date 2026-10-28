@@ -1,31 +1,31 @@
-# LEGACY 3.0 — L3-020 browser placeholder / Vite setup pending
+# LEGACY 3.0 — Genuine Vite Foundation
 
-This is **not playable as a game**. The browser placeholder is the first small functioning web page. No fighter, career, UI framework, renderer, save system, or simulated fight exists.
+**L3-020 accepted — 20 of 272 tasks complete (October 28, 2026).** The next numbered task, L3-021, has **not started**.
 
-## Network-limited L3-020 status
+This is an original, mobile-first MMA Career & Life Simulator project foundation. The current browser page is a **placeholder; it is not playable as a game**. Fighter creation, simulated fights, career progression and gameplay remain future tasks.
 
-**PARTIAL / BLOCKED:** `vite.config.mjs` establishes Vite aliases, development server, and production-build settings. However, genuine Vite is not installed in this offline environment; the npm registry could not be resolved. `npm run dev:vite` and `npm run build:vite` are **NOT VERIFIED** and cannot be claimed as passing. The placeholder below was built using the already-installed local TypeScript compiler and a clearly labeled temporary Node fallback, **not Vite**. The task remains L3-020 until the actual Vite pipeline passes.
+## Official development tooling
 
-## Verified, reproducible commands
+Pinned dev dependencies: **TypeScript 5.8.3** and **Vite 6.3.6**, installed via the committed npm lockfile.
 
-```sh
-npm run install:clean       # offline install of vendored TypeScript 5.8.3
+```bash
+npm ci
+npm run check:vite
+npm run typecheck
+npm run test:types:negative
 npm run lint
-npm run typecheck           # strict tsc --noEmit
-npm run test:types:negative # intentionally invalid types rejected
-npm test                    # Node unit tests
-npm run build              # offline fallback outputs dist/index.html and assets
-npm run dev                # offline development fallback on http://127.0.0.1:5173
-npm run preview            # offline build preview on http://127.0.0.1:4173
-npm run verify
+npm test
+npm run build
+npm run dev
+npm run preview
 ```
 
-Future Vite commands, only after installing genuine Vite with a pin and lockfile:
+`build`, `dev`, and `preview` use official Vite; production output appears in `dist/`. The historical temporary fallback (`scripts/web-pipeline.mjs`) remains for provenance and regression tests but is not the primary development pipeline.
 
-```sh
-npm run dev:vite
-npm run build:vite
-npm run preview:vite
-```
+## Acceptance results
 
-The `dist` folder's static site is deployable as a visual **placeholder**, but does not demonstrate Vite bundling, HMR, Preact, PixiJS, fights, career systems, or iPhone Safari validation. The offline fallback is removable once Vite is available. No old LEGACY code or art has been imported.
+The [successful L3-020 GitHub Actions run](https://github.com/yoskicreates/Legacy/actions/runs/40765111151) performed a clean npm installation, strict TypeScript checks, negative-type tests, lint, Node tests, genuine Vite build and both browser servers. Chromium tests passed at **375, 390, 402, 430 and 1280 pixels** against the dev and preview servers (10/10 checks), including button interaction, no horizontal overflow, no HTTP errors and no JavaScript errors. Its artifact contains screenshots and the built output.
+
+The older ZIP checkpoints, including the original TypeScript 5.8.3 vendored tarball and historical local Git graph, are preserved in ChatGPT Library `/LEGACY_3_0/`. The new GitHub repository uses a fresh import history and npm registry-backed dependencies; its history is **not** claimed to include the full original Git history.
+
+**Do not advance to L3-021 without a separate request.**

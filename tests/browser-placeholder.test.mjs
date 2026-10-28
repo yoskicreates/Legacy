@@ -13,10 +13,10 @@ test('Vite config aliases agree with strict TypeScript paths', async()=>{
  }
  assert.equal(cfg.base,'./');assert.equal(cfg.build.outDir,'dist');
 });
-test('real Vite tasks exist but offline fallback is clearly labeled',async()=>{
+test('real Vite tasks are primary and the historical fallback stays clearly labeled',async()=>{
  const pkg=JSON.parse(await readFile(join(root,'package.json'),'utf8'));
  assert.equal(pkg.scripts['build:vite'],'vite build');
- assert.match(pkg.scripts.build,/web-pipeline/);
+ assert.equal(pkg.scripts.build, 'vite build');
  const server=await readFile(join(root,'scripts/web-pipeline.mjs'),'utf8');
  assert.match(server,/DOES NOT claim to be Vite/);
 });

@@ -1,6 +1,9 @@
 # LEGACY 3.0 TASK STATUS
 
-**L3-029: COMPLETE / ACCEPTED — 29/272 tasks.**
-**L3-030: IN_PROGRESS (GitHub review); next after acceptance: L3-031.**
+**L3-030 — Implement manual save slots: COMPLETE / ACCEPTED**
+**Progress: 30 / 272 tasks completed**
+**Next: L3-031 — Implement export/import (NOT STARTED)**
 
-Three fixed manual career slot contracts and durable metadata are proposed in L3-030; no playable game or manual save UI. See docs/L3-030-MANUAL-SAVE-SLOTS.md and docs/L3-030-ACCEPTANCE.json. No source acceptance until all CI/visual gates, immutable checkpoint and review merge pass. L3-031 import/export remains NOT_STARTED.
+The manual slot API supports three separate V1 career save slots and persistent caller-supplied timestamp metadata. The state and metadata are one atomic IndexedDB record per slot; aborts never replace the previous committed state. Validations reject corrupt records and future schema. L3-029 singleton autosave unchanged. Cloud clean npm install, strict TS, negative fixtures, unit tests, real Vite build and 208/208 manual slot browser assertions plus earlier L3-020–L3-029 regressions PASS.
+
+No manual slot UI, playable game, import/export or migration. Physical iPhone Safari: NOT_RUN. Source and history preserved in numbered Library checkpoints.

@@ -2,7 +2,7 @@
   "project": "LEGACY 3.0",
   "blueprint_version": "1.0",
   "created": "2026-10-28",
-  "scope": "L3-030 review \u2014 isolated manual career slot records, explicitly supplied timestamps, no export or migrations",
+  "scope": "L3-030 accepted \u2014 independent fixed-ID manual career save slots, timestamp metadata and atomic transactions",
   "total_tasks": 272,
   "completed": [
     "L3-001",
@@ -33,9 +33,10 @@
     "L3-026",
     "L3-027",
     "L3-028",
-    "L3-029"
+    "L3-029",
+    "L3-030"
   ],
-  "next_task": "L3-030",
+  "next_task": "L3-031",
   "phases": [
     {
       "id": "01",
@@ -523,7 +524,7 @@
       "build": "Create distinct slots, timestamps, and slot metadata",
       "test": "Two careers remain independent after reload",
       "depends_on": "L3-029",
-      "status": "in_progress",
+      "status": "completed",
       "primary_pillar": "P5",
       "supporting_pillar": "P2"
     },
@@ -3854,5 +3855,16 @@
     },
     "physical_iphone_safari": "NOT_RUN",
     "checkpoint": "LEGACY_3_0_L3-029_COMPLETE_SOURCE.zip"
+  },
+  "L3_030_acceptance_evidence": {
+    "report": "docs/L3-030-ACCEPTANCE.json",
+    "node_tests": "17/17 PASS",
+    "negative_compiler": "5/5 expected TS diagnostics",
+    "real_chromium": "208/208 manual slot assertions at 375/390/402/430, Vite dev+preview, reload and rollback",
+    "previous_regressions": "L3-020 through L3-029 all PASS",
+    "review_ci_run": 40786473255,
+    "github_pr": 11,
+    "physical_iphone_safari": "NOT_RUN",
+    "checkpoint": "LEGACY_3_0_L3-030_COMPLETE_SOURCE.zip"
   }
 }

@@ -1,7 +1,48 @@
 {
-  "task_id": "L3-030", "status": "IN_PROGRESS", "baseline": "684f83b98ad744efb95bebe52a5c85c4ab6c134a",
+  "task_id": "L3-030",
+  "status": "COMPLETE",
+  "baseline": "684f83b98ad744efb95bebe52a5c85c4ab6c134a",
   "scope": "Fixed ID manual career slots with atomic persisted timestamps and V1 snapshots. No UI, migrations, export/import or gameplay",
-  "criteria": ["Two careers remain isolated after reload", "Explicit deterministic slot identity and persistent timestamp metadata", "Atomic rollback on failure/abort", "Strict invalid metadata and corrupted data rejection", "All previous regressions and source checkpoint verified"],
-  "local": {"unit_tests": "17/17 PASS", "strict_slot_typecheck": "PASS", "negative_compiler": "5 expected diagnostic errors PASS", "domain_boundaries": "PASS", "lint": "PASS", "full_typecheck": "NOT_RUN: local incomplete npm cache", "npm_ci": "NOT_RUN", "real_browser": "NOT_RUN"},
-  "ci": {"status": "PENDING"}, "physical_iphone_safari": "NOT_RUN", "next_task": "L3-031 NOT_STARTED"
+  "criteria": [
+    "Two careers remain isolated after reload",
+    "Explicit deterministic slot identity and persistent timestamp metadata",
+    "Atomic rollback on failure/abort",
+    "Strict invalid metadata and corrupted data rejection",
+    "All previous regressions and source checkpoint verified"
+  ],
+  "local": {
+    "unit_tests": "17/17 PASS",
+    "strict_slot_typecheck": "PASS",
+    "negative_compiler": "5 expected diagnostic errors PASS",
+    "domain_boundaries": "PASS",
+    "lint": "PASS",
+    "full_typecheck": "NOT_RUN_SUCCESSFULLY_LOCAL: missing Preact/Pixi",
+    "npm_ci": "BLOCKED_ENVIRONMENT_OFFLINE_INCOMPLETE_DEPENDENCIES",
+    "real_browser": "PASS_GITHUB_ACTIONS_40786473255_208_OF_208"
+  },
+  "ci": {
+    "review_commit": "466022b7be9999255db499cfb5d006c234b33310",
+    "review_workflow": 40786473255,
+    "review_workflows": "11/11 PASS",
+    "node_tests": "17/17 PASS",
+    "negative_types": "5 expected TS errors PASS",
+    "full_typecheck_lint_build": "PASS",
+    "manual_slot_browser_checks": "208/208 PASS, 8 runs, two Vite modes at 375/390/402/430",
+    "previous_browser_regressions": "PASS",
+    "regression_workflows": {
+      "L3-020": 40786473200,
+      "L3-021": 40786473327,
+      "L3-022": 40786473237,
+      "L3-023": 40786473058,
+      "L3-024": 40786473256,
+      "L3-025": 40786473055,
+      "L3-026": 40786473183,
+      "L3-027": 40786473127,
+      "L3-028": 40786473036,
+      "L3-029": 40786473387
+    }
+  },
+  "physical_iphone_safari": "NOT_RUN",
+  "next_task": "L3-031 NOT_STARTED",
+  "accepted_total": 30
 }

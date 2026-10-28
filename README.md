@@ -2,7 +2,7 @@
 
 **L3-020 accepted — 20 of 272 tasks complete (October 28, 2026).** The next numbered task, L3-021, has **not started**.
 
-This is an original, mobile-first MMA Career & Life Simulator project foundation. The current browser page is a **placeholder, not a playable game**. Fighter creation, simulated fights, career progression and gameplay remain future tasks.
+This is an original, mobile-first MMA Career & Life Simulator project foundation. The current browser page is a **placeholder; it is not playable as a game**. Fighter creation, simulated fights, career progression and gameplay remain future tasks.
 
 ## Official development tooling
 

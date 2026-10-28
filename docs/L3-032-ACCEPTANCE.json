@@ -1,0 +1,11 @@
+{
+  "task_id": "L3-032",
+  "status": "IN_PROGRESS",
+  "baseline": "1466cf6ef0e0b0978cde2924c457615f8ecf1db8",
+  "scope": "Pure, ordered synthetic V0 to V1 state/slot migration with strict rejection and rollback documentation; no automatic writes",
+  "criteria": ["MIG-1 ordered deterministic conversion", "MIG-2 exact clocks and RNG", "MIG-3 exact save metadata", "MIG-4 strict rejection and no mutation", "MIG-5 prior saves remain valid", "MIG-6 regression and checkpoint preservation"],
+  "local": {"unit_tests": "20/20 PASS", "negative_type_diagnostics": "6 expected errors", "typecheck": "PASS", "lint": "PASS"},
+  "cloud": {"status": "PENDING", "browser": "NOT_RUN", "regression_workflows": "NOT_RUN"},
+  "physical_iphone_safari": "NOT_RUN",
+  "next_task": "L3-033 NOT_STARTED"
+}

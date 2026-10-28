@@ -1,0 +1,10 @@
+import { migrateGameState, ORDERED_MIGRATION_STEPS } from '../../src/domain/persistence/migrations';
+import type { MigrationStep, MigrationResult } from '../../src/domain/persistence/migrations';
+import type { GameStateV1 } from '../../src/domain/core/state-schema';
+const badStep: MigrationStep = { from: 1, to: 2, name: 'synthetic-v0-to-v1' };
+const badTo: MigrationStep = { from: 0, to: 2, name: 'synthetic-v0-to-v1' };
+const badName: MigrationStep = { from: 0, to: 1, name: 'unknown' };
+const brokenResult: MigrationResult<GameStateV1> = { ok: true, value: {}, steps: [] };
+ORDERED_MIGRATION_STEPS.push(badStep);
+void badTo;void badName;void brokenResult;
+void migrateGameState;

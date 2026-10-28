@@ -1,3 +1,5 @@
+**L3-032 review IN_PROGRESS; L3-031 accepted (31/272). L3-033 remains NOT_STARTED.**
+
 # LEGACY 3.0 TASK STATUS
 
 **L3-031 — Implement export and import: COMPLETE / ACCEPTED**  

@@ -2,7 +2,7 @@
   "project": "LEGACY 3.0",
   "blueprint_version": "1.0",
   "created": "2026-10-28",
-  "scope": "L3-026 — Four type-only event contracts and strict negative TypeScript fixtures accepted; no L3-027 state schema",
+  "scope": "L3-027 — Explicit V1 career/core state schema and strict runtime validator, no storage, migration or L3-028",
   "total_tasks": 272,
   "completed": [
     "L3-001",
@@ -30,9 +30,10 @@
     "L3-023",
     "L3-024",
     "L3-025",
-    "L3-026"
+    "L3-026",
+    "L3-027"
   ],
-  "next_task": "L3-027",
+  "next_task": "L3-028",
   "phases": [
     {
       "id": "01",
@@ -481,7 +482,7 @@
       "build": "Set versioned career state with explicit required fields",
       "test": "Schema validator rejects corrupted and unsupported inputs",
       "depends_on": "L3-026",
-      "status": "planned",
+      "status": "completed",
       "primary_pillar": "P5",
       "supporting_pillar": "P2"
     },
@@ -3676,7 +3677,7 @@
   "updated": "2026-10-28",
   "player_fantasy_document": "LEGACY_3_0_Player_Fantasy_L3-003.docx",
   "player_fantasy_spec_version": "1.0 - L3-003 design proposal; content requires user design review",
-  "previous_register": "LEGACY_3_0_Task_Register_L3-025.json",
+  "previous_register": "GOVERNANCE/LEGACY_3_0_Task_Register_L3-026.json",
   "audience_platform_document": "LEGACY_3_0_Audience_and_Platforms_L3-004.docx",
   "audience_platform_spec_version": "1.0 - L3-004 design proposal; owner review pending",
   "mvp_scope_document": "LEGACY_3_0_MVP_Scope_L3-005.docx",
@@ -3786,5 +3787,29 @@
       "DEC-032",
       "DEC-035"
     ]
+  },
+  "L3_027_acceptance_evidence": {
+    "report": "docs/L3-027-ACCEPTANCE.json",
+    "runtime_tests": 20,
+    "negative_compiler_diagnostics": 5,
+    "chromium_regressions": 20,
+    "physical_iphone_safari": "NOT_RUN",
+    "decisions_left_open": [
+      "DEC-030",
+      "DEC-031",
+      "DEC-032",
+      "DEC-035"
+    ],
+    "github_workflow_run": 40781460336,
+    "prior_workflows": {
+      "L3-020": 40781460210,
+      "L3-021": 40781460259,
+      "L3-022": 40781460271,
+      "L3-023": 40781460154,
+      "L3-024": 40781460292,
+      "L3-025": 40781460273,
+      "L3-026": 40781460281
+    },
+    "checkpoint": "LEGACY_3_0_L3-027_COMPLETE_SOURCE.zip"
   }
 }

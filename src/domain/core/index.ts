@@ -24,3 +24,7 @@ export type { RandomSourceState, RandomSourceStep } from './random';
 
 /** L3-026 compile-only fight, training, purchase, relationship event shapes. */
 export type { DomainEvent, DomainEventOf, DomainEventPayloads, DomainEventType } from './events';
+
+/** L3-027 strictly validated versioned core snapshot; no save I/O or migration. */
+export { GAME_STATE_SCHEMA_VERSION, GAME_STATE_RANDOM_ALGORITHM, validateGameState } from './state-schema';
+export type { GameStateV1, GameStateValidationCode, GameStateValidationResult } from './state-schema';

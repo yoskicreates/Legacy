@@ -1,6 +1,6 @@
-# LEGACY 3.0 — Typed Domain Event Contracts
+# LEGACY 3.0 — Versioned Core State Schema
 
-**L3-026 accepted — 26/272 tasks complete (October 28, 2026).** Next: **L3-027 — Define state schema version (NOT STARTED)**. LEGACY 3.0 is **not playable** yet. No combat engine, character creator, career saves, or event-processing systems have been added.
+**L3-027 accepted — 27/272 tasks complete (October 28, 2026).** Next: **L3-028 — IndexedDB wrapper (NOT STARTED)**. LEGACY 3.0 is **not playable** yet. No combat engine, character creator, career saves, or event-processing systems have been added.
 
 ## Verified foundation
 
@@ -12,10 +12,14 @@
 - **L3-025:** versioned, pure, seedable PRNG with frozen state and pinned golden vectors.
 - **L3-026:** compile-time discriminated union of four event records in [`src/domain/core/events.ts`](src/domain/core/events.ts) for fights, training, purchases, and relationships. TypeScript rejects mismatched/invalid event payloads, missing fields, invalid kinds, and mutation attempts. Neutral event references only: no gameplay or side effects.
 
+- **L3-027:** explicit V1 career identifiers, clock and RNG snapshot validated strictly at runtime (no storage), with frozen unmodified copies.
+
 ### Reproduce
 
 ```sh
 npm ci
+npm run typecheck:state
+npm run test:state
 npm run typecheck:events
 npm run test:events
 npm run lint:domains
@@ -32,4 +36,6 @@ Full cloud acceptance in [GitHub Actions run 40779088803](https://github.com/yos
 
 See [event contract](docs/L3-026-DOMAIN-EVENTS.md), [acceptance report](docs/L3-026-ACCEPTANCE.json), and [task status](docs/STATUS.md).
 
-**Not implemented:** runtime event validation, dispatchers, queues, transactional purchasing, outcomes, training bonuses, relationship calculations, storage or L3-027 state schema. OPEN design decisions remain OPEN. The original full local Git history and all prior immutable source ZIPs are preserved in ChatGPT Library `/LEGACY_3_0/`. The GitHub repository was initialized independently and does not contain that entire historical Git graph.
+**Not implemented:** event dispatch, transactions, outcomes, training bonuses, relationship calculations, saves, storage, migration, or L3-028 IndexedDB. OPEN design decisions remain OPEN. The original full local Git history and all prior immutable source ZIPs are preserved in ChatGPT Library `/LEGACY_3_0/`. The GitHub repository was initialized independently and does not contain that entire historical Git graph.
+
+L3-027 accepted cloud QA: https://github.com/yoskicreates/Legacy/actions/runs/40781460336 (20/20 Chromium and prior regressions PASS). See [L3-027 acceptance evidence](docs/L3-027-ACCEPTANCE.json) and [schema documentation](docs/L3-027-STATE-SCHEMA.md).

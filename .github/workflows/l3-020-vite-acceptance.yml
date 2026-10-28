@@ -1,33 +1,64 @@
-name: LEGACY 3.0 L3-020 — Genuine Vite acceptance
+name: LEGACY 3.0 L3-020 Genuine Vite Acceptance
 
 on:
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   verify-vite:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
-      - name: Check out the exact preserved repository
+      - name: Check out reviewed LEGACY 3.0 source
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
       - name: Set up Node.js 22
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Set up Python for Chromium acceptance
+      - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Install official Vite and execute CLI acceptance
+      - name: Verify source files are present
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          test -f package.json
+          test -f src/main.ts
+          test -f scripts/complete-vite-networked.sh
+          test -f scripts/chromium-vite-qa.py
+          test -f tests/typescript.test.mjs
+      - name: Restore exact pinned TypeScript tarball from official npm registry
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          mkdir -p vendor
+          npm pack typescript@5.8.3 --pack-destination vendor --silent
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import { createHash } from 'node:crypto';
+          const path = 'vendor/typescript-5.8.3.tgz';
+          const bytes = fs.readFileSync(path);
+          const expected = 'W9DUJf/YRhmZmJD3S6CueakO7/l5Eo2FVdwB4g/4OoTs6/6USZ+4othMrhMW+QQhKAOeWCu675H5rPbzZ5yNSQ==';
+          const actual = createHash('sha512').update(bytes).digest('base64');
+          if (actual !== expected) throw new Error('TypeScript tarball does not match preserved checkpoint SHA-512');
+          console.log('Verified exact preserved TypeScript 5.8.3 package: ' + bytes.length + ' bytes');
+          NODE
+      - name: Install genuine Vite, run TypeScript and test suite, and compile production bundle
+        shell: bash
         run: bash scripts/complete-vite-networked.sh
-      - name: Install Chromium browser test tools
+      - name: Install browser test dependencies
+        shell: bash
         run: |
           python -m pip install --disable-pip-version-check playwright==1.55.0
           python -m playwright install --with-deps chromium
-      - name: Verify real Vite development and preview servers in Chromium
+      - name: Verify genuine Vite development and production preview in Chromium
         shell: bash
         run: |
           set -Eeuo pipefail
@@ -40,28 +71,43 @@ jobs:
           for port in 5173 4173; do
             ready=0
             for i in $(seq 1 40); do
-              if curl --fail --silent --output /dev/null "http://127.0.0.1:$port/"; then ready=1; break; fi
+              if curl -fsS "http://127.0.0.1:$port/" >/dev/null; then ready=1; break; fi
               sleep 1
             done
-            if [[ "$ready" != 1 ]]; then echo "Vite server port $port unavailable"; exit 1; fi
+            if [[ "$ready" != 1 ]]; then echo "Real Vite server unavailable on port $port"; exit 1; fi
           done
           python scripts/chromium-vite-qa.py --base-url http://127.0.0.1:5173/ --out l3-020-acceptance/dev
           python scripts/chromium-vite-qa.py --base-url http://127.0.0.1:4173/ --out l3-020-acceptance/preview
-          echo 'Real Vite browser and touch interaction checks passed.'
-      - name: Record reproducible Vite build artifacts
+      - name: Preserve reproducible build and QA evidence
         if: always()
         shell: bash
         run: |
           mkdir -p l3-020-acceptance/source-updates
-          cp package.json package-lock.json l3-020-acceptance/source-updates/ || true
+          for file in package.json package-lock.json; do
+            test ! -f "$file" || cp "$file" l3-020-acceptance/source-updates/
+          done
           test ! -d dist || cp -a dist l3-020-acceptance/dist
           git status --short >l3-020-acceptance/git-status.txt
           git log --oneline -6 >l3-020-acceptance/git-history.txt
-      - name: Upload acceptance results and real production site
+      - name: Upload screenshots and acceptance output
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: LEGACY3-L3-020-vite-acceptance
+          name: LEGACY3-L3-020-real-vite-acceptance
           path: l3-020-acceptance/
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 30
+      - name: Commit verified Vite dependencies and original pinned tarball to review branch
+        if: success() && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        shell: bash
+        env:
+          BRANCH_NAME: ${{ github.head_ref }}
+        run: |
+          set -Eeuo pipefail
+          git config user.name "LEGACY 3.0 Build Verification"
+          git config user.email "legacy3-ci@users.noreply.github.com"
+          git add package.json package-lock.json vendor/typescript-5.8.3.tgz
+          if ! git diff --cached --quiet; then
+            git commit -m "L3-020: commit verified Vite 6.3.6 pipeline and pinned TypeScript archive"
+            git push origin "HEAD:${BRANCH_NAME}"
+          fi

@@ -1,6 +1,6 @@
 # LEGACY 3.0 — Versioned Core State Schema
 
-**L3-028 review candidate — 27/272 tasks accepted; L3-028 acceptance pending.** Next only after acceptance: **L3-029 — Autosave transaction (NOT STARTED)**. LEGACY 3.0 is **not playable** yet. No combat engine, character creator, career saves, or event-processing systems have been added.
+**L3-028 accepted — 28/272 tasks completed (October 28, 2026).** Next only after acceptance: **L3-029 — Autosave transaction (NOT STARTED)**. LEGACY 3.0 is **not playable** yet. No combat engine, character creator, career saves, or event-processing systems have been added.
 
 ## Verified foundation
 
@@ -42,4 +42,4 @@ L3-027 accepted cloud QA: https://github.com/yoskicreates/Legacy/actions/runs/40
 
 ### L3-028 — one-record IndexedDB browser wrapper
 
-The persistence module now exposes strict V1 `writeGameState`/`readGameState` for the single fixed `current` record. See [storage contract](docs/L3-028-STORAGE.md). This is not autosave, slot management, import/export, or gameplay. Independent Chromium dev/preview round-trip and full QA must pass before merge.
+The persistence module now exposes strict V1 `writeGameState`/`readGameState` for the single fixed `current` record. See [storage contract](docs/L3-028-STORAGE.md). This is not autosave, slot management, import/export, or gameplay. Independent Chromium dev/preview round-trip and full QA passed; 104 storage assertions in eight mobile browser environments, nine GitHub workflows successful.

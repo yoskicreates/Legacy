@@ -54,6 +54,7 @@
   ],
   "postBoundaryMilestones": {
     "L3-024": "separate clock reducer",
-    "L3-025": "seedable, pure, versioned PRNG (core only)"
+    "L3-025": "seedable, pure, versioned PRNG (core only)",
+    "L3-026": "type-only domain event contracts for four categories (core only)"
   }
 }

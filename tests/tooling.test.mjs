@@ -17,14 +17,14 @@ test('workflow exposes all five requested commands without install recursion', a
   assert.equal(pkg.private, true);
 });
 
-test('lock file resolves local TypeScript plus pinned official Vite', async () => {
+test('lock file resolves pinned official TypeScript and Vite versions', async () => {
   const pkg = await json('package.json');
   const lock = await json('package-lock.json');
   assert.equal(lock.name, pkg.name);
   assert.equal(lock.packages[''].name, pkg.name);
   assert.deepEqual(Object.keys(pkg.dependencies ?? {}), []);
   assert.deepEqual(Object.keys(pkg.devDependencies ?? {}).sort(), ['typescript', 'vite']);
-  assert.match(pkg.devDependencies.typescript, /^file:vendor\/typescript-5\.8\.3\.tgz$/);
+  assert.equal(pkg.devDependencies.typescript, '5.8.3');
   assert.equal(pkg.devDependencies.vite, '6.3.6');
   assert.ok(lock.packages['node_modules/typescript']);
   assert.ok(lock.packages['node_modules/vite']);

@@ -1,6 +1,6 @@
 # LEGACY 3.0 — Versioned Core State Schema
 
-**L3-027 under acceptance review — 27/272 tasks after acceptance.** Next: **L3-028 — IndexedDB wrapper (NOT STARTED)**. LEGACY 3.0 is **not playable** yet. No combat engine, character creator, career saves, or event-processing systems have been added.
+**L3-027 accepted — 27/272 tasks complete (October 28, 2026).** Next: **L3-028 — IndexedDB wrapper (NOT STARTED)**. LEGACY 3.0 is **not playable** yet. No combat engine, character creator, career saves, or event-processing systems have been added.
 
 ## Verified foundation
 
@@ -38,4 +38,4 @@ See [event contract](docs/L3-026-DOMAIN-EVENTS.md), [acceptance report](docs/L3-
 
 **Not implemented:** event dispatch, transactions, outcomes, training bonuses, relationship calculations, saves, storage, migration, or L3-028 IndexedDB. OPEN design decisions remain OPEN. The original full local Git history and all prior immutable source ZIPs are preserved in ChatGPT Library `/LEGACY_3_0/`. The GitHub repository was initialized independently and does not contain that entire historical Git graph.
 
-L3-027 acceptance evidence and cloud run: see [L3-027 review](docs/L3-027-ACCEPTANCE.json) and [schema documentation](docs/L3-027-STATE-SCHEMA.md).
+L3-027 accepted cloud QA: https://github.com/yoskicreates/Legacy/actions/runs/40781460336 (20/20 Chromium and prior regressions PASS). See [L3-027 acceptance evidence](docs/L3-027-ACCEPTANCE.json) and [schema documentation](docs/L3-027-STATE-SCHEMA.md).

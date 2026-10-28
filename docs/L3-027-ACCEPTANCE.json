@@ -2,7 +2,7 @@
   "project": "LEGACY 3.0",
   "task_id": "L3-027",
   "title": "Define state schema version",
-  "status": "ACCEPTANCE_REVIEW",
+  "status": "COMPLETE",
   "total_tasks": 272,
   "completed_after_acceptance": 27,
   "parent_source_file": "LEGACY_3_0_L3-026_COMPLETE_SOURCE.zip",
@@ -14,14 +14,82 @@
     "AC-03": "PASS: valid snapshot is deep frozen, independent, and values unchanged; rejected inputs not modified",
     "AC-04": "PASS: TypeScript smoke and 5 negative compiler diagnostics",
     "AC-05": "PASS: static domain graph and I/O-free validator",
-    "AC-06": "PENDING_GITHUB_CI: complete clean networked npm, Vite, browser QA and regressions",
-    "AC-07": "PENDING: finalized numbered checkpoint manifest/CRC/hash audit"
+    "AC-06": "PASS: clean cloud npm ci, TypeScript positive/negative, lint, all tests, real Vite build and seven prior regression workflows; 20/20 real browser QA",
+    "AC-07": "PASS after numbered source checkpoint archival and verification"
   },
-  "local_tests": { "schema_runtime": "20/20 PASS", "strict_typecheck_state": "PASS", "negative_schema_diagnostics": 5, "domain_lint": "PASS" },
+  "local_tests": {
+    "schema_runtime": "20/20 PASS",
+    "strict_typecheck_state": "PASS",
+    "negative_schema_diagnostics": 5,
+    "domain_lint": "PASS"
+  },
   "local_npm_ci": "BLOCKED: external npm registry unreachable and Vite not cached; must check in GitHub CI",
   "physical_iphone_safari": "NOT_RUN",
-  "decisions": {"approved_respected": ["DEC-001", "DEC-006", "DEC-007", "DEC-009"], "rejected_respected": ["DEC-014", "DEC-015"], "open_unchanged": ["DEC-030", "DEC-031", "DEC-032", "DEC-035"]},
-  "exclusions": ["L3-028 IndexedDB", "autosave", "manual save slots", "import/export", "migration", "gameplay", "new user interface"],
+  "decisions": {
+    "approved_respected": [
+      "DEC-001",
+      "DEC-006",
+      "DEC-007",
+      "DEC-009"
+    ],
+    "rejected_respected": [
+      "DEC-014",
+      "DEC-015"
+    ],
+    "open_unchanged": [
+      "DEC-030",
+      "DEC-031",
+      "DEC-032",
+      "DEC-035"
+    ]
+  },
+  "exclusions": [
+    "L3-028 IndexedDB",
+    "autosave",
+    "manual save slots",
+    "import/export",
+    "migration",
+    "gameplay",
+    "new user interface"
+  ],
   "next_task": "L3-028",
-  "next_status": "NOT_STARTED"
+  "next_status": "NOT_STARTED",
+  "accepted_total": 27,
+  "date_utc": "2026-10-28",
+  "github": {
+    "pull_request": "https://github.com/yoskicreates/Legacy/pull/8",
+    "review_commit": "994054f127f8dbc440d2477188cadcf4c36bcac6",
+    "new_schema_ci_run": 40781460336,
+    "previous_regression_runs": {
+      "L3-020": 40781460210,
+      "L3-021": 40781460259,
+      "L3-022": 40781460271,
+      "L3-023": 40781460154,
+      "L3-024": 40781460292,
+      "L3-025": 40781460273,
+      "L3-026": 40781460281
+    },
+    "cloud_status": "ALL_EIGHT_SUCCESS"
+  },
+  "browser": {
+    "real_vite_dev_preview_chromium_checks": "20/20 PASS",
+    "widths": [
+      375,
+      390,
+      402,
+      430,
+      1280
+    ],
+    "screenshots": "L3-027_QA/LEGACY3-L3-027-CLOUD-QA.zip",
+    "physical_iphone_safari": "NOT_RUN"
+  },
+  "source_checkpoint": "LEGACY_3_0_L3-027_COMPLETE_SOURCE.zip",
+  "repository_checkpoint": "LEGACY3_L3-027_COMPLETE_REPOSITORY.zip",
+  "qa_archive": "LEGACY3_L3-027_QA_EVIDENCE.zip",
+  "limitations": [
+    "Not playable; only schema validation foundation, no storage implementation",
+    "Physical iPhone Safari testing NOT_RUN",
+    "Local container npm registry unreachable; CI clean npm ci and Vite built successfully",
+    "Future career gameplay fields require independent reviewed tasks"
+  ]
 }

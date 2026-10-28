@@ -1,0 +1,138 @@
+{
+  "project": "LEGACY 3.0",
+  "task_id": "L3-026",
+  "title": "Define domain events",
+  "status": "COMPLETE",
+  "date_utc": "2026-10-28",
+  "accepted_total": 26,
+  "total_tasks": 272,
+  "next_task": "L3-027",
+  "next_status": "NOT_STARTED",
+  "parent": {
+    "source_archive": "LEGACY_3_0_L3-025_COMPLETE_SOURCE.zip",
+    "sha256": "980870e893a913026ff293cab49055d845235123ca81c16e9630f5e828cfe043",
+    "github_baseline_commit": "d623faed82683384f16e64d0295312e20a44fac2",
+    "original_local_git_preserved": true
+  },
+  "blueprint": {
+    "build": "Create typed event contracts for fights, training, purchases, and relationships",
+    "test": "Invalid event payloads are rejected by typecheck",
+    "depends_on": "L3-025",
+    "scope": "Type-only event discriminated union and compiler-only fixtures; no event dispatch or game effects"
+  },
+  "events": {
+    "fight.recorded": [
+      "fightId",
+      "fighterId",
+      "opponentId"
+    ],
+    "training.recorded": [
+      "sessionId",
+      "fighterId"
+    ],
+    "purchase.recorded": [
+      "purchaseId",
+      "buyerId"
+    ],
+    "relationship.recorded": [
+      "relationshipId",
+      "participantId",
+      "counterpartyId"
+    ]
+  },
+  "decisions": {
+    "approved_respected": [
+      "DEC-006",
+      "DEC-007",
+      "DEC-009"
+    ],
+    "rejected_respected": [
+      "DEC-014",
+      "DEC-015"
+    ],
+    "open_unresolved": [
+      "DEC-030",
+      "DEC-031",
+      "DEC-032",
+      "DEC-035"
+    ],
+    "owner_sign_off": "No new creative values or formulas adopted"
+  },
+  "criteria": {
+    "AC-01": "PASS: exactly four event kinds with typed required identifiers",
+    "AC-02": "PASS: exhaustive discriminated union narrow and valid payload compilation",
+    "AC-03": "PASS: six intentionally invalid payloads rejected by strict TypeScript",
+    "AC-04": "PASS: no runtime event bus, side effects or cross-domain dependencies",
+    "AC-05": "PASS: clean npm ci, strict typecheck, negative fixture, lint, Node tests, Vite build, prior six regression workflows",
+    "AC-06": "PASS: 20/20 Chromium real Vite dev/preview checks at 375/390/402/430/1280px",
+    "AC-07": "PASS after packaging: ZIP CRC, SHA-256 manifest, parent files and original Git object preservation"
+  },
+  "github": {
+    "pull_request": "https://github.com/yoskicreates/Legacy/pull/7",
+    "event_acceptance": "https://github.com/yoskicreates/Legacy/actions/runs/40779088803",
+    "regressions": {
+      "L3-020": 40779088740,
+      "L3-021": 40779088606,
+      "L3-022": 40779088535,
+      "L3-023": 40779088827,
+      "L3-024": 40779088684,
+      "L3-025": 40779088678
+    }
+  },
+  "tests": {
+    "dedicated_event_tests": {
+      "passed": 8,
+      "total": 8
+    },
+    "invalid_fixture_diagnostics": 6,
+    "local_typecheck_events": "PASS",
+    "local_domain_lint": "PASS",
+    "local_lint": "PASS",
+    "cloud_npm_ci": "PASS",
+    "cloud_strict_typecheck": "PASS",
+    "cloud_original_negative_fixture": "PASS",
+    "cloud_all_node_tests": "PASS",
+    "cloud_vite_build": "PASS",
+    "cloud_prior_regressions": 6,
+    "cloud_browser": {
+      "passed": 20,
+      "total": 20,
+      "widths_px": [
+        375,
+        390,
+        402,
+        430,
+        1280
+      ],
+      "servers": [
+        "dev",
+        "preview"
+      ],
+      "page_errors": 0,
+      "http_errors": 0
+    },
+    "real_iphone_safari": "NOT_RUN",
+    "local_full_project": "BLOCKED_BY_UNAVAILABLE_CACHED_PREACT_PIXI_MODULES; VERIFIED_IN_GITHUB_ACTIONS"
+  },
+  "limitations": [
+    "Compile-time contracts do not validate untrusted runtime JSON",
+    "No simulation, event queue, price or fight result logic",
+    "Browser Chromium QA is not physical iPhone Safari QA",
+    "The project remains not playable",
+    "L3-027 state schema not implemented"
+  ],
+  "gates": {
+    "G0": "PASS",
+    "G1": "PASS",
+    "G2": "PASS",
+    "G3": "PASS",
+    "G4": "PASS",
+    "G5": "PASS",
+    "G6": "PASS",
+    "G7": "PASS after archive verification",
+    "G8": "PASS"
+  },
+  "source_checkpoint": "LEGACY_3_0_L3-026_COMPLETE_SOURCE.zip",
+  "repository_checkpoint": "LEGACY3_L3-026_COMPLETE_REPOSITORY.zip",
+  "qa_archive": "LEGACY3-L3-026-FINAL-CLOUD-QA.zip"
+}

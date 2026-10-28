@@ -3,7 +3,7 @@
 **Task:** L3-026, Phase 02 — Project architecture and saving  
 **Source dependency:** completed L3-025; 272-task Master Blueprint and L3-016 Task Acceptance Contract.  
 **Acceptance criterion:** Invalid event payloads must be rejected by strict TypeScript compilation.  
-**Initial implementation state:** pending cloud CI and immutable checkpoint acceptance.
+**Acceptance:** type contract and 8 dedicated tests PASS in GitHub Actions run 40779088803; full checkpoint CRC/SHA-256 verified separately before merge.
 
 ## Exact events
 

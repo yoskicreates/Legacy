@@ -85,13 +85,13 @@ test('forbid UI/renderer aliases, external packages and unsafe dynamic imports, 
 test('L3-022 domains remain isolated through L3-026 event-contract milestone', async () => {
   const reg = JSON.parse(await readFile(join(root, 'docs/task-register.json'), 'utf8'));
   assert.equal(reg.total_tasks, 272);
-  assert.ok(['L3-026', 'L3-027'].includes(reg.next_task));
-  assert.ok([25, 26].includes(reg.completed.length));
+  assert.equal(reg.next_task, 'L3-027');
+  assert.equal(reg.completed.length, 26);
   assert.equal(reg.tasks.find(x => x.id === 'L3-022').status, 'completed');
   assert.equal(reg.tasks.find(x => x.id === 'L3-023').status, 'completed');
   assert.equal(reg.tasks.find(x => x.id === 'L3-024').status, 'completed');
   assert.equal(reg.tasks.find(x => x.id === 'L3-025').status, 'completed');
-  assert.ok(['planned', 'completed'].includes(reg.tasks.find(x => x.id === 'L3-026').status));
+  assert.equal(reg.tasks.find(x => x.id === 'L3-026').status, 'completed');
   assert.equal(reg.tasks.find(x => x.id === 'L3-027').status, 'planned');
   const files = (await readdir(join(root,'src/domain/core')));
   assert.deepEqual(files.sort(), ['clock.ts', 'events.ts', 'index.ts', 'random.ts']);

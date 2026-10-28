@@ -1,26 +1,26 @@
-# LEGACY 3.0 — Deterministic Random Source Foundation
+# LEGACY 3.0 — Typed Domain Event Contracts
 
-**L3-025 accepted — 25/272 tasks complete (October 28, 2026).** Next: **L3-026 — Define domain events (NOT STARTED)**. LEGACY 3.0 remains **not playable**. No character creator, combat simulation, career saves or game-event systems exist yet.
+**L3-026 accepted — 26/272 tasks complete (October 28, 2026).** Next: **L3-027 — Define state schema version (NOT STARTED)**. LEGACY 3.0 is **not playable** yet. No combat engine, character creator, career saves, or event-processing systems have been added.
 
-## Verified architecture
+## Verified foundation
 
-- **L3-020:** genuine pinned TypeScript 5.8.3 / Vite 6.3.6, strict compiler and mobile Chromium QA.
-- **L3-021:** independently mounted Preact menu and PixiJS renderer. No gameplay.
-- **L3-022:** six isolated domains, imports enforced by a TypeScript-AST checker.
-- **L3-023:** headless immutable menu route and navigation history reducer.
-- **L3-024:** pure independent simulated calendar-day and fight-millisecond clocks; no ambient time.
-- **L3-025:** versioned pure seeded **Mulberry32** PRNG in [`src/domain/core/random.ts`](src/domain/core/random.ts), with explicit uint32 seeds, frozen snapshots, deterministic uint32 and `[0,1)` draws, 15 dedicated unit tests and pinned known-output vectors.
+- **L3-020:** genuine TypeScript 5.8.3 / Vite 6.3.6 strict foundation and mobile Chromium checks.
+- **L3-021:** independently mounted Preact menu and PixiJS renderer.
+- **L3-022:** six isolated domain module boundaries enforced by TypeScript-AST analysis.
+- **L3-023:** immutable, headless typed menu route and navigation history reducer.
+- **L3-024:** pure independent game-calendar and fight-simulation clocks.
+- **L3-025:** versioned, pure, seedable PRNG with frozen state and pinned golden vectors.
+- **L3-026:** compile-time discriminated union of four event records in [`src/domain/core/events.ts`](src/domain/core/events.ts) for fights, training, purchases, and relationships. TypeScript rejects mismatched/invalid event payloads, missing fields, invalid kinds, and mutation attempts. Neutral event references only: no gameplay or side effects.
 
-The PRNG is intended **only for reproducible simulation**. It provides no cryptographic security. No random event probabilities, career-event behavior, gameplay or persistent seed format have been selected. DEC-035 (dangerous events/scandals) remains OPEN. See [L3-025 random-source contract](docs/L3-025-RANDOM-SOURCE.md) and [acceptance report](docs/L3-025-ACCEPTANCE.json).
-
-## Reproduce checks
+### Reproduce
 
 ```sh
 npm ci
-npm run test:random
-npm run typecheck:random
+npm run typecheck:events
+npm run test:events
 npm run lint:domains
 npm run typecheck:clock
+npm run typecheck:random
 npm run typecheck
 npm run test:types:negative
 npm run lint
@@ -28,6 +28,8 @@ npm test
 npm run build
 ```
 
-[Cloud L3-025 CI acceptance run](https://github.com/yoskicreates/Legacy/actions/runs/40777352852) and L3-020–L3-024 regression workflows passed. Real Vite dev/preview Chromium checks passed at 375, 390, 402, 430 and 1280 CSS pixels: **20/20 PASS**. Physical iPhone Safari **NOT_RUN**. No new user-facing interfaces were implemented.
+Full cloud acceptance in [GitHub Actions run 40779088803](https://github.com/yoskicreates/Legacy/actions/runs/40779088803) and all L3-020–L3-025 regression workflows: **PASS**. Real Vite dev/preview Chromium checks: **20/20 PASS** at 375, 390, 402, 430, and 1280 CSS px. Physical iPhone Safari: **NOT_RUN**.
 
-All original source files, original local Git history, review evidence and immutable numbered checkpoints are preserved in ChatGPT Library `/LEGACY_3_0/`. This GitHub repo is a separate, freshly initialized import history, not a mirror of that original Git graph.
+See [event contract](docs/L3-026-DOMAIN-EVENTS.md), [acceptance report](docs/L3-026-ACCEPTANCE.json), and [task status](docs/STATUS.md).
+
+**Not implemented:** runtime event validation, dispatchers, queues, transactional purchasing, outcomes, training bonuses, relationship calculations, storage or L3-027 state schema. OPEN design decisions remain OPEN. The original full local Git history and all prior immutable source ZIPs are preserved in ChatGPT Library `/LEGACY_3_0/`. The GitHub repository was initialized independently and does not contain that entire historical Git graph.

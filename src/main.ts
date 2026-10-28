@@ -2,9 +2,14 @@
 import { mountMenu, type MenuMount, type RendererStatus } from '@ui/menu';
 import { mountRendererViewport, type RendererMount } from '@renderer/viewport';
 
-const menuHost = document.querySelector<HTMLElement>('#menu-root');
-const rendererHost = document.querySelector<HTMLElement>('#renderer-root');
-if (!menuHost || !rendererHost || menuHost === rendererHost) {
+function requireHost(selector: string): HTMLElement {
+  const host = document.querySelector<HTMLElement>(selector);
+  if (host === null) throw new Error(`LEGACY3: missing host ${selector}`);
+  return host;
+}
+const menuHost = requireHost('#menu-root');
+const rendererHost = requireHost('#renderer-root');
+if (menuHost === rendererHost) {
   throw new Error('LEGACY3: independent menu and renderer hosts are required');
 }
 

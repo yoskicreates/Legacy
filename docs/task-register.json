@@ -2,7 +2,7 @@
   "project": "LEGACY 3.0",
   "blueprint_version": "1.0",
   "created": "2026-10-28",
-  "scope": "L3-027 — Explicit V1 career/core state schema and strict runtime validator, no storage, migration or L3-028",
+  "scope": "L3-028 — typed browser IndexedDB one-record wrapper with strict V1 state validation and browser verification; no autosave, slots or migrations",
   "total_tasks": 272,
   "completed": [
     "L3-001",
@@ -495,7 +495,7 @@
       "build": "Provide safe storage abstraction and error handling",
       "test": "Write/read round trip works in supported browser test",
       "depends_on": "L3-027",
-      "status": "planned",
+      "status": "in_progress",
       "primary_pillar": "P5",
       "supporting_pillar": "P2"
     },
@@ -3811,5 +3811,13 @@
       "L3-026": 40781460281
     },
     "checkpoint": "LEGACY_3_0_L3-027_COMPLETE_SOURCE.zip"
+  },
+  "L3_028_acceptance_evidence": {
+    "report": "docs/L3-028-ACCEPTANCE.json",
+    "node_tests": "12 PASS",
+    "typescript_negative_cases": "5 intentionally invalid",
+    "real_chromium": "PENDING_CLOUD",
+    "physical_iphone_safari": "NOT_RUN",
+    "checkpoints": "PENDING_CLOUD"
   }
 }

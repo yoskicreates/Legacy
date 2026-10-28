@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "LEGACY 3.0 L3-027: strict versioned core-state schema validation; no storage",
+  "description": "LEGACY 3.0 L3-028: typed IndexedDB V1 state wrapper; no autosave or slots",
   "engines": {
     "node": ">=22"
   },
@@ -30,7 +30,10 @@
     "test:events": "node --test tests/domain-events.test.mjs",
     "typecheck:events": "tsc --project tsconfig.events.json --noEmit",
     "typecheck:state": "tsc --project tsconfig.state.json --noEmit",
-    "test:state": "node --test tests/game-state-schema.test.mjs"
+    "test:state": "node --test tests/game-state-schema.test.mjs",
+    "test:indexeddb": "node --test tests/indexeddb.test.mjs",
+    "typecheck:indexeddb": "tsc --project tsconfig.indexeddb.json --noEmit",
+    "test:indexeddb:negative": "node scripts/indexeddb-negative-test.mjs"
   },
   "devDependencies": {
     "typescript": "5.8.3",

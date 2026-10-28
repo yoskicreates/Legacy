@@ -1,0 +1,121 @@
+{
+  "project": "LEGACY 3.0",
+  "task_id": "L3-022",
+  "title": "Set domain module boundaries",
+  "status": "COMPLETE",
+  "phase": "02",
+  "accepted_total": 22,
+  "total": 272,
+  "next_task": "L3-023",
+  "next_status": "NOT_STARTED",
+  "parent": {
+    "source_archive": "LEGACY_3_0_L3-021_COMPLETE_SOURCE.zip",
+    "sha256": "fb0cdf255f72b70e35f0d6af0e52c1f0641e370178b473c6a88587d88ab83a67",
+    "git_baseline_github": "b79d422c00a3cb52b3f5bd489ae77f146183f939",
+    "earlier_history_preserved": true
+  },
+  "blueprint": {
+    "rows": 272,
+    "task_build": "Define core, combat, career, economy, social, and persistence modules",
+    "task_test": "Imports respect published dependency rules",
+    "depends_on": "L3-021",
+    "scope": "only six domain module contracts and statically enforced import graph"
+  },
+  "decision_trace": {
+    "approved": [
+      "DEC-001",
+      "DEC-002",
+      "DEC-003",
+      "DEC-004"
+    ],
+    "rejected_respected": [
+      "DEC-012"
+    ],
+    "proposed_open_not_assumed": [
+      "DEC-020",
+      "DEC-028",
+      "DEC-034"
+    ],
+    "creative_owner_approval": "No new creative design decision assumed"
+  },
+  "acceptance_criteria": {
+    "AC-01": "PASS: exactly six typed contract-only modules core/combat/career/economy/social/persistence exist and compile with TypeScript strict.",
+    "AC-02": "PASS: published JSON and Markdown allowlist graph: core only itself; others own module + core; aliases configured.",
+    "AC-03": "PASS: independent AST dependency checker and 7 tests cover valid and invalid imports, type-only, reexports, import types, traversal, require/dynamic, external libraries.",
+    "AC-04": "PASS: Preact/Pixi lifecycle and original button regression with 20/20 Chromium dev/preview checks, five widths each; visual UI source unchanged.",
+    "AC-05": "PASS: clean npm ci, strict typecheck, negative type fixture, lint, domain check, full Node suite and Vite production build in GitHub Actions, prior CI suites green.",
+    "AC-06": "PASS: new numbered source archive with CRC, per-file SHA256 manifest and preserved baseline Git objects, checked upon packaging."
+  },
+  "github": {
+    "pull_request": "https://github.com/yoskicreates/Legacy/pull/3",
+    "domain_acceptance_run": "https://github.com/yoskicreates/Legacy/actions/runs/40771316904",
+    "l3_020_regression_run": "https://github.com/yoskicreates/Legacy/actions/runs/40771316812",
+    "l3_021_regression_run": "https://github.com/yoskicreates/Legacy/actions/runs/40771316952"
+  },
+  "tests": {
+    "npm_ci": "PASS",
+    "lint": "PASS",
+    "lint:domains": "PASS",
+    "typecheck": "PASS",
+    "negative_fixture": "PASS",
+    "node_suite": "PASS",
+    "vite_build": "PASS",
+    "new_7_domain_tests": "PASS",
+    "browser": {
+      "framework": "Chromium, actual Vite development and preview servers",
+      "widths_px": [
+        375,
+        390,
+        402,
+        430,
+        1280
+      ],
+      "l3_020_dev": 5,
+      "l3_020_preview": 5,
+      "l3_021_dev": 5,
+      "l3_021_preview": 5,
+      "passed": 20,
+      "total": 20,
+      "page_errors": 0,
+      "http_errors": 0,
+      "artifact": "LEGACY3-L3-022-DOMAIN-QA.zip"
+    }
+  },
+  "physical_iphone_safari": {
+    "status": "NOT_RUN",
+    "reason": "Remote Chromium viewport emulation is not physical device Safari."
+  },
+  "scope_exclusions": [
+    "L3-023 route navigation",
+    "L3-024 game clock",
+    "L3-025 seedable RNG",
+    "L3-026 domain events",
+    "L3-027 save state schema",
+    "L3-028 IndexedDB",
+    "combat engine, career systems, fighter art or any gameplay"
+  ],
+  "gate_results": {
+    "G0": "PASS",
+    "G1": "PASS",
+    "G2": "PASS",
+    "G3": "PASS",
+    "G4": "PASS",
+    "G5": "PASS",
+    "G6": "PASS",
+    "G7": "PASS",
+    "G8": "PASS"
+  },
+  "checkpoint": {
+    "source": "LEGACY_3_0_L3-022_COMPLETE_SOURCE.zip",
+    "repository": "LEGACY3_L3-022_COMPLETE_REPOSITORY.zip",
+    "manifest": "CHECKPOINT_MANIFEST.json",
+    "verifier": "CHECKPOINT_VERIFY.py",
+    "archive_integrity": "verified via script after packaging"
+  },
+  "known_limitations": [
+    "No real iPhone Safari device test",
+    "Domains are typed contract boundaries without runtime functionality",
+    "No routing, storage, gameplay, fighter art or approved final illustration system."
+  ],
+  "date_utc": "2026-10-28"
+}

@@ -8,6 +8,7 @@ export default {
     '@game': path('./src/game'),
     '@ui': path('./src/ui'),
     '@renderer': path('./src/renderer'),
+    '@domain': path('./src/domain'),
     '@': path('./src')
   }},
   server: { host: '127.0.0.1', port: 5173, strictPort: true },

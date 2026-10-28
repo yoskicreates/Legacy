@@ -1,0 +1,77 @@
+name: LEGACY 3.0 L3-022 Domain Boundary Acceptance
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  domain-boundaries:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - name: Check out L3-022 source
+        uses: actions/checkout@v4
+      - name: Set up Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify reproducible install
+        run: npm ci --no-audit --no-fund
+      - name: Enforce six-module dependency graph
+        run: npm run lint:domains
+      - name: Run strict types, negative fixture, lint, all Node tests and Vite production build
+        run: npm run verify
+      - name: Install browser QA dependencies
+        run: |
+          python -m pip install --disable-pip-version-check playwright==1.55.0
+          python -m playwright install --with-deps chromium
+      - name: Regress L3-021 and L3-020 on Vite dev and preview
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          mkdir -p l3-022-acceptance/l3-021-dev l3-022-acceptance/l3-021-preview
+          mkdir -p l3-022-acceptance/l3-020-dev l3-022-acceptance/l3-020-preview
+          npm run dev -- --strictPort >l3-022-acceptance/dev.log 2>&1 &
+          dev_pid=$!
+          npm run preview -- --strictPort >l3-022-acceptance/preview.log 2>&1 &
+          preview_pid=$!
+          trap 'kill "$dev_pid" "$preview_pid" 2>/dev/null || true' EXIT
+          for port in 5173 4173; do
+            ready=0
+            for i in $(seq 1 40); do
+              if curl -fsS "http://127.0.0.1:$port/" >/dev/null; then ready=1; break; fi
+              sleep 1
+            done
+            if [ "$ready" != 1 ]; then echo "Vite server unavailable on port $port"; exit 1; fi
+          done
+          python scripts/chromium-boundary-qa.py --base-url http://127.0.0.1:5173/ --out l3-022-acceptance/l3-021-dev
+          python scripts/chromium-boundary-qa.py --base-url http://127.0.0.1:4173/ --out l3-022-acceptance/l3-021-preview
+          python scripts/chromium-vite-qa.py --base-url http://127.0.0.1:5173/ --out l3-022-acceptance/l3-020-dev
+          python scripts/chromium-vite-qa.py --base-url http://127.0.0.1:4173/ --out l3-022-acceptance/l3-020-preview
+      - name: Preserve reproducible QA evidence
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p l3-022-acceptance
+          test ! -d dist || cp -a dist l3-022-acceptance/dist
+          cp docs/domain-dependencies.json l3-022-acceptance/domain-dependencies.json
+          git status --short > l3-022-acceptance/git-status.txt
+          git log -7 --oneline > l3-022-acceptance/git-history.txt
+      - name: Upload domain and browser acceptance artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: LEGACY3-L3-022-domain-boundaries
+          path: l3-022-acceptance/
+          if-no-files-found: warn
+          retention-days: 30

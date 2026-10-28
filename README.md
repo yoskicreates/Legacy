@@ -1,35 +1,15 @@
-# LEGACY 3.0 — Genuine Vite Foundation
+# LEGACY 3.0 — Domain Boundary Foundation
 
-**L3-021 accepted — 21 of 272 tasks complete (October 28, 2026).** The next numbered task, L3-022, has **not started**. L3-020 remains preserved.
+**L3-022 accepted — 22 of 272 tasks complete (October 28, 2026).** Next task **L3-023 NOT STARTED**. The game is **not playable**; no gameplay or save data exists.
 
-This is an original, mobile-first MMA Career & Life Simulator project foundation. The current browser page is a **placeholder; it is not playable as a game**. Fighter creation, simulated fights, career progression and gameplay remain future tasks.
+Six contract-only domains exist beneath `src/domain`: `core`, `combat`, `career`, `economy`, `social`, `persistence`. The shared `core` module imports no feature modules; other modules import only themselves or `core`. The imports are checked using a TypeScript AST, with strict allowlist JSON in [`docs/domain-dependencies.json`](docs/domain-dependencies.json) and rationale in [`docs/L3-022-DOMAIN-MODULE-BOUNDARIES.md`](docs/L3-022-DOMAIN-MODULE-BOUNDARIES.md). This does not implement L3-023 route navigation, L3-024 clock, combat, fighter art, domain events, or saves.
 
-## Official development tooling
+Commands: `npm ci`, `npm run lint:domains`, and `npm run verify`. L3-022 CI and earlier L3-020/L3-021 regression workflows passed including 20 responsive Chromium checks at 375/390/402/430/1280 CSS pixels on real Vite development and preview servers. Browser testing does **not** claim physical iPhone Safari verification.
 
-Pinned dev dependencies: **TypeScript 5.8.3** and **Vite 6.3.6**, installed via the committed npm lockfile.
+Review: https://github.com/yoskicreates/Legacy/pull/3
+Evidence: https://github.com/yoskicreates/Legacy/actions/runs/40771316904
 
-```bash
-npm ci
-npm run check:vite
-npm run typecheck
-npm run test:types:negative
-npm run lint
-npm test
-npm run build
-npm run dev
-npm run preview
-```
+The earlier independent Preact menu and PixiJS renderer remain isolated and unchanged; this is still a technical foundation, not a playable MMA simulator. Original checkpoint ZIPs and historical local Git objects are retained under ChatGPT Library `/LEGACY_3_0/`.
 
-`build`, `dev`, and `preview` use official Vite; production output appears in `dist/`. The historical temporary fallback (`scripts/web-pipeline.mjs`) remains for provenance and regression tests but is not the primary development pipeline.
+---
 
-## Acceptance results
-
-The [successful L3-020 GitHub Actions run](https://github.com/yoskicreates/Legacy/actions/runs/40765111151) performed a clean npm installation, strict TypeScript checks, negative-type tests, lint, Node tests, genuine Vite build and both browser servers. Chromium tests passed at **375, 390, 402, 430 and 1280 pixels** against the dev and preview servers (10/10 checks), including button interaction, no horizontal overflow, no HTTP errors and no JavaScript errors. Its artifact contains screenshots and the built output.
-
-The older ZIP checkpoints, including the original TypeScript 5.8.3 vendored tarball and historical local Git graph, are preserved in ChatGPT Library `/LEGACY_3_0/`. The new GitHub repository uses a fresh import history and npm registry-backed dependencies; its history is **not** claimed to include the full original Git history.
-
-**Do not advance to L3-021 without a separate request.**
-
-## L3-021 — Preact / PixiJS independence proof (accepted)
-
-The menu is mounted by Preact under `#menu-root`, and the isolated renderer canvas is mounted by PixiJS under `#renderer-root`. A lifecycle probe proves either layer can be unmounted and remounted while the other remains available. This boundary is **not playable**, and contains no fighter art, combat, routing, saves or new domain modules. Cloud clean-install, typecheck, unit, build, and real-browser tests passed; L3-021 was accepted as task 21/272. L3-022 is not started.

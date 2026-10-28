@@ -1,15 +1,30 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "baseUrl": ".",
     "paths": {
-      "@game/*": ["src/game/*"],
-      "@ui/*": ["src/ui/*"],
-      "@renderer/*": ["src/renderer/*"],
-      "@/*": ["src/*"]
+      "@game/*": [
+        "src/game/*"
+      ],
+      "@ui/*": [
+        "src/ui/*"
+      ],
+      "@renderer/*": [
+        "src/renderer/*"
+      ],
+      "@/*": [
+        "src/*"
+      ],
+      "@domain/*": [
+        "src/domain/*"
+      ]
     },
     "strict": true,
     "noImplicitAny": true,
@@ -26,6 +41,13 @@
     "esModuleInterop": true,
     "noEmit": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["tests/fixtures", "node_modules", "dist"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "exclude": [
+    "tests/fixtures",
+    "node_modules",
+    "dist"
+  ]
 }

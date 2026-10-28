@@ -1,0 +1,13 @@
+# LEGACY 3.0 future local/runtime outputs
+node_modules/
+dist/
+build/
+coverage/
+.vite/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+*.log

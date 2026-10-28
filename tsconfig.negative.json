@@ -1,0 +1,5 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["tests/fixtures/intentional-invalid-types.ts"],
+  "exclude": ["node_modules", "dist"]
+}

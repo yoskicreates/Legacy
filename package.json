@@ -1,0 +1,28 @@
+{
+  "name": "legacy3-mma-simulator",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "LEGACY 3.0 L3-020 browser placeholder with Vite config staged; Vite execution blocked by offline dependency access",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "install:clean": "npm ci --offline --ignore-scripts",
+    "build": "node scripts/web-pipeline.mjs build",
+    "lint": "node scripts/phase-tools.mjs lint",
+    "typecheck": "tsc --project tsconfig.json --noEmit",
+    "test": "node --test tests/*.test.mjs",
+    "verify": "npm run lint && npm run typecheck && npm run test:types:negative && npm test && npm run build",
+    "test:types:negative": "node scripts/strict-negative-test.mjs",
+    "dev": "node scripts/web-pipeline.mjs dev",
+    "preview": "node scripts/web-pipeline.mjs preview",
+    "build:vite": "vite build",
+    "dev:vite": "vite --host 127.0.0.1",
+    "preview:vite": "vite preview",
+    "check:vite": "node scripts/vite-readiness.mjs"
+  },
+  "devDependencies": {
+    "typescript": "file:vendor/typescript-5.8.3.tgz"
+  }
+}

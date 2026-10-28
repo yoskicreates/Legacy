@@ -23,8 +23,8 @@ export type LoadedManualSlot = Readonly<{ metadata: ManualSlotMetadata; state: G
 export type ManualSlotSummary =
   | Readonly<{ slotId: ManualSaveSlotId; occupied: false }>
   | Readonly<{ slotId: ManualSaveSlotId; occupied: true; metadata: ManualSlotMetadata }>;
-export type ManualSlotCode = IndexedDbCode | 'INVALID_SLOT' | 'INVALID_TIMESTAMP';
-export type ManualSlotResult<T> = IndexedDbResult<T> | Readonly<{ ok: false; code: 'INVALID_SLOT' | 'INVALID_TIMESTAMP'; detail?: string }>;
+export type ManualSlotCode = IndexedDbCode | 'INVALID_SLOT' | 'INVALID_TIMESTAMP' | 'SLOT_OCCUPIED';
+export type ManualSlotResult<T> = IndexedDbResult<T> | Readonly<{ ok: false; code: 'INVALID_SLOT' | 'INVALID_TIMESTAMP' | 'SLOT_OCCUPIED'; detail?: string }>;
 
 const success = <T>(value: T): ManualSlotResult<T> => Object.freeze({ ok: true as const, value });
 const failure = <T>(code: ManualSlotCode, detail?: string): ManualSlotResult<T> => Object.freeze({
@@ -162,4 +162,43 @@ export async function listManualSlots(options: IndexedDbOptions = {}): Promise<M
       Object.freeze({slotId, occupied: true as const, metadata: result.value.metadata}));
   }
   return success(Object.freeze(values));
+}
+
+/** L3-031: atomic compare-and-commit import. No read-then-write race, no silent overwrite. */
+export async function commitImportedManualSlot(
+ slotId:ManualSaveSlotId, candidate:unknown, savedAtEpochMs:number, overwrite:boolean,
+ options:IndexedDbWriteOptions = {},
+):Promise<ManualSlotResult<ManualSlotMetadata>> {
+ if(!validSlotId(slotId))return failure('INVALID_SLOT');
+ if(!validTimestamp(savedAtEpochMs))return failure('INVALID_TIMESTAMP');
+ const checked=validateGameState(candidate);
+ if(!checked.ok)return failure(checked.code==='UNSUPPORTED_VERSION'?'UNSUPPORTED_VERSION':'INVALID_STATE',checked.path);
+ if(options.signal?.aborted)return failure('WRITE_ABORTED');
+ const opened=await openManualDatabase(options);if(!opened.ok)return opened;
+ const db=opened.value;
+ const metadata:ManualSlotMetadata=Object.freeze({slotId,savedAtEpochMs,careerId:checked.state.career.careerId,fighterId:checked.state.career.fighterId,schemaVersion:GAME_STATE_SCHEMA_VERSION});
+ return new Promise(resolve=>{
+  let done=false,aborted=false,occupied=false;
+  let abortListener:(()=>void)|undefined;
+  const settle=(result:ManualSlotResult<ManualSlotMetadata>)=>{
+   if(done)return;done=true;if(abortListener)options.signal?.removeEventListener('abort',abortListener);
+   db.close();resolve(result);
+  };
+  try {
+   const tx=db.transaction(MANUAL_SLOTS_STORE,'readwrite');
+   abortListener=()=>{if(!done){aborted=true;try{tx.abort()}catch{ /* already committed */ }}};
+   options.signal?.addEventListener('abort',abortListener,{once:true});
+   tx.oncomplete=()=>settle(success(metadata));
+   tx.onerror=()=>settle(failure('TRANSACTION_ERROR',tx.error?.name??'write error'));
+   tx.onabort=()=>settle(failure(occupied?'SLOT_OCCUPIED':aborted?'WRITE_ABORTED':'TRANSACTION_ERROR'));
+   const store=tx.objectStore(MANUAL_SLOTS_STORE);
+   const get=store.get(slotId);
+   get.onsuccess=()=>{
+    if(options.signal?.aborted){abortListener?.();return;}
+    if(get.result!==undefined&&!overwrite){occupied=true;tx.abort();return;}
+    try{store.put({metadata,state:checked.state},slotId);}catch{try{tx.abort()}catch{ /* already ended */ }}
+   };
+   if(options.signal?.aborted)abortListener();
+  }catch(error){settle(failure('TRANSACTION_ERROR',error instanceof Error?error.name:'write threw'));}
+ });
 }

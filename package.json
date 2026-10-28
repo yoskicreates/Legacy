@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "LEGACY 3.0 L3-025: explicit deterministic seeded RNG for reproducible simulation scaffolding; no gameplay",
+  "description": "LEGACY 3.0 L3-026: typed domain-event contracts for fight, training, purchase and relationship records; no event behavior",
   "engines": {
     "node": ">=22"
   },
@@ -26,7 +26,9 @@
     "test:clock": "node --test tests/game-clock.test.mjs",
     "typecheck:clock": "tsc --project tsconfig.clock.json --noEmit",
     "test:random": "node --test tests/random-source.test.mjs",
-    "typecheck:random": "tsc --project tsconfig.random.json --noEmit"
+    "typecheck:random": "tsc --project tsconfig.random.json --noEmit",
+    "test:events": "node --test tests/domain-events.test.mjs",
+    "typecheck:events": "tsc --project tsconfig.events.json --noEmit"
   },
   "devDependencies": {
     "typescript": "5.8.3",

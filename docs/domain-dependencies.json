@@ -47,13 +47,14 @@
   "notImplemented": [
     "L3-023 route state",
     "L3-024 game clock",
-    "L3-026 events",
+    "L3-026 event processing and runtime validation",
     "L3-027 saved state schema",
     "L3-028 IndexedDB",
     "combat and career gameplay"
   ],
   "postBoundaryMilestones": {
     "L3-024": "separate clock reducer",
-    "L3-025": "seedable, pure, versioned PRNG (core only)"
+    "L3-025": "seedable, pure, versioned PRNG (core only)",
+    "L3-026": "type-only domain event contracts for four categories (core only)"
   }
 }

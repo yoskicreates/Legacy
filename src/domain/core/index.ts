@@ -1,4 +1,4 @@
-/** L3-022 core domain vocabulary; L3-024 adds a pure isolated clock utility. No gameplay, events or storage. */
+/** L3-022 core domain vocabulary; L3-024 adds a pure isolated clock utility. No gameplay or storage. */
 export type DomainId = 'core' | 'combat' | 'career' | 'economy' | 'social' | 'persistence';
 
 /** A declared boundary is not a functioning domain implementation. */
@@ -21,3 +21,6 @@ export type { GameCalendarClock, FightSimulationClock, GameClockState, GameClock
 /** L3-025 explicit seedable random source; no ambient entropy. */
 export { RANDOM_ALGORITHM, createRandomSource, nextRandomUint32, nextRandomUnitInterval } from './random';
 export type { RandomSourceState, RandomSourceStep } from './random';
+
+/** L3-026 compile-only fight, training, purchase, relationship event shapes. */
+export type { DomainEvent, DomainEventOf, DomainEventPayloads, DomainEventType } from './events';

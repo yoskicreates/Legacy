@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src/domain/core/index.ts",
+    "src/domain/core/clock.ts",
+    "src/domain/core/random.ts",
+    "src/domain/core/events.ts",
+    "src/tooling/domain-event-types-smoke.ts"
+  ]
+}

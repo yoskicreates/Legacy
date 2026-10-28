@@ -1,16 +1,14 @@
 # LEGACY 3.0 TASK STATUS
 
-**L3-023 — Implement route state model: COMPLETE / ACCEPTED**
-**Progress: 23 / 272 tasks**
-**Next: L3-024 — Define game clock (NOT STARTED)**
+**L3-024 — Define game clock: COMPLETE / ACCEPTED**  
+**Progress: 24/272 tasks**  
+**Next: L3-025 — Seed deterministic random source (NOT STARTED)**
 
-Accepted October 28, 2026. Added immutable, typed, headless route history, ten state-transition tests, and strict TypeScript negative fixtures; no UI, renderer, domain, or game clock changes. `npm ci`, `test:routes`, `lint:domains`, `typecheck`, `test:types:negative`, `lint`, full Node suite, and genuine Vite production build passed in GitHub Actions. Prior L3-020/L3-021/L3-022 workflows also passed.
+Accepted October 28, 2026. Added a headless pure game-clock reducer in `core` with independent game-calendar day and fight-simulation millisecond axes. Exactly three explicit transition types allow separate advancement/reset. 15/15 dedicated headless tests passed; strict type/negative checks, domain import rules, all Node tests, and genuine Vite production build passed in GitHub Actions. No implicit time progression, timers, rendering, fight-round logic or gameplay were introduced.
 
-Primary cloud QA: https://github.com/yoskicreates/Legacy/actions/runs/40773054871
-L3-020 regression: https://github.com/yoskicreates/Legacy/actions/runs/40773054736
-L3-021 regression: https://github.com/yoskicreates/Legacy/actions/runs/40773054470
-L3-022 regression: https://github.com/yoskicreates/Legacy/actions/runs/40773054844
+Cloud acceptance: https://github.com/yoskicreates/Legacy/actions/runs/40774948813
+Prior regression workflows: L3-020 run 40774948856; L3-021 run 40774948935; L3-022 run 40774948780; L3-023 run 40774948793 — all PASS.
 
-Chromium Dev/Preview mobile and desktop checks: 20/20 PASS at 375, 390, 402, 430, and 1280 CSS px. Physical iPhone Safari: NOT_RUN. UI navigation wiring, real screens, gameplay, user saves, browser history, clocks, events, and storage are NOT_IMPLEMENTED. This foundation remains **not playable**.
+Chromium mobile/desktop checks against Vite development and preview servers at 375, 390, 402, 430, 1280px: **20/20 PASS**. Physical iPhone Safari **NOT_RUN**. No UI or player-input changes. DEC-030 daily/weekly/hybrid time UX remains OPEN, not silently decided. Fight rounds, speeds, persistence, RNG, events, and L3-025 remain unimplemented. This is still **not playable**.
 
-Source archive and original Git object history are preserved separately in ChatGPT Library `/LEGACY_3_0/`; no prior checkpoint was overwritten. Next task L3-024 remains planned, no L3-024 code added.
+Complete numbered source archive and original local Git history are saved in ChatGPT Library `/LEGACY_3_0/` with manifest/CRC/SHA-256 verification; no prior checkpoint is overwritten.

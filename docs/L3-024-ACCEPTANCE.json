@@ -1,0 +1,125 @@
+{
+  "project": "LEGACY 3.0",
+  "task_id": "L3-024",
+  "title": "Define game clock",
+  "status": "COMPLETE",
+  "date_utc": "2026-10-28",
+  "accepted_total": 24,
+  "total_tasks": 272,
+  "next_task": "L3-025",
+  "next_status": "NOT_STARTED",
+  "parent": {
+    "source_archive": "LEGACY_3_0_L3-023_COMPLETE_SOURCE.zip",
+    "sha256": "959f4d4d41c1112deadcb87da6b0b51031e99dcd184be49e414d9db9e3662de7",
+    "baseline_github_commit": "46460aee63eb8836a3da70f2f1a0ea53508e5621",
+    "original_local_git_history_preserved": true
+  },
+  "blueprint": {
+    "build": "Separate game-calendar time from fight simulation time",
+    "test": "Clock tests show no unintended time advancement",
+    "depends_on": "L3-023",
+    "scope": "Pure headless explicit clock state only; no UI, fight-clock engine or gameplay"
+  },
+  "decisions": {
+    "approved": [
+      "DEC-001",
+      "DEC-002",
+      "DEC-003",
+      "DEC-006",
+      "DEC-007"
+    ],
+    "rejected_respected": [
+      "DEC-012"
+    ],
+    "open_unresolved": [
+      "DEC-030"
+    ],
+    "owner_sign_off": "No new UX/creative approval required for headless pure data representation; DEC-030 explicitly remains OPEN"
+  },
+  "acceptance_criteria": {
+    "AC-01": "PASS: immutable typed separate calendar day index and fight elapsed milliseconds",
+    "AC-02": "PASS: explicit isolated advancement and fight-only reset keep unrelated clock values and object identities unchanged",
+    "AC-03": "PASS: no implicit host time, timer, DOM, storage, RNG or UI coupling; idle/navigation cannot advance either axis",
+    "AC-04": "PASS: input guards for invalid values, rejected actions, overflow and deterministic replay",
+    "AC-05": "PASS: @ts-expect-error strict TypeScript unit mismatches and readonly fields",
+    "AC-06": "PASS: npm ci, strict typecheck, domain graph, negative fixture, lint, full Node suite, genuine Vite build, all prior regression workflows",
+    "AC-07": "PASS: 20/20 Chromium dev/preview checks at 375/390/402/430/1280 CSS pixels; no HTTP errors or JS page exceptions",
+    "AC-08": "PASS after packaging: CRC+manifest SHA-256 and exact preservation of all parent local Git object files"
+  },
+  "github": {
+    "pull_request": "https://github.com/yoskicreates/Legacy/pull/5",
+    "clock_acceptance": "https://github.com/yoskicreates/Legacy/actions/runs/40774948813",
+    "l3_020_regression": "https://github.com/yoskicreates/Legacy/actions/runs/40774948856",
+    "l3_021_regression": "https://github.com/yoskicreates/Legacy/actions/runs/40774948935",
+    "l3_022_regression": "https://github.com/yoskicreates/Legacy/actions/runs/40774948780",
+    "l3_023_regression": "https://github.com/yoskicreates/Legacy/actions/runs/40774948793"
+  },
+  "tests": {
+    "clock_unit_tests": {
+      "passed": 15,
+      "total": 15,
+      "environment": "Node 22, TypeScript transpileModule (headless)"
+    },
+    "all_node_tests": "PASS_IN_GITHUB_ACTIONS",
+    "typecheck": "PASS_IN_GITHUB_ACTIONS",
+    "typecheck_clock": "PASS",
+    "strict_negative_fixtures": "PASS_IN_GITHUB_ACTIONS",
+    "lint": "PASS",
+    "lint_domains": "PASS",
+    "npm_ci": "PASS_IN_GITHUB_ACTIONS",
+    "vite_build": "PASS_IN_GITHUB_ACTIONS",
+    "browser_regressions": {
+      "passed": 20,
+      "total": 20,
+      "widths_px": [
+        375,
+        390,
+        402,
+        430,
+        1280
+      ],
+      "servers": [
+        "dev",
+        "preview"
+      ],
+      "page_errors": 0,
+      "http_errors": 0
+    },
+    "local_environment_note": "Vendored TypeScript 5.8.3 supported 15 clock tests, isolated typecheck and domain lint locally; full local project typecheck requires unavailable Preact/Pixi caches; official GitHub npm ci and full typecheck passed."
+  },
+  "physical_iphone_safari": {
+    "status": "NOT_RUN",
+    "reason": "Cannot remotely operate actual iPhone Safari; Chromium emulation does not count as device test."
+  },
+  "exclusions": [
+    "L3-025 seeded random source",
+    "L3-026 domain events",
+    "L3-027 save schema",
+    "L3-028 IndexedDB",
+    "L3-119 fight clock and round logic",
+    "DEC-030 calendar granularity",
+    "wall timers",
+    "fight playback speed",
+    "URL/menu route wiring",
+    "UI rendering",
+    "gameplay"
+  ],
+  "gates": {
+    "G0": "PASS",
+    "G1": "PASS",
+    "G2": "PASS",
+    "G3": "PASS",
+    "G4": "PASS",
+    "G5": "PASS",
+    "G6": "PASS",
+    "G7": "PASS_VERIFIED_AFTER_PACKAGING",
+    "G8": "PASS"
+  },
+  "checkpoints": {
+    "source": "LEGACY_3_0_L3-024_COMPLETE_SOURCE.zip",
+    "repository": "LEGACY3_L3-024_COMPLETE_REPOSITORY.zip",
+    "qa": "LEGACY3_L3-024_CLOUD_QA_PASS.zip",
+    "manifest": "CHECKPOINT_MANIFEST.json",
+    "verifier": "CHECKPOINT_VERIFY.py"
+  }
+}

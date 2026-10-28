@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src/domain/core/index.ts",
+    "src/domain/core/clock.ts",
+    "src/tooling/clock-types-smoke.ts"
+  ]
+}

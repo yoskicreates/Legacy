@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "LEGACY 3.0 L3-024: pure independent calendar and fight simulation clocks; no gameplay",
+  "description": "LEGACY 3.0 L3-025: explicit deterministic seeded RNG for reproducible simulation scaffolding; no gameplay",
   "engines": {
     "node": ">=22"
   },
@@ -24,7 +24,9 @@
     "lint:domains": "node scripts/check-domain-boundaries.mjs",
     "test:routes": "node --test tests/route-state.test.mjs",
     "test:clock": "node --test tests/game-clock.test.mjs",
-    "typecheck:clock": "tsc --project tsconfig.clock.json --noEmit"
+    "typecheck:clock": "tsc --project tsconfig.clock.json --noEmit",
+    "test:random": "node --test tests/random-source.test.mjs",
+    "typecheck:random": "tsc --project tsconfig.random.json --noEmit"
   },
   "devDependencies": {
     "typescript": "5.8.3",

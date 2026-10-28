@@ -27,7 +27,7 @@ test('published dependency policy contains exactly the six authorized modules an
 test('each module has a typed public boundary but does not ship gameplay', async () => {
   for (const name of six) {
     const actual = (await readdir(join(root, 'src/domain', name))).sort();
-    assert.deepEqual(actual, name === 'core' ? ['clock.ts', 'index.ts'] : ['index.ts']);
+    assert.deepEqual(actual, name === 'core' ? ['clock.ts', 'index.ts', 'random.ts'] : ['index.ts']);
     const source = await readFile(join(root, 'src/domain', name, 'index.ts'), 'utf8');
     assert.match(source, /contracts-only/);
     assert.match(source, /hasRuntimeSimulation:\s*false/);
@@ -42,7 +42,7 @@ test('each module has a typed public boundary but does not ship gameplay', async
 
 test('actual domain tree respects all edges and has no bypass imports', async () => {
   const result = await verifyDomainBoundaries(root);
-  assert.equal(result.scanned, 7);
+  assert.equal(result.scanned, 8);
   assert.deepEqual(result.errors, []);
 });
 
@@ -82,7 +82,7 @@ test('forbid UI/renderer aliases, external packages and unsafe dynamic imports, 
   }
 });
 
-test('L3-022 six-domain contracts remain isolated after L3-024 clock acceptance', async () => {
+test('L3-022 six-domain contracts remain isolated after L3-025 seeded random source', async () => {
   const reg = JSON.parse(await readFile(join(root, 'docs/task-register.json'), 'utf8'));
   assert.equal(reg.total_tasks, 272);
   assert.equal(reg.next_task, 'L3-025');
@@ -92,5 +92,5 @@ test('L3-022 six-domain contracts remain isolated after L3-024 clock acceptance'
   assert.equal(reg.tasks.find(x => x.id === 'L3-024').status, 'completed');
   assert.equal(reg.tasks.find(x => x.id === 'L3-025').status, 'planned');
   const files = (await readdir(join(root,'src/domain/core')));
-  assert.deepEqual(files.sort(), ['clock.ts', 'index.ts']);
+  assert.deepEqual(files.sort(), ['clock.ts', 'index.ts', 'random.ts']);
 });

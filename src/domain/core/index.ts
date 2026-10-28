@@ -1,4 +1,4 @@
-/** L3-022 core domain vocabulary; L3-024 adds a pure isolated clock utility. No gameplay, RNG, events or storage. */
+/** L3-022 core domain vocabulary; L3-024 adds a pure isolated clock utility. No gameplay, events or storage. */
 export type DomainId = 'core' | 'combat' | 'career' | 'economy' | 'social' | 'persistence';
 
 /** A declared boundary is not a functioning domain implementation. */
@@ -17,3 +17,7 @@ export const coreBoundary: DomainBoundary<'core'> = Object.freeze({
 /** L3-024 pure calendar/fight time state, intentionally separate from simulation. */
 export { createGameClocks, reduceGameClocks } from './clock';
 export type { GameCalendarClock, FightSimulationClock, GameClockState, GameClockAction } from './clock';
+
+/** L3-025 explicit seedable random source; no ambient entropy. */
+export { RANDOM_ALGORITHM, createRandomSource, nextRandomUint32, nextRandomUnitInterval } from './random';
+export type { RandomSourceState, RandomSourceStep } from './random';

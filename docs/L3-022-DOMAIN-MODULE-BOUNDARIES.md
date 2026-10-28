@@ -1,6 +1,6 @@
 # L3-022 — Domain Module Boundaries
 
-**Status:** In review. Exact Blueprint task: **Set domain module boundaries** (Phase 02, Foundation), dependent on accepted L3-021. Acceptance condition: **Imports respect published dependency rules.** No L3-023 route model or any later feature is implemented.
+**Status:** COMPLETE / ACCEPTED (22/272). Exact Blueprint task: **Set domain module boundaries** (Phase 02, Foundation), dependent on accepted L3-021. Acceptance condition: **Imports respect published dependency rules.** No L3-023 route model or any later feature is implemented.
 
 ## Six contract-only modules
 
@@ -42,4 +42,4 @@ APPROVED: **DEC-001** original clean restart, **DEC-002** task-by-task verified 
 
 Explicitly excluded: L3-023 routes, L3-024 clock, L3-025 RNG, L3-026 domain events, L3-027 state schema, L3-028+ storage, game mechanics, combat animations, artwork, and integrations. No user-owned business data or personal records. This deliverable is **architecture only**, not a playable game.
 
-Physical iPhone Safari tests are **NOT_RUN** in this environment, even when Chromium checks pass. Cloud CI results and archived screenshots must be attached separately; do not claim them before an actual run.
+Physical iPhone Safari tests are **NOT_RUN** in this environment, even when Chromium checks pass. Cloud CI and archived screenshots passed (L3-022 workflow run 40771316904: 20/20 Chromium checks; prior L3-020/L3-021 GitHub workflows also passed). No physical iPhone Safari test was performed.

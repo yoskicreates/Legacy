@@ -1,12 +1,13 @@
 # LEGACY 3.0 TASK STATUS
 
-**L3-021 — Set UI and renderer boundary: COMPLETE / ACCEPTED**
-**Progress: 21/272 tasks**
-**Next: L3-022 — Set domain module boundaries (NOT STARTED)**
+**L3-022 — Set domain module boundaries: COMPLETE / ACCEPTED**
+**Progress: 22 / 272 tasks**
+**Next: L3-023 — Implement route state model (NOT STARTED)**
 
-Verified on October 28, 2026: independent Preact menus and PixiJS rendering canvas mount, unmount and remount, real Vite dev/preview on 375/390/402/430/1280 CSS px, strict TypeScript and prior L3-020 regression.
+Accepted October 28, 2026: six typed domain contract boundaries; static TypeScript-AST import checker and 7 new tests; strict TypeScript, lint, clean npm install, real Vite production bundle and existing L3-020/L3-021 regression checks. The previous Preact/Pixi browser presentation and setup verification button remain untouched.
 
-L3-021 run: https://github.com/yoskicreates/Legacy/actions/runs/40769540599
-L3-020 regression run: https://github.com/yoskicreates/Legacy/actions/runs/40769540629
+Domain QA: https://github.com/yoskicreates/Legacy/actions/runs/40771316904
+L3-020 regression: https://github.com/yoskicreates/Legacy/actions/runs/40771316812
+L3-021 regression: https://github.com/yoskicreates/Legacy/actions/runs/40771316952
 
-No gameplay or fighter art implemented. Physical iPhone Safari testing NOT_RUN. Source and historical Git checkpoint stored separately in ChatGPT Library `/LEGACY_3_0/`.
+Chromium dev/preview browser checks passed at 375/390/402/430/1280 CSS px (20/20 checks). Physical iPhone Safari testing: NOT_RUN. This is **not playable**; no routes, fight simulation, save schema or storage introduced. The numbered source checkpoint and earlier Git history are preserved separately in ChatGPT Library `/LEGACY_3_0/`.

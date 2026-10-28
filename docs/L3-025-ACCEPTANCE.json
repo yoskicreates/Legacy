@@ -1,0 +1,137 @@
+{
+  "project": "LEGACY 3.0",
+  "task_id": "L3-025",
+  "title": "Seed deterministic random source",
+  "status": "COMPLETE",
+  "date_utc": "2026-10-28",
+  "accepted_total": 25,
+  "total_tasks": 272,
+  "next_task": "L3-026",
+  "next_status": "NOT_STARTED",
+  "parent": {
+    "source_archive": "LEGACY_3_0_L3-024_COMPLETE_SOURCE.zip",
+    "sha256": "8462fd8e8bcf7d1c7da74130577fd2f7095ef5d6d46519deb826fe2f36ad82bd",
+    "github_baseline_commit": "4c0127ae19b47d580fc7eb95f733e8e1377b8cc6",
+    "original_local_git_preserved": true
+  },
+  "blueprint": {
+    "build": "Provide seedable PRNG interface for reproducible simulations",
+    "test": "Same seed reproduces identical sample sequence",
+    "depends_on": "L3-024",
+    "scope": "Pure deterministic 32-bit RNG contract, no probabilities or gameplay"
+  },
+  "decisions": {
+    "approved_respected": [
+      "DEC-006",
+      "DEC-007"
+    ],
+    "rejected_respected": [
+      "DEC-012"
+    ],
+    "open_unresolved": [
+      "DEC-030",
+      "DEC-031",
+      "DEC-035"
+    ],
+    "owner_sign_off": "No new creative rules approved; deterministic technical source only"
+  },
+  "algorithm": {
+    "id": "LEGACY3-MULBERRY32-V1",
+    "seed_range": "uint32, 0..4294967295",
+    "next_integer": "uint32",
+    "next_fraction": "[0,1)",
+    "state": "frozen {seed,word,draws}",
+    "security": "NON_CRYPTOGRAPHIC"
+  },
+  "acceptance_criteria": {
+    "AC-01": "PASS: explicit uint32 seeds including zero and max",
+    "AC-02": "PASS: 1,000 identical draws and snapshot replay",
+    "AC-03": "PASS: fixed reference vectors for 0/1/42/max",
+    "AC-04": "PASS: uint32 range and normalized unit interval",
+    "AC-05": "PASS: immutability, independent sources, no ambient randomness, clock or UI coupling",
+    "AC-06": "PASS: invalid input guards and strict TypeScript negative contract",
+    "AC-07": "PASS: npm ci, strict TS, architecture, lint, Node tests, genuine Vite build and prior L3-020–L3-024 regressions",
+    "AC-08": "PASS: 20/20 Chromium Vite dev/preview checks at 375/390/402/430/1280px",
+    "AC-09": "PASS after packaging: immutable source ZIP CRC, SHA-256 manifest and parent Git objects verified"
+  },
+  "github": {
+    "pull_request": "https://github.com/yoskicreates/Legacy/pull/6",
+    "random_acceptance": "https://github.com/yoskicreates/Legacy/actions/runs/40777352852",
+    "regressions": {
+      "L3-020": 40777352627,
+      "L3-021": 40777352537,
+      "L3-022": 40777352563,
+      "L3-023": 40777352454,
+      "L3-024": 40777352701
+    }
+  },
+  "tests": {
+    "random_headless": {
+      "passed": 15,
+      "total": 15,
+      "algorithm_vectors": 4,
+      "replay_samples": 1000
+    },
+    "local_isolated_typecheck": "PASS",
+    "local_lint": "PASS",
+    "local_domain_lint": "PASS",
+    "npm_ci": "PASS_IN_GITHUB_ACTIONS",
+    "full_typecheck": "PASS_IN_GITHUB_ACTIONS",
+    "negative_types": "PASS_IN_GITHUB_ACTIONS",
+    "all_node_tests": "PASS_IN_GITHUB_ACTIONS",
+    "vite_build": "PASS_IN_GITHUB_ACTIONS",
+    "browser_regressions": {
+      "passed": 20,
+      "total": 20,
+      "widths_px": [
+        375,
+        390,
+        402,
+        430,
+        1280
+      ],
+      "servers": [
+        "dev",
+        "preview"
+      ],
+      "page_errors": 0,
+      "http_errors": 0
+    },
+    "local_full_project": "BLOCKED_BY_UNAVAILABLE_CACHED_PREACT_PIXI_MODULES; VERIFIED_IN_GITHUB_ACTIONS"
+  },
+  "physical_iphone_safari": {
+    "status": "NOT_RUN",
+    "reason": "No remote iPhone control; Chromium is not a physical iPhone Safari test"
+  },
+  "exclusions": [
+    "L3-026 domain events",
+    "L3-027 state schema",
+    "L3-028 IndexedDB",
+    "gameplay",
+    "fighter creation",
+    "random-dangerous-event probabilities",
+    "fights",
+    "combat scoring",
+    "UI changes",
+    "persistent PRNG schema",
+    "cryptographic randomness"
+  ],
+  "gates": {
+    "G0": "PASS",
+    "G1": "PASS",
+    "G2": "PASS",
+    "G3": "PASS",
+    "G4": "PASS",
+    "G5": "PASS",
+    "G6": "PASS",
+    "G8": "PASS",
+    "G7": "PASS_AFTER_ARCHIVE_VERIFICATION"
+  },
+  "checkpoints": {
+    "source": "LEGACY_3_0_L3-025_COMPLETE_SOURCE.zip",
+    "repository": "LEGACY3_L3-025_COMPLETE_REPOSITORY.zip",
+    "qa": "LEGACY3_L3-025_CLOUD_QA_PASS.zip",
+    "manifest": "CHECKPOINT_MANIFEST.json",
+    "verifier": "CHECKPOINT_VERIFY.py"
+  }
+}

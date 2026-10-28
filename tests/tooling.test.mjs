@@ -39,7 +39,7 @@ test('every script module can pass Node syntax check', async () => {
 
 test('browser placeholder exists but gameplay is still absent', async () => {
   const src = await readdir(join(root, 'src'));
-  assert.deepEqual(src, ['.gitkeep', 'game', 'main.ts', 'renderer', 'style.css', 'tooling', 'ui']);
+  assert.deepEqual(src, ['.gitkeep', 'domain', 'game', 'main.ts', 'renderer', 'style.css', 'tooling', 'ui']);
   await access(join(root, 'index.html'));
   const readme = await readFile(join(root, 'README.md'), 'utf8');
   assert.match(readme, /not a runnable|not yet runnable|no runnable|not playable/i);

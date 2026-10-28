@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "task": "L3-022",
+  "domainRoot": "src/domain",
+  "purpose": "Strict static imports for six contract-only domain modules; future task scopes may revise only through review and new tests.",
+  "modules": [
+    "core",
+    "combat",
+    "career",
+    "economy",
+    "social",
+    "persistence"
+  ],
+  "allowedDomainImports": {
+    "core": [
+      "core"
+    ],
+    "combat": [
+      "combat",
+      "core"
+    ],
+    "career": [
+      "career",
+      "core"
+    ],
+    "economy": [
+      "economy",
+      "core"
+    ],
+    "social": [
+      "social",
+      "core"
+    ],
+    "persistence": [
+      "persistence",
+      "core"
+    ]
+  },
+  "rules": [
+    "core must never depend on other domains, UI, renderer, or external runtime packages.",
+    "Each feature domain may import only itself and core, never another feature domain.",
+    "Cross-domain core imports must use @domain/core; relative imports must remain inside the importing module.",
+    "Domain code may not import UI, renderer, game, libraries or Node built-ins, even as type-only imports.",
+    "Dynamic import(), require(), and import-equals are denied in domain files; dependency edges must be statically auditable.",
+    "Architecture contracts are not a game simulation, event schema, save schema, route state, or storage implementation."
+  ],
+  "notImplemented": [
+    "L3-023 route state",
+    "L3-024 game clock",
+    "L3-025 seedable PRNG",
+    "L3-026 events",
+    "L3-027 saved state schema",
+    "L3-028 IndexedDB",
+    "combat and career gameplay"
+  ]
+}

@@ -2,7 +2,7 @@
   "project": "LEGACY 3.0",
   "blueprint_version": "1.0",
   "created": "2026-10-28",
-  "scope": "L3-030 accepted \u2014 independent fixed-ID manual career save slots, timestamp metadata and atomic transactions",
+  "scope": "L3-030 accepted — independent fixed-ID manual career save slots, timestamp metadata and atomic transactions",
   "total_tasks": 272,
   "completed": [
     "L3-001",
@@ -34,9 +34,10 @@
     "L3-027",
     "L3-028",
     "L3-029",
-    "L3-030"
+    "L3-030",
+    "L3-031"
   ],
-  "next_task": "L3-031",
+  "next_task": "L3-032",
   "phases": [
     {
       "id": "01",
@@ -230,7 +231,7 @@
       "primary_pillar": "P4",
       "supporting_pillar": "P3",
       "deliverable": "LEGACY_3_0_Ten_Year_Career_Map_L3-008.docx",
-      "acceptance": "Ten coherent intervals ages 15\u201325, youth-to-adult gates, conditional states, three alternative arcs, 24 design tests; documentation only"
+      "acceptance": "Ten coherent intervals ages 15–25, youth-to-adult gates, conditional states, three alternative arcs, 24 design tests; documentation only"
     },
     {
       "id": "L3-009",
@@ -537,7 +538,7 @@
       "build": "Allow verified JSON backup download and restore",
       "test": "Export-import preserves state checksum and warns on invalid files",
       "depends_on": "L3-030",
-      "status": "planned",
+      "status": "completed",
       "primary_pillar": "P5",
       "supporting_pillar": "P2"
     },
@@ -1444,7 +1445,7 @@
       "phase_title": "Modular character creator",
       "gate": "Visual foundation",
       "title": "Verify visual matrix",
-      "build": "Test face \u00d7 hair \u00d7 physique \u00d7 gear combinations automatically",
+      "build": "Test face × hair × physique × gear combinations automatically",
       "test": "Sample matrix shows no missing assets or crashes",
       "depends_on": "L3-100",
       "status": "planned",
@@ -3680,7 +3681,7 @@
   "updated": "2026-10-28",
   "player_fantasy_document": "LEGACY_3_0_Player_Fantasy_L3-003.docx",
   "player_fantasy_spec_version": "1.0 - L3-003 design proposal; content requires user design review",
-  "previous_register": "GOVERNANCE/LEGACY_3_0_Task_Register_L3-027.json",
+  "previous_register": "GOVERNANCE/LEGACY_3_0_Task_Register_L3-030.json",
   "audience_platform_document": "LEGACY_3_0_Audience_and_Platforms_L3-004.docx",
   "audience_platform_spec_version": "1.0 - L3-004 design proposal; owner review pending",
   "mvp_scope_document": "LEGACY_3_0_MVP_Scope_L3-005.docx",
@@ -3752,7 +3753,7 @@
       40774948793
     ],
     "physical_iphone_safari": "NOT_RUN",
-    "calendar_ux_DEC-030": "OPEN \u2014 no selection made"
+    "calendar_ux_DEC-030": "OPEN — no selection made"
   },
   "L3_025_acceptance_evidence": {
     "report": "LEGACY3/docs/L3-025-ACCEPTANCE.json",
@@ -3866,5 +3867,16 @@
     "github_pr": 11,
     "physical_iphone_safari": "NOT_RUN",
     "checkpoint": "LEGACY_3_0_L3-030_COMPLETE_SOURCE.zip"
+  },
+  "L3_031_acceptance_evidence": {
+    "report": "docs/L3-031-ACCEPTANCE.json",
+    "unit_tests": "19/19 PASS",
+    "negative_compiler": "5/5 expected TypeScript diagnostics",
+    "real_chromium": "8/8 Vite dev/preview 375/390/402/430 PASS, 27 reported checks each",
+    "review_ci_run": 40787796116,
+    "review_workflows": "12/12 PASS",
+    "previous_regressions": "L3-020 through L3-030 PASS",
+    "physical_iphone_safari": "NOT_RUN",
+    "checkpoint": "LEGACY_3_0_L3-031_COMPLETE_SOURCE.zip"
   }
 }

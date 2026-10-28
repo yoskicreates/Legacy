@@ -1,3 +1,11 @@
+# LEGACY 3.0 — Verified Career Save Export/Import
+
+**L3-031 accepted — 31/272 tasks complete.** Next: **L3-032 — Migration harness (NOT STARTED)**. Technical storage foundation only, **not a playable game**. Portable, canonical SHA-256 checked V1 career archives support safe restore into separate manual slots and explicit overwrite protection. No UI file controls, migrations, new gameplay, or background automation. All earlier functionality remains preserved.
+
+Acceptance: docs/L3-031-ACCEPTANCE.json; behavior: docs/L3-031-EXPORT-IMPORT.md. Reproduce from clean checkout with `npm ci`, `npm run typecheck:export-import`, `npm run test:export-import:negative`, `npm run test:export-import`, `npm run typecheck`, `npm test`, `npm run lint`, `npm run build`. Browser QA is defined in `.github/workflows/l3-031-export-import.yml`.
+
+---
+
 # LEGACY 3.0 — L3-029 Atomic Autosave Transaction (accepted)
 
 L3-029 accepted (29/272). The transactional, cancellable single-record autosave operation passed full cloud acceptance and rollback/reload tests. **Not a playable game.** No background autosave scheduler, slots or L3-030. See [spec](docs/L3-029-AUTOSAVE.md), [evidence](docs/L3-029-ACCEPTANCE.json) and [status](docs/STATUS.md).
@@ -56,6 +64,6 @@ Three strictly typed fixed slot IDs with caller-supplied timestamp, independent 
 
 **Acceptance:** [GitHub Actions manual slot run](https://github.com/yoskicreates/Legacy/actions/runs/40786473255), all L3-020–L3-029 regression workflows PASS, 208/208 Chromium manual slot assertions at four mobile widths, full Vite production build. Physical iPhone Safari NOT_RUN.
 
-## L3-031 proposed review (not yet accepted)
+## L3-031 review history (accepted)
 
 Portable SHA-256 validated V1 manual save export/import is under review. It never silently overwrites occupied slots and does not add migration, gameplay, or UI. Acceptance requires all cloud regression and real-browser tests plus immutable source checkpoint. See `docs/L3-031-EXPORT-IMPORT.md`.

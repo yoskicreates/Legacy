@@ -85,8 +85,8 @@ test('forbid UI/renderer aliases, external packages and unsafe dynamic imports, 
 test('L3-022 domains remain isolated through L3-031 export/import milestone', async () => {
   const reg = JSON.parse(await readFile(join(root, 'docs/task-register.json'), 'utf8'));
   assert.equal(reg.total_tasks, 272);
-  assert.equal(reg.next_task, 'L3-031');
-  assert.equal(reg.completed.length, 30);
+  assert.equal(reg.next_task, 'L3-032');
+  assert.equal(reg.completed.length, 31);
   assert.equal(reg.tasks.find(x => x.id === 'L3-022').status, 'completed');
   assert.equal(reg.tasks.find(x => x.id === 'L3-023').status, 'completed');
   assert.equal(reg.tasks.find(x => x.id === 'L3-024').status, 'completed');
@@ -96,6 +96,7 @@ test('L3-022 domains remain isolated through L3-031 export/import milestone', as
   assert.equal(reg.tasks.find(x => x.id === 'L3-028').status, 'completed');
   assert.equal(reg.tasks.find(x => x.id === 'L3-029').status, 'completed');
   assert.equal(reg.tasks.find(x => x.id === 'L3-030').status, 'completed');
+  assert.equal(reg.tasks.find(x => x.id === 'L3-031').status, 'completed');
   const files = (await readdir(join(root,'src/domain/core')));
   assert.deepEqual(files.sort(), ['clock.ts', 'events.ts', 'index.ts', 'random.ts', 'state-schema.ts']);
 });

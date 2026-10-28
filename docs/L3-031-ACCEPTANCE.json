@@ -1,11 +1,39 @@
 {
   "task_id": "L3-031",
-  "status": "IN_PROGRESS",
+  "status": "COMPLETE",
   "baseline": "9c60a0ad0922568a6417dd14c800ceb981437150",
   "scope": "Deterministic SHA-256 portable career-slot archives, validated import, atomic explicit overwrite protection; no migrations or UI",
-  "criteria": ["EI-1", "EI-2", "EI-3", "EI-4", "EI-5", "EI-6"],
-  "local": {"unit_tests": "19/19 PASS", "negative_compiler": "5 expected diagnostics PASS", "strict_scoped_typecheck": "PASS", "lint_domains": "PASS", "lint": "PASS", "full_build": "PENDING_NETWORKED_CI", "real_browser": "PENDING_NETWORKED_CI"},
-  "cloud": {"status": "PENDING_CLOUD", "workflows": "PENDING_CLOUD", "chromium": "PENDING_CLOUD"},
+  "criteria": [
+    "EI-1",
+    "EI-2",
+    "EI-3",
+    "EI-4",
+    "EI-5",
+    "EI-6"
+  ],
+  "local": {
+    "unit_tests": "19/19 PASS",
+    "negative_compiler": "5 expected diagnostics PASS",
+    "strict_scoped_typecheck": "PASS",
+    "lint_domains": "PASS",
+    "lint": "PASS",
+    "full_build": "PASS_GITHUB_CI_40787796116",
+    "real_browser": "8/8 PASS_GITHUB_CI_40787796116"
+  },
+  "cloud": {
+    "status": "PASS",
+    "review_commit": "1d1b5f11ba79690051aa2671496c6b91904441ba",
+    "pr": 12,
+    "workflow_run": 40787796116,
+    "workflows": "12/12 PASS",
+    "chromium": "8/8 PASS, 27 assertions reported per viewport on dev and preview",
+    "negative_types": "5 expected diagnostics PASS",
+    "unit_tests": "19/19 PASS",
+    "full_build": "PASS genuine Vite",
+    "baseline_regressions": "L3-020 through L3-030 PASS"
+  },
   "physical_iphone_safari": "NOT_RUN",
-  "next_task": "L3-032 NOT_STARTED"
+  "next_task": "L3-032 NOT_STARTED",
+  "accepted_total": 31,
+  "checkpoint": "LEGACY_3_0_L3-031_COMPLETE_SOURCE.zip"
 }

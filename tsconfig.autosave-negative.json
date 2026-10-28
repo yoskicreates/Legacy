@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "tests/fixtures/invalid-autosave-types.ts"
+  ],
+  "compilerOptions": {
+    "types": []
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

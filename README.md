@@ -1,3 +1,9 @@
+# LEGACY 3.0 — L3-029 Atomic Autosave Transaction (in review)
+
+L3-028 accepted (28/272). L3-029 proposes a transactional, cancellable single-record autosave operation and tests. **Not merged/accepted yet; not a playable game.** No background autosave scheduler, slots or L3-030. See [spec](docs/L3-029-AUTOSAVE.md), [evidence](docs/L3-029-ACCEPTANCE.json) and [status](docs/STATUS.md).
+
+---
+
 # LEGACY 3.0 — Versioned Core State Schema
 
 **L3-028 accepted — 28/272 tasks completed (October 28, 2026).** Next only after acceptance: **L3-029 — Autosave transaction (NOT STARTED)**. LEGACY 3.0 is **not playable** yet. No combat engine, character creator, career saves, or event-processing systems have been added.

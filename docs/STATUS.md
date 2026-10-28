@@ -1,3 +1,9 @@
+# L3-029 IN PROGRESS / REVIEW ONLY
+
+L3-028 is accepted (28/272). L3-029 adds atomic cancellable autosave transaction and verifies rollback; full cloud and checkpoint gates remain pending. No L3-030 implementation. Do not advance task register until accepted.
+
+---
+
 # LEGACY 3.0 TASK STATUS
 
 **L3-028 — Implement IndexedDB wrapper: COMPLETE / ACCEPTED**  

@@ -1,0 +1,34 @@
+{
+  "project": "LEGACY 3.0",
+  "task_id": "L3-029",
+  "title": "Implement autosave transaction",
+  "status": "IN_PROGRESS",
+  "baseline": "bf990aaa42e0f56b896499584f6b0630a6c446fe",
+  "parent_source": "LEGACY_3_0_L3-028_COMPLETE_SOURCE.zip",
+  "criteria": [
+    "AT-01 positive and negative strict TypeScript contracts",
+    "AT-02 headless unit tests for transaction completion, abort and failure",
+    "AT-03 real Chromium rollback/reload on Vite dev and preview at 375/390/402/430",
+    "AT-04 clean npm ci, Vite build, mobile QA, all previous L3-020\u2013L3-028 workflows",
+    "AT-05 verified immutable checkpoint and Git history, merge only after acceptance"
+  ],
+  "local": {
+    "npm_ci_offline": "BLOCKED_ENOTCACHED_VITE",
+    "typecheck_autosave": "PASS",
+    "five_negative_diagnostics": "PASS",
+    "autosave_node_tests": "14/14 PASS",
+    "full_project_typecheck": "NOT_RUN_SUCCESSFULLY_LOCAL: missing pixi/preact from offline install"
+  },
+  "github": {
+    "review_ci": "PENDING"
+  },
+  "physical_iphone_safari": "NOT_RUN",
+  "out_of_scope": [
+    "L3-030 manual slots",
+    "background scheduling",
+    "migration",
+    "import/export",
+    "gameplay"
+  ],
+  "next_task": "L3-030 NOT_STARTED"
+}

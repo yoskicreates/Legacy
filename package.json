@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "LEGACY 3.0 L3-028: typed IndexedDB V1 state wrapper; no autosave or slots",
+  "description": "LEGACY 3.0 L3-029: atomic cancellable IndexedDB autosave transaction, no scheduler or slots",
   "engines": {
     "node": ">=22"
   },
@@ -33,7 +33,10 @@
     "test:state": "node --test tests/game-state-schema.test.mjs",
     "test:indexeddb": "node --test tests/indexeddb.test.mjs",
     "typecheck:indexeddb": "tsc --project tsconfig.indexeddb.json --noEmit",
-    "test:indexeddb:negative": "node scripts/indexeddb-negative-test.mjs"
+    "test:indexeddb:negative": "node scripts/indexeddb-negative-test.mjs",
+    "test:autosave": "node --test tests/autosave.test.mjs",
+    "typecheck:autosave": "tsc --project tsconfig.autosave.json --noEmit",
+    "test:autosave:negative": "node scripts/autosave-negative-test.mjs"
   },
   "devDependencies": {
     "typescript": "5.8.3",

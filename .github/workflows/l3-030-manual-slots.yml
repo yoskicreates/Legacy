@@ -1,0 +1,108 @@
+name: LEGACY 3.0 L3-030 Manual Save Slots Acceptance
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  manual-slots:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Check out L3-030 review source
+        uses: actions/checkout@v4
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Clean pinned dependency installation
+        run: npm ci --no-audit --no-fund
+      - name: Manual slot type contracts and unit QA
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          npm run typecheck:manual-slots
+          npm run test:manual-slots:negative
+          npm run test:manual-slots
+      - name: Full prior regressions and genuine Vite production build
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          npm run check:vite
+          npm run lint:domains
+          npm run typecheck:clock
+          npm run typecheck:random
+          npm run typecheck:events
+          npm run typecheck:state
+          npm run typecheck:indexeddb
+          npm run typecheck:autosave
+          npm run typecheck
+          npm run test:types:negative
+          npm run test:indexeddb:negative
+          npm run test:autosave:negative
+          npm run lint
+          npm test
+          npm run build
+          test -f dist/manual-slots-qa.html
+          test -f dist/autosave-qa.html
+      - name: Install Chromium QA dependencies
+        shell: bash
+        run: |
+          python -m pip install --disable-pip-version-check playwright==1.55.0
+          python -m playwright install --with-deps chromium
+      - name: Validate two career slots and all prior browser regressions in real dev and preview
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          mkdir -p l3-030-acceptance/{slots-dev,slots-preview,autosave-dev,autosave-preview,indexeddb-dev,indexeddb-preview,dev-boundary,preview-boundary,dev-vite,preview-vite}
+          npm run dev -- --strictPort > l3-030-acceptance/dev-server.log 2>&1 &
+          dp=$!
+          npm run preview -- --strictPort > l3-030-acceptance/preview-server.log 2>&1 &
+          pp=$!
+          trap 'kill "$dp" "$pp" 2>/dev/null || true' EXIT
+          for port in 5173 4173; do
+            ready=0
+            for i in $(seq 1 45); do
+              if curl -fsS "http://127.0.0.1:$port/" >/dev/null; then ready=1; break; fi
+              sleep 1
+            done
+            test "$ready" = 1 || { echo "Real Vite server unavailable: $port"; exit 1; }
+          done
+          for stage in 'dev 5173' 'preview 4173'; do
+            set -- $stage
+            name=$1; port=$2
+            url="http://127.0.0.1:$port"
+            python scripts/chromium-manual-slots-qa.py --base-url "$url" --out "l3-030-acceptance/slots-$name"
+            python scripts/chromium-autosave-qa.py --base-url "$url" --out "l3-030-acceptance/autosave-$name"
+            python scripts/chromium-indexeddb-qa.py --base-url "$url" --out "l3-030-acceptance/indexeddb-$name"
+            python scripts/chromium-boundary-qa.py --base-url "$url" --out "l3-030-acceptance/$name-boundary"
+            python scripts/chromium-vite-qa.py --base-url "$url" --out "l3-030-acceptance/$name-vite"
+          done
+      - name: Preserve acceptance evidence
+        if: always()
+        run: |
+          mkdir -p l3-030-acceptance
+          test ! -d dist || cp -a dist l3-030-acceptance/dist
+          cp docs/L3-030-MANUAL-SAVE-SLOTS.md l3-030-acceptance/manual-slot-contract.md
+          cp docs/L3-030-ACCEPTANCE.json l3-030-acceptance/acceptance.json
+          cp docs/task-register.json l3-030-acceptance/task-register.json
+          git status --short > l3-030-acceptance/git-status.txt
+          git log --oneline -10 > l3-030-acceptance/git-history.txt
+      - name: Upload QA browser screenshots and logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: LEGACY3-L3-030-manual-slots
+          path: l3-030-acceptance/
+          if-no-files-found: warn
+          retention-days: 30

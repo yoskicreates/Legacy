@@ -2,7 +2,7 @@
   "project": "LEGACY 3.0",
   "blueprint_version": "1.0",
   "created": "2026-10-28",
-  "scope": "L3-029 \u2014 atomic cancellable single-record autosave transaction, no scheduler, slots or migrations",
+  "scope": "L3-030 review \u2014 isolated manual career slot records, explicitly supplied timestamps, no export or migrations",
   "total_tasks": 272,
   "completed": [
     "L3-001",
@@ -523,7 +523,7 @@
       "build": "Create distinct slots, timestamps, and slot metadata",
       "test": "Two careers remain independent after reload",
       "depends_on": "L3-029",
-      "status": "planned",
+      "status": "in_progress",
       "primary_pillar": "P5",
       "supporting_pillar": "P2"
     },

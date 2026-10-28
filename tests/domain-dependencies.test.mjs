@@ -27,7 +27,7 @@ test('published dependency policy contains exactly the six authorized modules an
 test('each module has a typed public boundary but does not ship gameplay', async () => {
   for (const name of six) {
     const actual = (await readdir(join(root, 'src/domain', name))).sort();
-    assert.deepEqual(actual, name === 'core' ? ['clock.ts', 'events.ts', 'index.ts', 'random.ts', 'state-schema.ts'] : name === 'persistence' ? ['autosave.ts', 'index.ts', 'indexeddb.ts'] : ['index.ts']);
+    assert.deepEqual(actual, name === 'core' ? ['clock.ts', 'events.ts', 'index.ts', 'random.ts', 'state-schema.ts'] : name === 'persistence' ? ['autosave.ts', 'index.ts', 'indexeddb.ts', 'manual-slots.ts'] : ['index.ts']);
     const source = await readFile(join(root, 'src/domain', name, 'index.ts'), 'utf8');
     assert.match(source, /contracts-only/);
     assert.match(source, /hasRuntimeSimulation:\s*false/);
@@ -42,7 +42,7 @@ test('each module has a typed public boundary but does not ship gameplay', async
 
 test('actual domain tree respects all edges and has no bypass imports', async () => {
   const result = await verifyDomainBoundaries(root);
-  assert.equal(result.scanned, 12);
+  assert.equal(result.scanned, 13);
   assert.deepEqual(result.errors, []);
 });
 
@@ -82,7 +82,7 @@ test('forbid UI/renderer aliases, external packages and unsafe dynamic imports, 
   }
 });
 
-test('L3-022 domains remain isolated through L3-029 autosave milestone', async () => {
+test('L3-022 domains remain isolated through L3-030 manual slot milestone', async () => {
   const reg = JSON.parse(await readFile(join(root, 'docs/task-register.json'), 'utf8'));
   assert.equal(reg.total_tasks, 272);
   assert.equal(reg.next_task, 'L3-030');
@@ -95,6 +95,7 @@ test('L3-022 domains remain isolated through L3-029 autosave milestone', async (
   assert.equal(reg.tasks.find(x => x.id === 'L3-027').status, 'completed');
   assert.equal(reg.tasks.find(x => x.id === 'L3-028').status, 'completed');
   assert.equal(reg.tasks.find(x => x.id === 'L3-029').status, 'completed');
+  assert.equal(reg.tasks.find(x => x.id === 'L3-030').status, 'in_progress');
   const files = (await readdir(join(root,'src/domain/core')));
   assert.deepEqual(files.sort(), ['clock.ts', 'events.ts', 'index.ts', 'random.ts', 'state-schema.ts']);
 });

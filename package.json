@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "LEGACY 3.0 L3-029: atomic cancellable IndexedDB autosave transaction, no scheduler or slots",
+  "description": "LEGACY 3.0 L3-030: independent manual save slots on atomic IndexedDB (not a playable game)",
   "engines": {
     "node": ">=22"
   },
@@ -36,7 +36,10 @@
     "test:indexeddb:negative": "node scripts/indexeddb-negative-test.mjs",
     "test:autosave": "node --test tests/autosave.test.mjs",
     "typecheck:autosave": "tsc --project tsconfig.autosave.json --noEmit",
-    "test:autosave:negative": "node scripts/autosave-negative-test.mjs"
+    "test:autosave:negative": "node scripts/autosave-negative-test.mjs",
+    "test:manual-slots": "node --test tests/manual-slots.test.mjs",
+    "typecheck:manual-slots": "tsc --project tsconfig.manual-slots.json --noEmit",
+    "test:manual-slots:negative": "node scripts/manual-slots-negative-test.mjs"
   },
   "devDependencies": {
     "typescript": "5.8.3",

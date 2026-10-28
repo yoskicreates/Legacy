@@ -1,0 +1,7 @@
+{
+  "task_id": "L3-030", "status": "IN_PROGRESS", "baseline": "684f83b98ad744efb95bebe52a5c85c4ab6c134a",
+  "scope": "Fixed ID manual career slots with atomic persisted timestamps and V1 snapshots. No UI, migrations, export/import or gameplay",
+  "criteria": ["Two careers remain isolated after reload", "Explicit deterministic slot identity and persistent timestamp metadata", "Atomic rollback on failure/abort", "Strict invalid metadata and corrupted data rejection", "All previous regressions and source checkpoint verified"],
+  "local": {"unit_tests": "17/17 PASS", "strict_slot_typecheck": "PASS", "negative_compiler": "5 expected diagnostic errors PASS", "domain_boundaries": "PASS", "lint": "PASS", "full_typecheck": "NOT_RUN: local incomplete npm cache", "npm_ci": "NOT_RUN", "real_browser": "NOT_RUN"},
+  "ci": {"status": "PENDING"}, "physical_iphone_safari": "NOT_RUN", "next_task": "L3-031 NOT_STARTED"
+}

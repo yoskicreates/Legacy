@@ -1,15 +1,28 @@
-# LEGACY 3.0 — Domain Boundary Foundation
+# LEGACY 3.0 — Typed Route State Foundation
 
-**L3-022 accepted — 22 of 272 tasks complete (October 28, 2026).** Next task **L3-023 NOT STARTED**. The game is **not playable**; no gameplay or save data exists.
+**L3-023 accepted — 23 of 272 tasks complete (October 28, 2026).** Next: **L3-024 — Define game clock, NOT STARTED**. The project is **not playable**; no gameplay or saved career state exists.
 
-Six contract-only domains exist beneath `src/domain`: `core`, `combat`, `career`, `economy`, `social`, `persistence`. The shared `core` module imports no feature modules; other modules import only themselves or `core`. The imports are checked using a TypeScript AST, with strict allowlist JSON in [`docs/domain-dependencies.json`](docs/domain-dependencies.json) and rationale in [`docs/L3-022-DOMAIN-MODULE-BOUNDARIES.md`](docs/L3-022-DOMAIN-MODULE-BOUNDARIES.md). This does not implement L3-023 route navigation, L3-024 clock, combat, fighter art, domain events, or saves.
+## What is implemented
 
-Commands: `npm ci`, `npm run lint:domains`, and `npm run verify`. L3-022 CI and earlier L3-020/L3-021 regression workflows passed including 20 responsive Chromium checks at 375/390/402/430/1280 CSS pixels on real Vite development and preview servers. Browser testing does **not** claim physical iPhone Safari verification.
+The Preact menu and PixiJS renderer (L3-021) remain independently mounted. The six domain-contract boundaries (L3-022) remain unchanged and guarded by the published [dependency policy](docs/domain-dependencies.json).
 
-Review: https://github.com/yoskicreates/Legacy/pull/3
-Evidence: https://github.com/yoskicreates/Legacy/actions/runs/40771316904
+**L3-023** adds a pure, strongly typed, DOM-independent menu route state model at [`src/navigation/route-state.ts`](src/navigation/route-state.ts). It provides finite provisional route IDs and immutable bounded in-memory history with `navigate`, `replace`, `back`, `forward`, and `reset`. Navigation transitions are unit-tested without rendering. The route names are not implemented screens or owner-approved final menu art, labels, or layout. Browser History API, URL synchronization, UI route wiring, storage, game time and game simulation are not implemented.
 
-The earlier independent Preact menu and PixiJS renderer remain isolated and unchanged; this is still a technical foundation, not a playable MMA simulator. Original checkpoint ZIPs and historical local Git objects are retained under ChatGPT Library `/LEGACY_3_0/`.
+The full [route contract and transition table](docs/L3-023-ROUTE-STATE.md) and [machine-readable acceptance report](docs/L3-023-ACCEPTANCE.json) describe boundary behavior and tests.
 
----
+## Verification
 
+```sh
+npm ci
+npm run test:routes
+npm run lint:domains
+npm run typecheck
+npm run test:types:negative
+npm run lint
+npm test
+npm run build
+```
+
+These commands passed in [GitHub Actions L3-023 run 40773054871](https://github.com/yoskicreates/Legacy/actions/runs/40773054871). Existing L3-020/L3-021/L3-022 workflows also passed. Chromium tested the unchanged existing Preact/PixiJS UI and setup button on actual Vite development and preview HTTP servers at 375/390/402/430/1280 CSS px: 20/20 checks PASS. These are not physical iPhone Safari tests (NOT_RUN).
+
+The original L3-022 ZIP is immutable. Complete numbered source and historical local Git checkpoints are preserved in ChatGPT Library `/LEGACY_3_0/`. GitHub's separately created commit history is maintained on the [main branch](https://github.com/yoskicreates/Legacy).

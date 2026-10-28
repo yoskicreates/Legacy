@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "LEGACY 3.0 L3-022: isolated six-module domain contracts; no gameplay",
+  "description": "LEGACY 3.0 L3-023: pure typed menu navigation and in-memory history; no gameplay",
   "engines": {
     "node": ">=22"
   },
@@ -21,7 +21,8 @@
     "dev:vite": "vite --host 127.0.0.1",
     "preview:vite": "vite preview",
     "check:vite": "node scripts/vite-readiness.mjs",
-    "lint:domains": "node scripts/check-domain-boundaries.mjs"
+    "lint:domains": "node scripts/check-domain-boundaries.mjs",
+    "test:routes": "node --test tests/route-state.test.mjs"
   },
   "devDependencies": {
     "typescript": "5.8.3",

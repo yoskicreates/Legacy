@@ -1,0 +1,62 @@
+{
+  "project": "LEGACY 3.0",
+  "task_id": "L3-023",
+  "title": "Implement route state model",
+  "status": "COMPLETE",
+  "date_utc": "2026-10-28",
+  "accepted_total": 23,
+  "total_tasks": 272,
+  "next_task": "L3-024",
+  "next_status": "NOT_STARTED",
+  "parent": {
+    "source_archive": "LEGACY_3_0_L3-022_COMPLETE_SOURCE.zip",
+    "sha256": "ebf0c7e815a3dfd794f8c13daba6922b7875957d2fda07460e213d0d08b65cca",
+    "baseline_github_commit": "3fd6eb7269f8196dc4c5453bc3baa919b6cdb056",
+    "parent_git_history_preserved": true
+  },
+  "blueprint": {
+    "total_tasks_verified": 272,
+    "build": "Define typed menu routes and navigation history",
+    "test": "Route transitions can be unit-tested without rendering",
+    "depends_on": "L3-022",
+    "scope": "Headless immutable menu route state and its unit tests only"
+  },
+  "decisions": {
+    "approved": ["DEC-001", "DEC-002", "DEC-003"],
+    "rejected_respected": ["DEC-012"],
+    "proposed_not_assumed": ["DEC-020"],
+    "new_owner_visual_approval": "NOT_REQUIRED_FOR_HEADLESS_ENGINE; screen/menu labels remain provisional"
+  },
+  "acceptance_criteria": {
+    "AC-01": "PASS: finite discriminated MenuRoute and RouteAction compile in strict TypeScript; invalid routes and malformed actions rejected",
+    "AC-02": "PASS: immutable snapshot and five deterministic actions navigate/replace/back/forward/reset, bounded to 32 transient entries",
+    "AC-03": "PASS: all 10 Node route tests run without DOM, Preact, PixiJS, timers or storage, and assert history and branch semantics",
+    "AC-04": "PASS: six L3-022 domain contracts and import allowlist preserved; parent UI/renderer code and button unchanged",
+    "AC-05": "PASS: GitHub Actions clean npm ci, TypeScript, negative fixtures, lint, all Node tests and genuine Vite production build",
+    "AC-06": "PASS: Chromium regression 20/20 across dev/preview, 375/390/402/430/1280px; no horizontal overflow, HTTP errors or page exceptions",
+    "AC-07": "PASS: immutable numbered checkpoint, CRC and per-file SHA-256 verification; old Git objects retained"
+  },
+  "github": {
+    "pull_request": "https://github.com/yoskicreates/Legacy/pull/4",
+    "route_acceptance": "https://github.com/yoskicreates/Legacy/actions/runs/40773054871",
+    "l3_020_regression": "https://github.com/yoskicreates/Legacy/actions/runs/40773054736",
+    "l3_021_regression": "https://github.com/yoskicreates/Legacy/actions/runs/40773054470",
+    "l3_022_regression": "https://github.com/yoskicreates/Legacy/actions/runs/40773054844"
+  },
+  "tests": {
+    "route_unit_tests": {"passed": 10, "total": 10, "environment": "Node 22, TypeScript transpileModule (no DOM)"},
+    "all_node_tests": "PASS_IN_GITHUB_ACTIONS",
+    "typecheck": "PASS_IN_GITHUB_ACTIONS",
+    "strict_negative_fixtures": "PASS_IN_GITHUB_ACTIONS",
+    "lint": "PASS_IN_GITHUB_ACTIONS",
+    "lint_domains": "PASS_IN_GITHUB_ACTIONS",
+    "npm_ci": "PASS_IN_GITHUB_ACTIONS",
+    "vite_build": "PASS_IN_GITHUB_ACTIONS",
+    "browser_regressions": {"passed": 20, "total": 20, "widths_px": [375, 390, 402, 430, 1280], "servers": ["dev", "preview"], "page_errors": 0, "http_errors": 0},
+    "local_environment_note": "Node route suite and lint/domain checker passed; local full TypeScript build could not resolve cached Preact/Pixi packages; official GitHub runner verifies all dependencies and passes."
+  },
+  "physical_iphone_safari": {"status": "NOT_RUN", "reason": "Chromium mobile emulation is not a physical iPhone Safari device."},
+  "exclusions": ["L3-024 clock", "gameplay", "fight engine", "save schema", "IndexedDB", "browser History API", "URL router", "Preact menu wiring", "fighter artwork", "new UI pages"],
+  "gates": {"G0": "PASS", "G1": "PASS", "G2": "PASS", "G3": "PASS", "G4": "PASS", "G5": "PASS", "G6": "PASS", "G7": "PASS_VERIFIED_AFTER_PACKAGING", "G8": "PASS"},
+  "checkpoints": {"source": "LEGACY_3_0_L3-023_COMPLETE_SOURCE.zip", "repository": "LEGACY3_L3-023_COMPLETE_REPOSITORY.zip", "qa": "LEGACY3_L3-023_CLOUD_QA_PASS.zip", "manifest": "CHECKPOINT_MANIFEST.json", "verifier": "CHECKPOINT_VERIFY.py"}
+}

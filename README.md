@@ -55,3 +55,7 @@ The persistence module now exposes strict V1 `writeGameState`/`readGameState` fo
 Three strictly typed fixed slot IDs with caller-supplied timestamp, independent career snapshots and transaction-atomic metadata/state in a separate IndexedDB namespace. See [contract](docs/L3-030-MANUAL-SAVE-SLOTS.md) and [acceptance status](docs/L3-030-ACCEPTANCE.json). No player-visible manual save UI, import/export or migration.
 
 **Acceptance:** [GitHub Actions manual slot run](https://github.com/yoskicreates/Legacy/actions/runs/40786473255), all L3-020–L3-029 regression workflows PASS, 208/208 Chromium manual slot assertions at four mobile widths, full Vite production build. Physical iPhone Safari NOT_RUN.
+
+## L3-031 proposed review (not yet accepted)
+
+Portable SHA-256 validated V1 manual save export/import is under review. It never silently overwrites occupied slots and does not add migration, gameplay, or UI. Acceptance requires all cloud regression and real-browser tests plus immutable source checkpoint. See `docs/L3-031-EXPORT-IMPORT.md`.

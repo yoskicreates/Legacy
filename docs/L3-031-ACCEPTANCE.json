@@ -1,0 +1,11 @@
+{
+  "task_id": "L3-031",
+  "status": "IN_PROGRESS",
+  "baseline": "9c60a0ad0922568a6417dd14c800ceb981437150",
+  "scope": "Deterministic SHA-256 portable career-slot archives, validated import, atomic explicit overwrite protection; no migrations or UI",
+  "criteria": ["EI-1", "EI-2", "EI-3", "EI-4", "EI-5", "EI-6"],
+  "local": {"unit_tests": "19/19 PASS", "negative_compiler": "5 expected diagnostics PASS", "strict_scoped_typecheck": "PASS", "lint_domains": "PASS", "lint": "PASS", "full_build": "PENDING_NETWORKED_CI", "real_browser": "PENDING_NETWORKED_CI"},
+  "cloud": {"status": "PENDING_CLOUD", "workflows": "PENDING_CLOUD", "chromium": "PENDING_CLOUD"},
+  "physical_iphone_safari": "NOT_RUN",
+  "next_task": "L3-032 NOT_STARTED"
+}

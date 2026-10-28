@@ -1,0 +1,112 @@
+name: LEGACY 3.0 L3-031 Career Export Import Acceptance
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  archive:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - name: Checkout L3-031 proposed source
+        uses: actions/checkout@v4
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Clean pinned dependency install
+        run: npm ci --no-audit --no-fund
+      - name: Strict archive typecheck and 19 dedicated tests
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          npm run typecheck:export-import
+          npm run test:export-import:negative
+          npm run test:export-import
+      - name: All L3-020 through L3-030 regressions and real Vite production build
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          npm run check:vite
+          npm run lint:domains
+          npm run typecheck:clock
+          npm run typecheck:random
+          npm run typecheck:events
+          npm run typecheck:state
+          npm run typecheck:indexeddb
+          npm run typecheck:autosave
+          npm run typecheck:manual-slots
+          npm run typecheck
+          npm run test:types:negative
+          npm run test:indexeddb:negative
+          npm run test:autosave:negative
+          npm run test:manual-slots:negative
+          npm run lint
+          npm test
+          npm run build
+          test -f dist/export-import-qa.html
+          test -f dist/manual-slots-qa.html
+      - name: Install real Chromium test tools
+        shell: bash
+        run: |
+          python -m pip install --disable-pip-version-check playwright==1.55.0
+          python -m playwright install --with-deps chromium
+      - name: Real browser archive round trip and prior regressions in dev and preview
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          mkdir -p l3-031-acceptance/{archive-dev,archive-preview,slots-dev,slots-preview,autosave-dev,autosave-preview,indexeddb-dev,indexeddb-preview,dev-boundary,preview-boundary,dev-vite,preview-vite}
+          npm run dev -- --strictPort > l3-031-acceptance/dev-server.log 2>&1 &
+          dp=$!
+          npm run preview -- --strictPort > l3-031-acceptance/preview-server.log 2>&1 &
+          pp=$!
+          trap 'kill "$dp" "$pp" 2>/dev/null || true' EXIT
+          for port in 5173 4173; do
+            ready=0
+            for i in $(seq 1 45); do
+              if curl -fsS "http://127.0.0.1:$port/" >/dev/null; then ready=1; break; fi
+              sleep 1
+            done
+            test "$ready" = 1 || { echo "Vite server unavailable on $port"; exit 1; }
+          done
+          for stage in 'dev 5173' 'preview 4173'; do
+            set -- $stage
+            name=$1; port=$2
+            url="http://127.0.0.1:$port"
+            python scripts/chromium-export-import-qa.py --base-url "$url" --out "l3-031-acceptance/archive-$name"
+            python scripts/chromium-manual-slots-qa.py --base-url "$url" --out "l3-031-acceptance/slots-$name"
+            python scripts/chromium-autosave-qa.py --base-url "$url" --out "l3-031-acceptance/autosave-$name"
+            python scripts/chromium-indexeddb-qa.py --base-url "$url" --out "l3-031-acceptance/indexeddb-$name"
+            python scripts/chromium-boundary-qa.py --base-url "$url" --out "l3-031-acceptance/$name-boundary"
+            python scripts/chromium-vite-qa.py --base-url "$url" --out "l3-031-acceptance/$name-vite"
+          done
+      - name: Preserve reproducible QA evidence
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p l3-031-acceptance
+          test ! -d dist || cp -a dist l3-031-acceptance/dist
+          cp docs/L3-031-EXPORT-IMPORT.md l3-031-acceptance/contract.md
+          cp docs/L3-031-ACCEPTANCE.json l3-031-acceptance/acceptance.json
+          cp docs/task-register.json l3-031-acceptance/task-register.json
+          git status --short > l3-031-acceptance/git-status.txt
+          git log --oneline -10 > l3-031-acceptance/git-history.txt
+      - name: Upload browser screenshots and test logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: LEGACY3-L3-031-export-import
+          path: l3-031-acceptance/
+          if-no-files-found: warn
+          retention-days: 30

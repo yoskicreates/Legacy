@@ -1,6 +1,6 @@
 # LEGACY 3.0 — L3-023 Route State Model
 
-**Status:** IMPLEMENTED / AWAITING ACCEPTANCE CHECKS (do not advance register before verified CI and immutable source ZIP)
+**Status:** COMPLETE / ACCEPTED (23/272). GitHub Actions route and preceding regressions verified, immutable ZIP checkpoint validated.
 
 ## Blueprint traceability
 
@@ -56,3 +56,5 @@ Applicable approved: DEC-001 (new source; no LEGACY V1/V2 imports), DEC-002 (one
 Explicitly excluded: L3-024 game clock, L3-025 PRNG, L3-026 domain events, L3-027 save schemas, L3-028 IndexedDB, HTML History API integration, menu button wiring, user-facing navigation, character creator, fight simulation, and any gameplay.
 
 Source of truth: the immutable `LEGACY_3_0_L3-022_COMPLETE_SOURCE.zip` parent, SHA-256 `ebf0c7e815a3dfd794f8c13daba6922b7875957d2fda07460e213d0d08b65cca`. The full 272-row task register, blueprint and Decision Log are retained in the immutable source checkpoint.
+
+**Verified cloud CI:** https://github.com/yoskicreates/Legacy/actions/runs/40773054871 (all stages PASS); independent L3-020/L3-021/L3-022 regression workflows also PASS.

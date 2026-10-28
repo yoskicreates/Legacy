@@ -82,13 +82,14 @@ test('forbid UI/renderer aliases, external packages and unsafe dynamic imports, 
   }
 });
 
-test('only L3-022 is accepted: L3-023 remains planned and no route, clock, PRNG, event or storage implementation', async () => {
+test('L3-022 six-domain contracts stay intact after L3-023 routing; L3-024 clock not started', async () => {
   const reg = JSON.parse(await readFile(join(root, 'docs/task-register.json'), 'utf8'));
   assert.equal(reg.total_tasks, 272);
-  assert.equal(reg.next_task, 'L3-023');
-  assert.equal(reg.completed.length, 22);
+  assert.equal(reg.next_task, 'L3-024');
+  assert.equal(reg.completed.length, 23);
   assert.equal(reg.tasks.find(x => x.id === 'L3-022').status, 'completed');
-  assert.equal(reg.tasks.find(x => x.id === 'L3-023').status, 'planned');
+  assert.equal(reg.tasks.find(x => x.id === 'L3-023').status, 'completed');
+  assert.equal(reg.tasks.find(x => x.id === 'L3-024').status, 'planned');
   const files = (await readdir(join(root,'src/domain/core')));
   assert.deepEqual(files, ['index.ts']);
 });

@@ -29,3 +29,7 @@ The [successful L3-020 GitHub Actions run](https://github.com/yoskicreates/Legac
 The older ZIP checkpoints, including the original TypeScript 5.8.3 vendored tarball and historical local Git graph, are preserved in ChatGPT Library `/LEGACY_3_0/`. The new GitHub repository uses a fresh import history and npm registry-backed dependencies; its history is **not** claimed to include the full original Git history.
 
 **Do not advance to L3-021 without a separate request.**
+
+## L3-021 — Preact / PixiJS independence proof (under verification)
+
+The menu is mounted by Preact under `#menu-root`, and the isolated renderer canvas is mounted by PixiJS under `#renderer-root`. A lifecycle probe proves either layer can be unmounted and remounted while the other remains available. This boundary is **not playable**, and contains no fighter art, combat, routing, saves or new domain modules. The selected task is not accepted until the clean-build and real-browser tests pass.

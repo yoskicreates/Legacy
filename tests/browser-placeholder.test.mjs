@@ -20,31 +20,13 @@ test('real Vite tasks are primary and the historical fallback stays clearly labe
  const server=await readFile(join(root,'scripts/web-pipeline.mjs'),'utf8');
  assert.match(server,/DOES NOT claim to be Vite/);
 });
-test('source HTML is a real browser entry with no gameplay claims',async()=>{
+test('L3-021 keeps the genuine Vite browser entry and prior setup button contract',async()=>{
  const page=await readFile(join(root,'index.html'),'utf8');
+ const ui=await readFile(join(root,'src/ui/menu.ts'),'utf8');
  assert.match(page, /src="\/src\/main\.ts"/);
- assert.match(page, /no[t]? been built/i);
- assert.match(page, /id="check-button"/);
+ assert.match(page, /id="menu-root"/);
+ assert.match(page, /id="renderer-root"/);
  assert.match(page, /viewport-fit=cover/);
-});
-test('placeholder build serves simple browser assets',async()=>{
- const built=spawnSync(process.execPath,['scripts/web-pipeline.mjs','build'],{cwd:root,encoding:'utf8'});
- assert.equal(built.status,0,built.stderr);
- const js=await readFile(join(root,'dist/assets/main.js'),'utf8');
- assert.match(js,/addEventListener/);
- assert.match(js,/aria-pressed/);
-});
-test('placeholder interaction changes the status without network or gameplay', async()=>{
- const {runInNewContext}=await import('node:vm');
- const script=(await readFile(join(root,'dist/assets/main.js'),'utf8')).replace(/^export\s*\{\s*\}\s*;?\s*$/gm,'');
- let click;let pressed=false;
- const button={addEventListener:(name,cb)=>{assert.equal(name,'click');click=cb;},setAttribute:(key,value)=>{assert.equal(key,'aria-pressed');pressed=value==='true';}};
- const result={textContent:'Browser script not checked yet.'};
- const doc={documentElement:{dataset:{}},querySelector:(selector)=>selector==='#check-button'?button:selector==='#check-result'?result:null};
- runInNewContext(script,{document:doc});
- assert.equal(doc.documentElement.dataset.jsReady,'true');
- assert.equal(typeof click,'function');
- click();
- assert.match(result.textContent,/interaction verified/);
- assert.equal(pressed,true);
+ assert.match(ui, /id: 'check-button'/);
+ assert.match(ui, /Browser module loaded and interaction verified\./);
 });

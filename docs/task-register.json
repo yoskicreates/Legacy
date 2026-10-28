@@ -2,7 +2,7 @@
   "project": "LEGACY 3.0",
   "blueprint_version": "1.0",
   "created": "2026-10-28",
-  "scope": "L3-030 accepted — independent fixed-ID manual career save slots, timestamp metadata and atomic transactions",
+  "scope": "L3-032 accepted: pure ordered synthetic V0-to-V1 migration harness; no persisted automatic migration",
   "total_tasks": 272,
   "completed": [
     "L3-001",
@@ -35,9 +35,10 @@
     "L3-028",
     "L3-029",
     "L3-030",
-    "L3-031"
+    "L3-031",
+    "L3-032"
   ],
-  "next_task": "L3-032",
+  "next_task": "L3-033",
   "phases": [
     {
       "id": "01",
@@ -231,7 +232,7 @@
       "primary_pillar": "P4",
       "supporting_pillar": "P3",
       "deliverable": "LEGACY_3_0_Ten_Year_Career_Map_L3-008.docx",
-      "acceptance": "Ten coherent intervals ages 15–25, youth-to-adult gates, conditional states, three alternative arcs, 24 design tests; documentation only"
+      "acceptance": "Ten coherent intervals ages 15\u201325, youth-to-adult gates, conditional states, three alternative arcs, 24 design tests; documentation only"
     },
     {
       "id": "L3-009",
@@ -551,7 +552,7 @@
       "build": "Create ordered schema migration runner and rollback guidelines",
       "test": "A synthetic old schema upgrades without data loss",
       "depends_on": "L3-031",
-      "status": "planned",
+      "status": "completed",
       "primary_pillar": "P5",
       "supporting_pillar": "P2"
     },
@@ -1445,7 +1446,7 @@
       "phase_title": "Modular character creator",
       "gate": "Visual foundation",
       "title": "Verify visual matrix",
-      "build": "Test face × hair × physique × gear combinations automatically",
+      "build": "Test face \u00d7 hair \u00d7 physique \u00d7 gear combinations automatically",
       "test": "Sample matrix shows no missing assets or crashes",
       "depends_on": "L3-100",
       "status": "planned",
@@ -3753,7 +3754,7 @@
       40774948793
     ],
     "physical_iphone_safari": "NOT_RUN",
-    "calendar_ux_DEC-030": "OPEN — no selection made"
+    "calendar_ux_DEC-030": "OPEN \u2014 no selection made"
   },
   "L3_025_acceptance_evidence": {
     "report": "LEGACY3/docs/L3-025-ACCEPTANCE.json",
@@ -3878,5 +3879,16 @@
     "previous_regressions": "L3-020 through L3-030 PASS",
     "physical_iphone_safari": "NOT_RUN",
     "checkpoint": "LEGACY_3_0_L3-031_COMPLETE_SOURCE.zip"
+  },
+  "L3_032_acceptance_evidence": {
+    "report": "docs/L3-032-ACCEPTANCE.json",
+    "unit_tests": "20/20 PASS",
+    "negative_compiler_diagnostics": "6 expected errors",
+    "browser": "8/8 PASS, 144 migration assertions and previously accepted browser regressions",
+    "cloud_review_run": 40790073669,
+    "workflows": "13/13 PASS",
+    "physical_iphone_safari": "NOT_RUN",
+    "checkpoint": "LEGACY_3_0_L3-032_COMPLETE_SOURCE.zip",
+    "next": "L3-033 NOT_STARTED"
   }
 }

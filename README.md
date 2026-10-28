@@ -1,3 +1,6 @@
+## L3-032 accepted — 32/272 tasks, next L3-033 NOT_STARTED
+Pure synthetic V0→V1 conversion with strict version and corrupt-data rejection, original source and Git history preserved. No automatic database migrations or gameplay. See docs/L3-032-MIGRATIONS.md and docs/L3-032-ACCEPTANCE.json.
+
 # LEGACY 3.0 — Verified Career Save Export/Import
 
 **L3-031 accepted — 31/272 tasks complete.** Next: **L3-032 — Migration harness (NOT STARTED)**. Technical storage foundation only, **not a playable game**. Portable, canonical SHA-256 checked V1 career archives support safe restore into separate manual slots and explicit overwrite protection. No UI file controls, migrations, new gameplay, or background automation. All earlier functionality remains preserved.

@@ -1,0 +1,36 @@
+{
+  "task_id": "L3-032",
+  "status": "COMPLETE",
+  "baseline": "1466cf6ef0e0b0978cde2924c457615f8ecf1db8",
+  "scope": "Pure, ordered synthetic V0 to V1 state/slot migration with strict rejection and rollback documentation; no automatic writes",
+  "criteria": [
+    "MIG-1 ordered deterministic conversion",
+    "MIG-2 exact clocks and RNG",
+    "MIG-3 exact save metadata",
+    "MIG-4 strict rejection and no mutation",
+    "MIG-5 prior saves remain valid",
+    "MIG-6 regression and checkpoint preservation"
+  ],
+  "local": {
+    "unit_tests": "20/20 PASS",
+    "negative_type_diagnostics": "6 expected errors",
+    "typecheck": "PASS",
+    "lint": "PASS"
+  },
+  "cloud": {
+    "status": "PASS",
+    "review_commit": "0fc1c65364a65c3fad76857489ef0746ee4733f5",
+    "pr": 13,
+    "workflow_run": 40790073669,
+    "workflows": "13/13 PASS",
+    "chromium": "8/8 PASS, 18 verified migration assertions per viewport at 375/390/402/430 CSS px in dev/preview",
+    "negative_types": "6 expected errors PASS",
+    "unit_tests": "20/20 PASS",
+    "full_build": "PASS genuine Vite",
+    "baseline_regressions": "L3-020 through L3-031 PASS"
+  },
+  "physical_iphone_safari": "NOT_RUN",
+  "next_task": "L3-033 NOT_STARTED",
+  "accepted_total": 32,
+  "checkpoint": "LEGACY_3_0_L3-032_COMPLETE_SOURCE.zip"
+}

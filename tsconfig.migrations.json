@@ -1,0 +1,1 @@
+{"extends":"./tsconfig.json","include":["src/domain/core/**/*.ts","src/domain/persistence/**/*.ts","src/tooling/migrations-types-smoke.ts"],"compilerOptions":{"types":[]}}

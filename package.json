@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "LEGACY 3.0 L3-031: strictly verified portable career save export/import (non-playable foundation)",
+  "description": "LEGACY 3.0 L3-032: ordered pure schema migration harness (non-playable foundation)",
   "engines": {
     "node": ">=22"
   },
@@ -42,7 +42,10 @@
     "test:manual-slots:negative": "node scripts/manual-slots-negative-test.mjs",
     "typecheck:export-import": "tsc --project tsconfig.export-import.json --noEmit",
     "test:export-import": "node --test tests/export-import.test.mjs",
-    "test:export-import:negative": "node scripts/export-import-negative-test.mjs"
+    "test:export-import:negative": "node scripts/export-import-negative-test.mjs",
+    "typecheck:migrations": "tsc --project tsconfig.migrations.json --noEmit",
+    "test:migrations": "node --test tests/migrations.test.mjs",
+    "test:migrations:negative": "node scripts/migrations-negative-test.mjs"
   },
   "devDependencies": {
     "typescript": "5.8.3",

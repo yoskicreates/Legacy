@@ -1,5 +1,5 @@
-## L3-032 review — ordered migration harness (NOT ACCEPTED until CI and checkpoint proof)
-Pure synthetic V0→V1 conversion and strict rejection; no storage side effects or player-facing UI. See docs/L3-032-MIGRATIONS.md. Original L3-031 checkpoints preserved.
+## L3-032 accepted — 32/272 tasks, next L3-033 NOT_STARTED
+Pure synthetic V0→V1 conversion with strict version and corrupt-data rejection, original source and Git history preserved. No automatic database migrations or gameplay. See docs/L3-032-MIGRATIONS.md and docs/L3-032-ACCEPTANCE.json.
 
 # LEGACY 3.0 — Verified Career Save Export/Import
 

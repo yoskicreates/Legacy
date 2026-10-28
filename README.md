@@ -1,6 +1,6 @@
 # LEGACY 3.0 — Genuine Vite Foundation
 
-**L3-020 accepted — 20 of 272 tasks complete (October 28, 2026).** The next numbered task, L3-021, has **not started**.
+**L3-021 accepted — 21 of 272 tasks complete (October 28, 2026).** The next numbered task, L3-022, has **not started**. L3-020 remains preserved.
 
 This is an original, mobile-first MMA Career & Life Simulator project foundation. The current browser page is a **placeholder; it is not playable as a game**. Fighter creation, simulated fights, career progression and gameplay remain future tasks.
 
@@ -30,6 +30,6 @@ The older ZIP checkpoints, including the original TypeScript 5.8.3 vendored tarb
 
 **Do not advance to L3-021 without a separate request.**
 
-## L3-021 — Preact / PixiJS independence proof (under verification)
+## L3-021 — Preact / PixiJS independence proof (accepted)
 
-The menu is mounted by Preact under `#menu-root`, and the isolated renderer canvas is mounted by PixiJS under `#renderer-root`. A lifecycle probe proves either layer can be unmounted and remounted while the other remains available. This boundary is **not playable**, and contains no fighter art, combat, routing, saves or new domain modules. The selected task is not accepted until the clean-build and real-browser tests pass.
+The menu is mounted by Preact under `#menu-root`, and the isolated renderer canvas is mounted by PixiJS under `#renderer-root`. A lifecycle probe proves either layer can be unmounted and remounted while the other remains available. This boundary is **not playable**, and contains no fighter art, combat, routing, saves or new domain modules. Cloud clean-install, typecheck, unit, build, and real-browser tests passed; L3-021 was accepted as task 21/272. L3-022 is not started.

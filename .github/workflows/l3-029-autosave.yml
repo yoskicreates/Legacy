@@ -1,0 +1,101 @@
+name: LEGACY 3.0 L3-029 Autosave Transaction Acceptance
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  atomic-autosave:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - name: Check out proposed L3-029
+        uses: actions/checkout@v4
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Reproducible genuine dependency install
+        run: npm ci --no-audit --no-fund
+      - name: Positive and deliberately invalid autosave contracts
+        run: |
+          set -Eeuo pipefail
+          npm run typecheck:autosave
+          npm run test:autosave:negative
+          npm run test:autosave
+      - name: All preceding regressions and genuine Vite build
+        run: |
+          set -Eeuo pipefail
+          npm run check:vite
+          npm run lint:domains
+          npm run typecheck:clock
+          npm run typecheck:random
+          npm run typecheck:events
+          npm run typecheck:state
+          npm run typecheck:indexeddb
+          npm run typecheck
+          npm run test:types:negative
+          npm run test:indexeddb:negative
+          npm run lint
+          npm test
+          npm run build
+          test -f dist/autosave-qa.html
+          test -f dist/indexeddb-qa.html
+      - name: Install Chromium QA tools
+        run: |
+          python -m pip install --disable-pip-version-check playwright==1.55.0
+          python -m playwright install --with-deps chromium
+      - name: Verify transaction rollback, reload and no rerolls on real Vite dev and preview
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          mkdir -p l3-029-acceptance/{autosave-dev,autosave-preview,indexeddb-dev,indexeddb-preview,dev-boundary,preview-boundary,dev-vite,preview-vite}
+          npm run dev -- --strictPort > l3-029-acceptance/dev-server.log 2>&1 &
+          dp=$!
+          npm run preview -- --strictPort > l3-029-acceptance/preview-server.log 2>&1 &
+          pp=$!
+          trap 'kill "$dp" "$pp" 2>/dev/null || true' EXIT
+          for port in 5173 4173; do
+            ready=0
+            for i in $(seq 1 45); do
+              if curl -fsS "http://127.0.0.1:$port/" >/dev/null; then ready=1; break; fi
+              sleep 1
+            done
+            if [ "$ready" != 1 ]; then echo "Real Vite server failed: $port"; exit 1; fi
+          done
+          python scripts/chromium-autosave-qa.py --base-url http://127.0.0.1:5173 --out l3-029-acceptance/autosave-dev
+          python scripts/chromium-autosave-qa.py --base-url http://127.0.0.1:4173 --out l3-029-acceptance/autosave-preview
+          python scripts/chromium-indexeddb-qa.py --base-url http://127.0.0.1:5173 --out l3-029-acceptance/indexeddb-dev
+          python scripts/chromium-indexeddb-qa.py --base-url http://127.0.0.1:4173 --out l3-029-acceptance/indexeddb-preview
+          python scripts/chromium-boundary-qa.py --base-url http://127.0.0.1:5173/ --out l3-029-acceptance/dev-boundary
+          python scripts/chromium-boundary-qa.py --base-url http://127.0.0.1:4173/ --out l3-029-acceptance/preview-boundary
+          python scripts/chromium-vite-qa.py --base-url http://127.0.0.1:5173/ --out l3-029-acceptance/dev-vite
+          python scripts/chromium-vite-qa.py --base-url http://127.0.0.1:4173/ --out l3-029-acceptance/preview-vite
+      - name: Record reproducible evidence
+        if: always()
+        run: |
+          mkdir -p l3-029-acceptance
+          test ! -d dist || cp -a dist l3-029-acceptance/dist
+          cp docs/L3-029-AUTOSAVE.md l3-029-acceptance/autosave-spec.md
+          cp docs/L3-029-ACCEPTANCE.json l3-029-acceptance/acceptance.json
+          cp docs/task-register.json l3-029-acceptance/task-register.json
+          git status --short > l3-029-acceptance/git-status.txt
+          git log --oneline -10 > l3-029-acceptance/git-history.txt
+      - name: Upload logs, actual screenshots, build and tested results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: LEGACY3-L3-029-autosave
+          path: l3-029-acceptance/
+          retention-days: 30
+          if-no-files-found: warn

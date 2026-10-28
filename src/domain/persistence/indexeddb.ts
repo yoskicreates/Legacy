@@ -19,7 +19,8 @@ export type IndexedDbCode =
   | 'DATABASE_BLOCKED'
   | 'DATABASE_ERROR'
   | 'STORE_MISSING'
-  | 'TRANSACTION_ERROR';
+  | 'TRANSACTION_ERROR'
+  | 'WRITE_ABORTED';
 
 export type IndexedDbResult<T> =
   | Readonly<{ ok: true; value: T }>
@@ -44,6 +45,11 @@ function resolvedFactory(options: IndexedDbOptions): IDBFactory | null {
 function databaseName(options: IndexedDbOptions): string | null {
   const name = options.databaseName ?? LEGACY3_DB_NAME;
   return typeof name === 'string' && name.length > 0 && name.trim() === name ? name : null;
+}
+
+/** Cancellation applies ONLY to a pending write transaction, never to a completed commit. */
+export interface IndexedDbWriteOptions extends IndexedDbOptions {
+  readonly signal?: AbortSignal;
 }
 
 type OpenResult = IndexedDbResult<IDBDatabase>;
@@ -80,28 +86,40 @@ function openDatabase(options: IndexedDbOptions): Promise<OpenResult> {
 }
 
 /** One transaction per call, with fixed record key. Resolves only on commit. */
-export async function writeGameState(candidate: unknown, options: IndexedDbOptions = {}): Promise<IndexedDbResult<true>> {
+export async function writeGameState(candidate: unknown, options: IndexedDbWriteOptions = {}): Promise<IndexedDbResult<true>> {
   const validation = validateGameState(candidate);
   if (!validation.ok) return failure(validation.code === 'UNSUPPORTED_VERSION' ? 'UNSUPPORTED_VERSION' : 'INVALID_STATE', validation.path, validation.code);
+  if (options.signal?.aborted) return failure('WRITE_ABORTED', 'AbortError');
   const opened = await openDatabase(options);
   if (!opened.ok) return opened;
   const db = opened.value;
+  if (options.signal?.aborted) { db.close(); return failure('WRITE_ABORTED', 'AbortError'); }
   return new Promise(resolve => {
     let finished = false;
+    let cancelled = false;
+    let abortPending: (() => void) | undefined;
     const settle = (result: IndexedDbResult<true>) => {
       if (finished) return;
       finished = true;
+      if (abortPending) options.signal?.removeEventListener('abort', abortPending);
       db.close();
       resolve(result);
     };
     try {
       const tx = db.transaction(LEGACY3_STORE, 'readwrite');
+      abortPending = () => {
+        if (finished) return;
+        cancelled = true;
+        try { tx.abort(); } catch { /* already committed: completion event remains authoritative */ }
+      };
+      options.signal?.addEventListener('abort', abortPending, { once: true });
       tx.oncomplete = () => settle(success(true));
       tx.onerror = () => settle(failure('TRANSACTION_ERROR', tx.error?.name ?? 'transaction error'));
-      tx.onabort = () => settle(failure('TRANSACTION_ERROR', tx.error?.name ?? 'transaction aborted'));
+      tx.onabort = () => settle(cancelled ? failure('WRITE_ABORTED', 'AbortError') : failure('TRANSACTION_ERROR', tx.error?.name ?? 'transaction aborted'));
       const request = tx.objectStore(LEGACY3_STORE).put(validation.state, LEGACY3_RECORD_KEY);
       // Transaction events handle request failures and aborted writes.
       request.onerror = () => { /* IndexedDB abort propagates to transaction */ };
+      if (options.signal?.aborted) abortPending();
     } catch (error) {
       settle(failure('TRANSACTION_ERROR', error instanceof Error ? error.name : 'write threw'));
     }

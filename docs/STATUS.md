@@ -1,5 +1,17 @@
 # LEGACY 3.0 TASK STATUS
 
+**L3-029 — Implement autosave transaction: COMPLETE / ACCEPTED**  
+**Progress: 29 accepted / 272**  
+**Next: L3-030 — Implement manual save slots (NOT STARTED)**
+
+The L3-029 module saves one explicitly supplied V1 snapshot using L3-028 IndexedDB and waits for actual transaction commit. An AbortSignal can cancel pending writes; a real aborted transaction does not destroy the last committed save. Cloud Chromium passed 120/120 rollback/reload assertions plus prior regressions. No automatic scheduling triggers, actual career gameplay, manual slots, migrations, or export/import exist.
+
+Physical iPhone Safari: NOT_RUN. This remains a non-playable game foundation.
+
+---
+
+# LEGACY 3.0 TASK STATUS
+
 **L3-028 — Implement IndexedDB wrapper: COMPLETE / ACCEPTED**  
 **Progress 28 accepted / 272**  
 **Next after L3-028 accepted: L3-029 — Implement autosave transaction (NOT STARTED)**

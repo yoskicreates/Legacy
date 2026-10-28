@@ -4,7 +4,7 @@
 **Parent:** verified `LEGACY_3_0_L3-024_COMPLETE_SOURCE.zip`, SHA-256 `8462fd8e8bcf7d1c7da74130577fd2f7095ef5d6d46519deb826fe2f36ad82bd`, task register 24/272.
 **Blueprint build:** provide seedable PRNG interface for reproducible simulations.
 **Blueprint acceptance:** identical seed reproduces identical sample sequence.
-**Current stage:** implementation review; acceptance only after GitHub checks and new immutable checkpoint.
+**Acceptance:** COMPLETE after all GitHub acceptance workflows, new source checkpoint CRC and per-file SHA-256 verification. **Next:** L3-026 remains NOT STARTED.
 
 ## Public API and deterministic specification
 
@@ -59,3 +59,11 @@ npm run build
 ```
 
 Chromium responsive tests and full hosted acceptance require GitHub Actions with the pinned npm packages; local runs without installed Preact/PixiJS must be reported accurately as **blocked**, not passing. Physical iPhone Safari test status is **NOT_RUN**.
+
+## Verified cloud acceptance
+
+- L3-025 dedicated CI: https://github.com/yoskicreates/Legacy/actions/runs/40777352852 — PASS.
+- Prior L3-020, L3-021, L3-022, L3-023 and L3-024 regression CI runs: 40777352627, 40777352537, 40777352563, 40777352454 and 40777352701 — all PASS.
+- 15/15 PRNG tests and all prior Node tests, clean npm ci, strict TypeScript typecheck, domain dependency lint, normal lint, and real Vite production build PASS.
+- Chromium Preact/PixiJS boundary and Vite interactions PASS (20/20) at 375, 390, 402, 430 and 1280px against development and preview servers. Screenshots and build artifacts are in GitHub Actions evidence and Library checkpoint.
+- Physical iPhone Safari test: **NOT_RUN** (not equivalent to Chromium emulation).

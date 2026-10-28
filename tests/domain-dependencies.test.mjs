@@ -82,15 +82,16 @@ test('forbid UI/renderer aliases, external packages and unsafe dynamic imports, 
   }
 });
 
-test('L3-022 six-domain contracts remain isolated after L3-025 seeded random source', async () => {
+test('L3-022 domains remain isolated after L3-025 PRNG acceptance', async () => {
   const reg = JSON.parse(await readFile(join(root, 'docs/task-register.json'), 'utf8'));
   assert.equal(reg.total_tasks, 272);
-  assert.equal(reg.next_task, 'L3-025');
-  assert.equal(reg.completed.length, 24);
+  assert.equal(reg.next_task, 'L3-026');
+  assert.equal(reg.completed.length, 25);
   assert.equal(reg.tasks.find(x => x.id === 'L3-022').status, 'completed');
   assert.equal(reg.tasks.find(x => x.id === 'L3-023').status, 'completed');
   assert.equal(reg.tasks.find(x => x.id === 'L3-024').status, 'completed');
-  assert.equal(reg.tasks.find(x => x.id === 'L3-025').status, 'planned');
+  assert.equal(reg.tasks.find(x => x.id === 'L3-025').status, 'completed');
+  assert.equal(reg.tasks.find(x => x.id === 'L3-026').status, 'planned');
   const files = (await readdir(join(root,'src/domain/core')));
   assert.deepEqual(files.sort(), ['clock.ts', 'index.ts', 'random.ts']);
 });

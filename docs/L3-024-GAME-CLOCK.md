@@ -1,7 +1,7 @@
 # LEGACY 3.0 — L3-024 Separate Game Clock Contract
 
 **Task:** L3-024 Define game clock (Phase 02; P2 Simulation / P4 Realism).  
-**Current state:** REVIEW — awaiting final GitHub Actions and immutable checkpoint acceptance.  
+**Current state:** COMPLETE / ACCEPTED (24/272), October 28, 2026; cloud and archive acceptance verified.  
 **Dependency:** L3-023 completed, immutable source baseline `LEGACY_3_0_L3-023_COMPLETE_SOURCE.zip`.  
 **Next:** L3-025 deterministic seeded random source, expressly NOT started.
 
@@ -46,3 +46,13 @@ State is frozen, pure, in-memory, with no timers. `0` increments preserve the or
 New headless test: `npm run test:clock` (15 tests). All existing project checks must pass after a clean networked install. iPhone Safari physical-device testing: **NOT_RUN**, no ability to remotely operate the user's device. Browser QA may only claim emulated Chromium coverage. Persisted saves, time zones, scheduling UX, fight rounds and rendering time are **NOT_IMPLEMENTED**.
 
 The GitHub repository `yoskicreates/Legacy` is a separate import history from the original local archived Git graph. Preserve both; never imply they are identical. A source ZIP is not a playable MMA simulator.
+
+## Accepted verification evidence
+
+- L3-024 cloud runner: https://github.com/yoskicreates/Legacy/actions/runs/40774948813 — PASS, 15 dedicated headless clock tests, strict TypeScript, all Node tests, lint, import graph and genuine Vite build.
+- L3-020 regression: https://github.com/yoskicreates/Legacy/actions/runs/40774948856 — PASS.
+- L3-021 regression: https://github.com/yoskicreates/Legacy/actions/runs/40774948935 — PASS.
+- L3-022 regression: https://github.com/yoskicreates/Legacy/actions/runs/40774948780 — PASS.
+- L3-023 regression: https://github.com/yoskicreates/Legacy/actions/runs/40774948793 — PASS.
+- Dev + preview Chromium: 20/20 PASS, zero reported page/HTTP errors at 375/390/402/430/1280 CSS px. Physical iPhone Safari NOT_RUN.
+- Immutable source checkpoint: `LEGACY_3_0_L3-024_COMPLETE_SOURCE.zip` and independent local Git-history archive; `CHECKPOINT_VERIFY.py` and `CHECKPOINT_MANIFEST.json` verify contents.

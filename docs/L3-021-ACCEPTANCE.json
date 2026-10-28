@@ -1,0 +1,162 @@
+{
+  "project": "LEGACY 3.0",
+  "task_id": "L3-021",
+  "task_title": "Set UI and renderer boundary",
+  "task_status": "COMPLETE",
+  "accepted_tasks": 21,
+  "total_tasks": 272,
+  "next_task": "L3-022",
+  "next_task_status": "NOT_STARTED",
+  "blueprint_basis": "LEGACY_3_0_Task_Register_L3-016.json, 272 entries, L3-021",
+  "dependency": "L3-020 ACCEPTED",
+  "baseline": {
+    "library_path": "/LEGACY_3_0/LEGACY_3_0_L3-020_COMPLETE_SOURCE.zip",
+    "sha256": "ac42b17d43714f55daa8fec00f6a431bfd867ea35f86b0af5e9c51697c13d767",
+    "parent_source_files": 33
+  },
+  "scope": "Preact UI and PixiJS renderer independently mounted, unmounted and remounted; no gameplay",
+  "explicit_exclusions": [
+    "L3-022 domain module boundaries",
+    "fighter illustration",
+    "fight simulation",
+    "career mechanics",
+    "save/persistence",
+    "approved rig selection"
+  ],
+  "decisions": {
+    "APPROVED": [
+      "DEC-001",
+      "DEC-002",
+      "DEC-003",
+      "DEC-004"
+    ],
+    "REJECTED_RESPECTED": [
+      "DEC-012"
+    ],
+    "OPEN_NOT_IMPLEMENTED": [
+      "DEC-028"
+    ],
+    "PROPOSED_NOT_ASSUMED": [
+      "DEC-020"
+    ]
+  },
+  "requirements": {
+    "AC-01": "PASS: exact Preact 10.29.8 / PixiJS 8.20.1 pinned, GitHub Actions clean npm ci",
+    "AC-02": "PASS: distinct #menu-root and #renderer-root on real Vite dev and preview",
+    "AC-03": "PASS: 10/10 independent mount/unmount/remount browser probes",
+    "AC-04": "PASS: 10/10 legacy button integration, plus 10/10 L3-020 browser regression",
+    "AC-05": "PASS: strict TypeScript, negative-fixture, lint, Node tests, Vite build",
+    "AC-06": "PASS: 20/20 Chromium runs at 375/390/402/430/1280, zero page/HTTP errors",
+    "AC-07": "PASS: original source ZIP unchanged; unchanged file SHA-256 verified; new archive CRC and manifest independently checked at packaging"
+  },
+  "gates": {
+    "G0": "PASS",
+    "G1": "PASS",
+    "G2": "PASS",
+    "G3": "PASS",
+    "G4": "PASS",
+    "G5": "PASS",
+    "G6": "PASS",
+    "G7": "PASS",
+    "G8": "PASS"
+  },
+  "test_evidence": {
+    "github_boundary_run": "https://github.com/yoskicreates/Legacy/actions/runs/40769540599",
+    "github_l3_020_regression_run": "https://github.com/yoskicreates/Legacy/actions/runs/40769540629",
+    "artifact_file": "LEGACY3-L3-021-CLOUD-QA-PASS.zip",
+    "qa_matrix": {
+      "dev": {
+        "tests": 5,
+        "passed": 5,
+        "widths": [
+          375,
+          390,
+          402,
+          430,
+          1280
+        ],
+        "browser_errors": 0,
+        "http_errors": 0
+      },
+      "preview": {
+        "tests": 5,
+        "passed": 5,
+        "widths": [
+          375,
+          390,
+          402,
+          430,
+          1280
+        ],
+        "browser_errors": 0,
+        "http_errors": 0
+      },
+      "legacy-dev": {
+        "tests": 5,
+        "passed": 5,
+        "widths": [
+          375,
+          390,
+          402,
+          430,
+          1280
+        ],
+        "browser_errors": 0,
+        "http_errors": 0
+      },
+      "legacy-preview": {
+        "tests": 5,
+        "passed": 5,
+        "widths": [
+          375,
+          390,
+          402,
+          430,
+          1280
+        ],
+        "browser_errors": 0,
+        "http_errors": 0
+      }
+    },
+    "screenshots": 20,
+    "npm_ci": "PASS",
+    "typecheck": "PASS",
+    "negative_fixture": "PASS",
+    "lint": "PASS",
+    "unit_suite": "PASS",
+    "vite_build": "PASS",
+    "typescript_version": "5.8.3",
+    "vite_version": "6.3.6",
+    "preact_version": "10.29.8",
+    "pixijs_version": "8.20.1"
+  },
+  "physical_iphone_safari": {
+    "status": "NOT_RUN",
+    "reason": "No direct physical iPhone Safari automation; Chromium mobile viewport emulation is not physical Safari."
+  },
+  "file_integrity": {
+    "unchanged_parent_files": 24,
+    "modified_parent_files": [
+      "package.json",
+      "package-lock.json",
+      "README.md",
+      "index.html",
+      "docs/STATUS.md",
+      "src/main.ts",
+      "src/style.css",
+      "tests/browser-placeholder.test.mjs",
+      "tests/tooling.test.mjs"
+    ],
+    "deleted_parent_files": [],
+    "new_files_justification": "isolated Preact/Pixi layer modules, lifecycle tests, evidence and documentation",
+    "archived_history_preserved": true
+  },
+  "risks_and_limitations": [
+    "No fighter art or gameplay",
+    "WebGL availability depends on device; Preact menu survives renderer failure",
+    "No physical iPhone Safari test",
+    "User creative decisions for artwork are still OPEN"
+  ],
+  "owner_approval": "Only technical task requested and implemented; no new creative approval inferred",
+  "acceptance_date_utc": "2026-10-28"
+}

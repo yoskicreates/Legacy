@@ -1,0 +1,54 @@
+{
+  "project": "LEGACY 3.0",
+  "task_id": "L3-028",
+  "title": "Implement IndexedDB wrapper",
+  "status": "COMPLETE",
+  "baseline": "dffc71dc001d37dfbf30d88b63dc9cfe7f4c4324",
+  "parent_source": "LEGACY_3_0_L3-027_COMPLETE_SOURCE.zip",
+  "parent_sha256": "7f4ad00a151b7b8e6d9532ec1d0faa1e5cf9898f8edfce51fee391d8b648cb95",
+  "criteria": {
+    "AC-01": "Typed fixed-record IndexedDB V1 write/read wrapper, no slots or autosave",
+    "AC-02": "Strict invalid, corrupt and unsupported state rejection without overwrite or repair",
+    "AC-03": "Real Chromium committed round trip/reload, unsupported factory and error path evidence",
+    "AC-04": "TypeScript positive/negative, headless tests and domain boundary regression",
+    "AC-05": "Real Vite, clean npm ci, browser mobile and all preceding cloud workflows",
+    "AC-06": "Numbered non-overwriting source/repository/QA checkpoints and original local Git history",
+    "AC-07": "Only merge after cloud acceptance and artifacts verification"
+  },
+  "local": {
+    "indexeddb_typecheck": "PASS",
+    "invalid_type_diagnostics": 5,
+    "indexeddb_unit_tests": "12/12 PASS",
+    "npm_ci": "BLOCKED_NETWORK_IN_CONTAINER",
+    "full_npm_test": "NOT_RUN_SUCCESSFULLY_LOCAL: incomplete npm ci leaves empty @types folders; cloud npm ci, npm test and all regressions PASS"
+  },
+  "github": {
+    "pull_request": "https://github.com/yoskicreates/Legacy/pull/9",
+    "review_commit": "e590e858e59e9ab1c3a338a059662061ca4c9502",
+    "cloud_result": "ALL_NINE_SUCCESS",
+    "new_cloud_run": 40783470045,
+    "previous_regression_runs": {
+      "L3-020": 40783469988,
+      "L3-021": 40783470099,
+      "L3-022": 40783469913,
+      "L3-023": 40783469918,
+      "L3-024": 40783469916,
+      "L3-025": 40783469932,
+      "L3-026": 40783469939,
+      "L3-027": 40783470047
+    }
+  },
+  "real_chromium": "PASS 8/8 viewport+server combinations, 104 assertions; persisted across browser reload",
+  "physical_iphone_safari": "NOT_RUN",
+  "out_of_scope": [
+    "L3-029",
+    "autosave",
+    "manual save slots",
+    "import/export",
+    "migration",
+    "gameplay"
+  ],
+  "next_task": "L3-029 NOT_STARTED",
+  "accepted_total": 28,
+  "qa_archive": "LEGACY3_L3-028_QA_EVIDENCE.zip"
+}

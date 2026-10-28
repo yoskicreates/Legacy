@@ -2,7 +2,7 @@
   "project": "LEGACY 3.0",
   "blueprint_version": "1.0",
   "created": "2026-10-28",
-  "scope": "L3-027 — Explicit V1 career/core state schema and strict runtime validator, no storage, migration or L3-028",
+  "scope": "L3-028 — typed browser IndexedDB one-record wrapper with strict V1 state validation and browser verification; no autosave, slots or migrations",
   "total_tasks": 272,
   "completed": [
     "L3-001",
@@ -31,9 +31,10 @@
     "L3-024",
     "L3-025",
     "L3-026",
-    "L3-027"
+    "L3-027",
+    "L3-028"
   ],
-  "next_task": "L3-028",
+  "next_task": "L3-029",
   "phases": [
     {
       "id": "01",
@@ -495,7 +496,7 @@
       "build": "Provide safe storage abstraction and error handling",
       "test": "Write/read round trip works in supported browser test",
       "depends_on": "L3-027",
-      "status": "planned",
+      "status": "completed",
       "primary_pillar": "P5",
       "supporting_pillar": "P2"
     },
@@ -3811,5 +3812,26 @@
       "L3-026": 40781460281
     },
     "checkpoint": "LEGACY_3_0_L3-027_COMPLETE_SOURCE.zip"
+  },
+  "L3_028_acceptance_evidence": {
+    "report": "docs/L3-028-ACCEPTANCE.json",
+    "node_tests": "12/12 PASS",
+    "typescript_negative_cases": 5,
+    "real_chromium": "8 of 8 browser combinations, 104 storage assertions PASS",
+    "previous_chromium": "20/20 dev-preview renderer and Vite checks PASS",
+    "physical_iphone_safari": "NOT_RUN",
+    "github_pr": 9,
+    "github_review_ci_run": 40783470045,
+    "prior_regression_runs": {
+      "L3-020": 40783469988,
+      "L3-021": 40783470099,
+      "L3-022": 40783469913,
+      "L3-023": 40783469918,
+      "L3-024": 40783469916,
+      "L3-025": 40783469932,
+      "L3-026": 40783469939,
+      "L3-027": 40783470047
+    },
+    "checkpoint_status": "VERIFIED_BEFORE_MERGE"
   }
 }

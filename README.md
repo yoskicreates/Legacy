@@ -49,3 +49,9 @@ L3-027 accepted cloud QA: https://github.com/yoskicreates/Legacy/actions/runs/40
 ### L3-028 — one-record IndexedDB browser wrapper
 
 The persistence module now exposes strict V1 `writeGameState`/`readGameState` for the single fixed `current` record. See [storage contract](docs/L3-028-STORAGE.md). This is not autosave, slot management, import/export, or gameplay. Independent Chromium dev/preview round-trip and full QA passed; 104 storage assertions in eight mobile browser environments, nine GitHub workflows successful.
+
+## L3-030 accepted manual slots
+
+Three strictly typed fixed slot IDs with caller-supplied timestamp, independent career snapshots and transaction-atomic metadata/state in a separate IndexedDB namespace. See [contract](docs/L3-030-MANUAL-SAVE-SLOTS.md) and [acceptance status](docs/L3-030-ACCEPTANCE.json). No player-visible manual save UI, import/export or migration.
+
+**Acceptance:** [GitHub Actions manual slot run](https://github.com/yoskicreates/Legacy/actions/runs/40786473255), all L3-020–L3-029 regression workflows PASS, 208/208 Chromium manual slot assertions at four mobile widths, full Vite production build. Physical iPhone Safari NOT_RUN.

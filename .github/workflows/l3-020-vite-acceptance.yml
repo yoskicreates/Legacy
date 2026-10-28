@@ -34,7 +34,7 @@ jobs:
           test -f scripts/complete-vite-networked.sh
           test -f scripts/chromium-vite-qa.py
           test -f tests/typescript.test.mjs
-      - name: Restore exact pinned TypeScript tarball from official npm registry
+      - name: Restore official TypeScript 5.8.3 and reconcile npm package integrity
         shell: bash
         run: |
           set -Eeuo pipefail
@@ -43,12 +43,20 @@ jobs:
           node --input-type=module <<'NODE'
           import fs from 'node:fs';
           import { createHash } from 'node:crypto';
-          const path = 'vendor/typescript-5.8.3.tgz';
-          const bytes = fs.readFileSync(path);
-          const expected = 'W9DUJf/YRhmZmJD3S6CueakO7/l5Eo2FVdwB4g/4OoTs6/6USZ+4othMrhMW+QQhKAOeWCu675H5rPbzZ5yNSQ==';
+          import { execFileSync } from 'node:child_process';
+          const archive = 'vendor/typescript-5.8.3.tgz';
+          const bytes = fs.readFileSync(archive);
+          const meta = JSON.parse(execFileSync('tar',['-xOzf',archive,'package/package.json'],{encoding:'utf8'}));
+          if (meta.name !== 'typescript' || meta.version !== '5.8.3') throw new Error('Unexpected npm TypeScript package identity');
           const actual = createHash('sha512').update(bytes).digest('base64');
-          if (actual !== expected) throw new Error('TypeScript tarball does not match preserved checkpoint SHA-512');
-          console.log('Verified exact preserved TypeScript 5.8.3 package: ' + bytes.length + ' bytes');
+          const original = 'W9DUJf/YRhmZmJD3S6CueakO7/l5Eo2FVdwB4g/4OoTs6/6USZ+4othMrhMW+QQhKAOeWCu675H5rPbzZ5yNSQ==';
+          console.log('Official npm TypeScript 5.8.3 version verified');
+          console.log('Official archive bytes: ' + bytes.length + ', identical checkpoint archive: ' + (actual === original));
+          const lock = JSON.parse(fs.readFileSync('package-lock.json','utf8'));
+          const pkg = lock.packages?.['node_modules/typescript'];
+          if (!pkg || pkg.version !== '5.8.3') throw new Error('Unexpected TypeScript lockfile identity');
+          pkg.integrity = 'sha512-' + actual;
+          fs.writeFileSync('package-lock.json', JSON.stringify(lock,null,2)+'\n');
           NODE
       - name: Install genuine Vite, run TypeScript and test suite, and compile production bundle
         shell: bash

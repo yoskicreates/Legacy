@@ -1,6 +1,6 @@
 {
   "task": "L3-036",
-  "status": "REVIEW_PENDING",
+  "status": "COMPLETE / ACCEPTED",
   "parent_accepted_merge": "d03d3efdcf6fc6afa5a3527547a0cfc7bf04e5b4",
   "scope": "semantic responsive typography only",
   "local_evidence": {
@@ -11,8 +11,32 @@
     "lint": "PASS",
     "domain_boundary": "PASS"
   },
-  "cloud_evidence": "PENDING",
-  "chromium": "PENDING",
+  "cloud_evidence": {
+    "review_ci_run": 40798640513,
+    "review_head": "2b0ec56c1adb15baffe17a562791e0f600b03d79",
+    "workflows": "17/17 PASS",
+    "npm_ci": "PASS",
+    "vite_production_build": "PASS",
+    "manifest_generation_verification": "PASS",
+    "prior_regressions": "L3-020\u2013L3-035 PASS"
+  },
+  "chromium": {
+    "configurations": "8/8 PASS",
+    "assertions": 208,
+    "widths_css_px": [
+      375,
+      390,
+      402,
+      430
+    ],
+    "servers": [
+      "Vite dev",
+      "Vite preview"
+    ],
+    "text_resize_200_percent": "PASS",
+    "reload": "PASS"
+  },
   "physical_iphone_safari": "NOT_RUN",
-  "next": "L3-037 NOT_STARTED"
+  "next": "L3-037 NOT_STARTED",
+  "source_checkpoint": "LEGACY_3_0_L3-036_COMPLETE_SOURCE.zip"
 }

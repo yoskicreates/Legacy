@@ -1,11 +1,11 @@
 # LEGACY 3.0 TASK STATUS
 
-**L3-035 — Define design tokens: COMPLETE / ACCEPTED**  
-**Progress: 35 accepted / 272**  
-**Next: L3-036 — Choose typography scale (NOT STARTED)**
+**L3-036 — Choose typography scale: COMPLETE / ACCEPTED**  
+**Progress: 36 accepted / 272**  
+**Next: L3-037 — Build iPhone safe-area shell (NOT STARTED)**
 
-A typed color contract provides midnight navy, dark blue-gray, warm gold, muted red, soft white, semantic surfaces, borders, state colors, CSS custom properties and WCAG AA minimum 4.5:1 normal-text contrast for twelve explicitly documented pairings. An isolated non-playable palette preview works at 375/390/402/430px with viewport-fit, safe-area insets, and an interactive contrast-check control. Existing Preact and PixiJS boundaries and the V1 save schema remain unchanged.
+The typed semantic typography scale provides seven roles (display, headline, panel, body, label, caption, numeric) with CSS variables, bounded responsive headings and tabular numerical data. The isolated typography preview demonstrates readable long labels and synthetic career/fight numbers without gameplay or new navigation. The L3-035 midnight navy, gold, red and soft-white palette and its WCAG AA combinations remain unchanged.
 
-22/22 dedicated unit tests, seven invalid TypeScript contracts rejected, 8/8 real Chromium preview runs with 216 assertions, clean GitHub npm ci, genuine Vite build and all 16 L3-020–L3-035 review CI workflows PASS. Numbered complete source/repository/QA checkpoints preserved in Library /LEGACY_3_0/.
+21/21 dedicated Node tests and seven negative TypeScript diagnostics passed. Genuine Vite dev and preview in Chromium passed all eight 375/390/402/430px configurations with 208 reported typography assertions including 200% text zoom, reload and no horizontal overflow. All 17 L3-020 through L3-036 GitHub review workflows passed. No physical iPhone Safari test has been performed. Complete source, Git history, QA and preview checkpoints are preserved in Library `/LEGACY_3_0/`.
 
-This is a non-playable development foundation; no gameplay, typography scale, navigation screens, player-facing save UI or actual iPhone Safari QA yet. Contrast of future artwork and text combinations requires additional tests. L3-036 is not started.
+LEGACY is still a non-playable development foundation. L3-037 safe-area shell, navigation, character customization and gameplay are not implemented in L3-036.

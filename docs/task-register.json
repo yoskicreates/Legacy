@@ -2,7 +2,7 @@
   "project": "LEGACY 3.0",
   "blueprint_version": "1.0",
   "created": "2026-10-28",
-  "scope": "L3-033 accepted: deterministic test-only seeded fighter, career state, manual slot and invalid/boundary fixture generators; no production fixture injection",
+  "scope": "L3-036 accepted: semantic responsive typography tokens and 200% text zoom QA; no L3-037 shell, navigation or gameplay",
   "total_tasks": 272,
   "completed": [
     "L3-001",
@@ -39,9 +39,10 @@
     "L3-032",
     "L3-033",
     "L3-034",
-    "L3-035"
+    "L3-035",
+    "L3-036"
   ],
-  "next_task": "L3-036",
+  "next_task": "L3-037",
   "phases": [
     {
       "id": "01",
@@ -607,7 +608,7 @@
       "build": "Set headline, panel, label, and numeric data type scales",
       "test": "Text remains readable at 375px without overflow",
       "depends_on": "L3-035",
-      "status": "planned",
+      "status": "completed",
       "primary_pillar": "P1",
       "supporting_pillar": "P5"
     },
@@ -3915,5 +3916,14 @@
     "github_review_run": 40796194955,
     "physical_iphone_safari": "NOT_RUN",
     "checkpoint": "LEGACY_3_0_L3-035_COMPLETE_SOURCE.zip"
+  },
+  "L3_036_acceptance_evidence": {
+    "report": "docs/L3-036-ACCEPTANCE.json",
+    "review_ci_run": 40798640513,
+    "workflows": "17/17 PASS",
+    "unit": "21/21 PASS",
+    "negative_types": 7,
+    "chromium": "8/8 PASS; 208 reported checks across Vite dev/preview",
+    "physical_iphone_safari": "NOT_RUN"
   }
 }

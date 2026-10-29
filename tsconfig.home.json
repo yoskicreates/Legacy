@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["src/ui/home-contract.ts"],
+  "exclude": ["tests/ui/home-negative.ts", "node_modules", "dist"],
+  "compilerOptions": { "types": [] }
+}

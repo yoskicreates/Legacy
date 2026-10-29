@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "LEGACY 3.0 L3-033: deterministic test-only fighter, career and save fixtures (non-playable foundation)",
+  "description": "LEGACY 3.0 L3-034: reproducible, verifiable source/build manifest (non-playable foundation)",
   "engines": {
     "node": ">=22"
   },
@@ -48,7 +48,12 @@
     "test:migrations:negative": "node scripts/migrations-negative-test.mjs",
     "typecheck:fixtures": "tsc --project tsconfig.fixtures.json --noEmit",
     "test:fixtures": "node --test tests/fixture-system.test.mjs",
-    "test:fixtures:negative": "node scripts/fixtures-negative-test.mjs"
+    "test:fixtures:negative": "node scripts/fixtures-negative-test.mjs",
+    "typecheck:build-manifest": "tsc --project tsconfig.build-manifest.json --noEmit",
+    "test:build-manifest": "node --test tests/build-manifest.test.mjs",
+    "test:build-manifest:negative": "node scripts/build-manifest-negative-test.mjs",
+    "manifest:generate": "node scripts/build-manifest.mjs generate",
+    "manifest:verify": "node scripts/build-manifest.mjs verify"
   },
   "devDependencies": {
     "typescript": "5.8.3",

@@ -1,0 +1,1 @@
+{"extends":"./tsconfig.json","include":["tests/fixtures/invalid-build-manifest-types.ts"],"exclude":["node_modules","dist"],"compilerOptions":{"types":[]}}

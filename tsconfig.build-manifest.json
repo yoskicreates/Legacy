@@ -1,0 +1,1 @@
+{"extends":"./tsconfig.json","include":["src/tooling/build-manifest-contract.ts","src/tooling/build-manifest-types-smoke.ts"],"compilerOptions":{"types":[]}}

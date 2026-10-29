@@ -1,0 +1,42 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdtemp,mkdir,writeFile,readFile,rm,unlink} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {CHECKS,TASK,FORMAT,sha256,runChecks,buildVerifiedManifest,verifyManifest,sourceInventory,inventory,canonicalObject} from '../scripts/build-manifest.mjs';
+
+async function sandbox(t) {
+  const root=await mkdtemp(join(tmpdir(),'legacy-manifest-'));
+  t.after(()=>rm(root,{recursive:true,force:true}));
+  for(const dir of ['src','docs','dist','public','scripts'])await mkdir(join(root,dir));
+  await writeFile(join(root,'package.json'),'{"name":"legacy-test","version":"0.1.0"}\n');
+  await writeFile(join(root,'src/engine.ts'),'export const v=1;\n');
+  await writeFile(join(root,'dist/index.html'),'<html>ok</html>\n');
+  await writeFile(join(root,'dist/assets.js'),'console.log(1);\n');
+  await writeFile(join(root,'public/manifest-probe.txt'),'probe\n');
+  await writeFile(join(root,'docs/L3-034-KNOWN-ISSUES.json'),'["Not playable"]\n');
+  const runner=(cmd,args)=>({status:0,stdout:`PASS ${cmd} ${args.join(' ')}\n`,stderr:''});
+  const checks=await runChecks(root,join(root,'l3-034-evidence'),runner);
+  const manifest=await buildVerifiedManifest(root,checks);
+  return {root,checks,manifest,runner};
+}
+test('header and fixed command allowlist',()=>{assert.equal(TASK,'L3-034');assert.equal(FORMAT,'LEGACY3_VERIFIED_BUILD_MANIFEST_V1');assert.equal(CHECKS.length,7);assert.equal(new Set(CHECKS.map(x=>x[0])).size,7)});
+test('generates exactly the test commands it actually runs',async t=>{const x=await sandbox(t); assert.equal(x.checks.length,7);for(const [i,[id,args]]of CHECKS.entries()){assert.equal(x.checks[i].id,id);assert.deepEqual(x.checks[i].command,['npm',...args]);assert.equal(x.checks[i].exitCode,0)}});
+test('deterministic manifests after independently rerun checks',async t=>{const x=await sandbox(t); const other=await runChecks(x.root,join(x.root,'l3-034-evidence'),x.runner); assert.equal(canonicalObject(x.manifest),canonicalObject(await buildVerifiedManifest(x.root,other)));assert.equal(await verifyManifest(x.root,x.manifest),true)});
+test('sorts source/build entries and hashes actual bytes',async t=>{const x=await sandbox(t);for(const name of ['source','build']){const files=x.manifest[name].files;assert.deepEqual(files.map(v=>v.path),files.map(v=>v.path).sort((a,b)=>a.localeCompare(b,'en')))}const data=await readFile(join(x.root,'src/engine.ts'));assert.equal(x.manifest.source.files.find(f=>f.path==='src/engine.ts').sha256,sha256(data))});
+test('does not include generated manifests or evidence in circular hash',async t=>{const x=await sandbox(t);await writeFile(join(x.root,'public/build-manifest.json'),'stale');await writeFile(join(x.root,'dist/build-manifest.json'),'stale');assert.equal(await verifyManifest(x.root,x.manifest),true);assert(!x.manifest.source.files.some(f=>f.path.includes('build-manifest.json')));assert(!x.manifest.build.files.some(f=>f.path.includes('build-manifest.json')))});
+test('rejects changed source even when status remains PASS',async t=>{const x=await sandbox(t);await writeFile(join(x.root,'src/engine.ts'),'export const v=2;\n');await assert.rejects(()=>verifyManifest(x.root,x.manifest),/stale/)});
+test('rejects changed built file even when test logs are intact',async t=>{const x=await sandbox(t);await writeFile(join(x.root,'dist/assets.js'),'console.log(2);\n');await assert.rejects(()=>verifyManifest(x.root,x.manifest),/stale/)});
+test('rejects removed built file and missing dist index',async t=>{const x=await sandbox(t);await unlink(join(x.root,'dist/assets.js'));await assert.rejects(()=>verifyManifest(x.root,x.manifest),/stale/);await unlink(join(x.root,'dist/index.html'));await assert.rejects(()=>buildVerifiedManifest(x.root,x.checks),/missing source|no files to verify/)});
+test('rejects added unlisted file',async t=>{const x=await sandbox(t);await writeFile(join(x.root,'src/missed.ts'),'new file');await assert.rejects(()=>verifyManifest(x.root,x.manifest),/stale/)});
+test('rejects changed log and missing log',async t=>{const x=await sandbox(t);await writeFile(join(x.root,x.checks[0].log),'FAKE PASS');await assert.rejects(()=>verifyManifest(x.root,x.manifest),/tampered/);await unlink(join(x.root,x.checks[1].log));await assert.rejects(()=>verifyManifest(x.root,x.manifest))});
+test('rejects falsified zero exit code and missing checks',async t=>{const x=await sandbox(t);await assert.rejects(()=>buildVerifiedManifest(x.root,[...x.checks.slice(0,6),{...x.checks[6],exitCode:1}]),/failed/);await assert.rejects(()=>buildVerifiedManifest(x.root,x.checks.slice(0,6)),/missing checks/)});
+test('rejects wrong command or substituted fake evidence log',async t=>{const x=await sandbox(t);await assert.rejects(()=>buildVerifiedManifest(x.root,[{...x.checks[0],command:['echo','PASS']},...x.checks.slice(1)]),/failed/);await assert.rejects(()=>buildVerifiedManifest(x.root,[{...x.checks[0],log:'other.log'},...x.checks.slice(1)]),/unexpected/)});
+test('aborts and refuses manifest on failed child command',async t=>{const x=await sandbox(t);let n=0;await assert.rejects(()=>runChecks(x.root,join(x.root,'l3-034-evidence'),()=>({status:n++===3?1:0,stdout:'TEST_OUTPUT\n'})),/CHECK_FAILED/)});
+test('aborts on child command with empty evidence or timeout',async t=>{const x=await sandbox(t);await assert.rejects(()=>runChecks(x.root,join(x.root,'l3-034-evidence'),()=>({status:0,stdout:''})),/EMPTY_EVIDENCE/);await assert.rejects(()=>runChecks(x.root,join(x.root,'l3-034-evidence'),()=>({status:null,error:new Error('timeout'),stdout:''})),/CHECK_FAILED/)});
+test('known issues are required and cannot be falsely cleared',async t=>{const x=await sandbox(t);await writeFile(join(x.root,'docs/L3-034-KNOWN-ISSUES.json'),'["Not playable","Not playable"]');await assert.rejects(()=>buildVerifiedManifest(x.root,x.checks),/duplicate/)});
+test('rejects missing known-issues evidence',async t=>{const x=await sandbox(t);await unlink(join(x.root,'docs/L3-034-KNOWN-ISSUES.json'));await assert.rejects(()=>buildVerifiedManifest(x.root,x.checks))});
+test('rejects fake verification label and incorrect task',async t=>{const x=await sandbox(t);await assert.rejects(()=>verifyManifest(x.root,{...x.manifest,verification:'UNVERIFIED'}));await assert.rejects(()=>verifyManifest(x.root,{...x.manifest,taskId:'L3-033'}))});
+test('rejects changed project version',async t=>{const x=await sandbox(t);await writeFile(join(x.root,'package.json'),'{"version":"9.9.9"}');await assert.rejects(()=>verifyManifest(x.root,x.manifest),/stale/)});
+test('rejects symlinks in source inventory',async t=>{const x=await sandbox(t);const {symlink}=await import('node:fs/promises');await symlink('engine.ts',join(x.root,'src/fake.ts'));await assert.rejects(()=>sourceInventory(x.root),/symbolic link/)});
+test('rejects missing dist tree',async t=>{const x=await sandbox(t);await rm(join(x.root,'dist'),{recursive:true});await assert.rejects(()=>inventory(x.root,'dist'))});

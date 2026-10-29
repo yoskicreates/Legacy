@@ -1,0 +1,19 @@
+{
+  "task_id": "L3-034",
+  "status": "REVIEW",
+  "baseline": "4d015d3b050c953cdacd688baac63b41da05781c",
+  "scope": "Actual-command-backed deterministic source/build manifest, SHA-256 inventories, recorded known issues and tamper/staleness rejection",
+  "local": {
+    "unit_tests": "20/20 PASS",
+    "negative_compiler": "6 expected diagnostics PASS",
+    "strict_scoped_typecheck": "PASS",
+    "lint": "PASS",
+    "domain_boundaries": "PASS",
+    "full_build": "PENDING_CLOUD",
+    "real_browser": "PENDING_CLOUD"
+  },
+  "cloud": {"status": "PENDING"},
+  "physical_iphone_safari": "NOT_RUN",
+  "next_task": "L3-035 NOT_STARTED",
+  "checkpoint": "NOT_CREATED"
+}

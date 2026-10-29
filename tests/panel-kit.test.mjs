@@ -1,0 +1,32 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {resolve,join} from 'node:path';
+import ts from 'typescript';
+const root=resolve(import.meta.dirname,'..');
+const read=p=>readFile(join(root,p),'utf8');
+const [contract,components,styles,html,qa,vite,reg,mainCss]=await Promise.all([
+ read('src/ui/panel-kit-contract.ts'),read('src/ui/panel-kit.ts'),read('src/ui/panel-kit.css'),read('panel-kit-qa.html'),read('src/panel-kit-qa.ts'),read('vite.config.mjs'),read('docs/task-register.json'),read('src/style.css')
+]);
+const tsjs=code=>ts.transpileModule(code,{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;
+const tokens=await read('src/design/tokens.ts');
+const tokenModule='data:text/javascript;base64,'+Buffer.from(tsjs(tokens)).toString('base64');
+const kitUrl='data:text/javascript;base64,'+Buffer.from(tsjs(contract).replace(/from ['"]\.\.\/design\/tokens['"]/,`from '${tokenModule}'`)).toString('base64');
+const api=await import(kitUrl);
+const regData=JSON.parse(reg);
+test('L3-041 four immutable, distinct components',()=>{assert.equal(api.PANEL_KIT_VERSION,'L3-041.V1');assert.deepEqual(api.PANEL_KIT_CATALOG.map(x=>x.id),['text','stat','action','list']);assert.ok(Object.isFrozen(api.PANEL_KIT_CATALOG));});
+test('dark palette reuses approved L3-035 design tokens',async()=>{const t=await import(tokenModule);assert.equal(api.PANEL_KIT_PALETTES.dark.canvas,t.SEMANTIC['surface-canvas']);assert.equal(api.PANEL_KIT_PALETTES.dark.accent,t.SEMANTIC['accent-primary']);});
+test('light and dark pass WCAG 2 AA normal text at 4.5:1',()=>{for(const theme of ['dark','light']){assert.equal(api.assertPanelKitContrast(theme),true);for(const [fg,bg] of api.PANEL_KIT_TEXT_PAIRS)assert.ok(Boolean(api.PANEL_KIT_PALETTES[theme][fg]));}});
+test('invalid runtime theme is rejected',()=>assert.throws(()=>api.assertPanelKitContrast('teal'),/Unknown/));
+test('light palette uses visibly distinct surface and ink',()=>{assert.notEqual(api.PANEL_KIT_PALETTES.light.canvas,api.PANEL_KIT_PALETTES.dark.canvas);assert.notEqual(api.PANEL_KIT_PALETTES.light.ink,api.PANEL_KIT_PALETTES.dark.ink);});
+test('component API has four independently reusable exported functions',()=>{for(const x of ['TextCard','StatPanel','ActionTile','PanelList'])assert.match(components,new RegExp(`export function ${x}\\(`));});
+test('text card uses article with heading and description',()=>{assert.match(components,/h\('article'/);assert.match(components,/h\('h2'/);assert.match(components,/h\('p'/);});
+test('stats expose semantic description list with dt and dd',()=>{for(const x of ["h('dl'","h('dt'","h('dd'"])assert.ok(components.includes(x),x);});
+test('actions use real button and supplied callback, never empty handler',()=>{assert.match(components,/type:'button',onClick:onActivate/);assert.match(components,/onActivate:\(\)=>void/);assert.doesNotMatch(components,/localStorage|indexedDB|fetch\(|window\.history/);});
+test('lists use native ul/li and data-driven stable keys',()=>{assert.match(components,/h\('ul'/);assert.match(components,/h\('li',\{key:item\.id\}/);});
+test('gallery includes preview-only action acknowledgement and role status',()=>{assert.match(components,/No game data changed/);assert.match(components,/role:'status'/);assert.match(components,/setActionCount/);assert.match(components,/no gameplay/i);});
+test('theme switch uses pressed native buttons, no sliders',()=>{assert.match(components,/'aria-pressed':theme===t/);assert.match(components,/setTheme\(t\)/);assert.doesNotMatch(components+html,/<input|<select|type=['"]range|slider/i);});
+test('panel kit styles use scoped CSS tokens and tactile accessible controls',()=>{assert.match(styles,/\.legacy-kit\[data-kit-theme="light"\]/);assert.match(styles,/min-block-size:44px/);assert.match(styles,/:focus-visible/);assert.match(styles,/grid-template-columns:minmax\(0,1fr\)/);assert.doesNotMatch(styles,/overflow-x\s*:\s*hidden/);});
+test('uses native accessibility semantics and live status',()=>{assert.match(components,/role:'group'/);assert.match(components,/aria-label/);assert.match(components,/'aria-live':'polite'/);});
+test('separate Vite QA page and entry preserve existing game renderer',()=>{assert.match(vite,/panelKitQa: path\('\.\/panel-kit-qa\.html'\)/);assert.match(html,/viewport-fit=cover/);assert.match(qa,/PanelKitGallery/);assert.doesNotMatch(qa,/PixiJS|mountRendererViewport/);assert.doesNotMatch(mainCss,/panel-kit/);});
+test('earlier L3-040 milestone remains accepted and L3-041 not previously completed',()=>{assert.equal(regData.tasks.find(x=>x.id==='L3-040').status,'completed');assert.equal(regData.tasks.find(x=>x.id==='L3-041').status,'planned');});

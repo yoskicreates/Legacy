@@ -1,0 +1,7 @@
+# L3-041 — Shared Panel & Card Kit
+
+**Milestone scope only:** Four reusable Preact presentation primitives: semantic text card, definition-list stat panel, real button action tile, native-list panel. Typed immutable props with eight deliberately invalid TypeScript test cases. Dedicated public standalone `panel-kit-qa.html` uses a scoped dark and light presentation theme with 4.5:1 WCAG AA normal-text contrast and a real local acknowledgement action. No game, save, navigation or fighter mutation.
+
+**Visual rules:** Preserve L3-035 midnight navy/warm gold tokens and L3-036 typography for dark theme. The light palette is strictly scoped to `.legacy-kit[data-kit-theme="light"]`, keeping all existing LEGACY dark screens unchanged. Cards wrap responsively at 375/390/402/430 CSS px and 200% text sizing, native buttons remain 44px+, and keyboard focus has a visible ring. Simulated safe areas and landscape are tested. Do not add sliders, gameplay, or L3-042 selection controls.
+
+**Acceptance:** Clean `npm ci`, strict TypeScript and eight negative type cases, 16+ dedicated unit assertions, all previous L3-020–040 regressions, lint, genuine Vite build and independently checked build manifest, real dev/preview Chromium at four requested widths, light/dark computed contrast, keyboard/touch, simulated safe areas, no browser exceptions or horizontal overflow. Physical iPhone Safari not verified. No merge until CI and non-overwriting source/full-history/preview/QA Library checkpoints all verified.

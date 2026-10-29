@@ -1,0 +1,13 @@
+{
+  "task": "L3-041",
+  "status": "REVIEW / NOT YET ACCEPTED",
+  "accepted_baseline": "L3-040 PR #21 merge 1ff9354b1cdc8fcf93fc9de27d68c81d1479d34c",
+  "scope": "Semantic reusable text cards, stat panels, action tiles and native list components; standalone dark/light gallery only",
+  "color_contrast": "WCAG AA normal text >=4.5:1 both themes; pending real browser computed contrast",
+  "browser": "PENDING real Vite dev/preview Chromium 375/390/402/430px",
+  "physical_iphone_safari": "NOT_RUN",
+  "regressions": "PENDING L3-020\u2013040",
+  "no_gameplay_or_persistence": true,
+  "merge_gate": "21 inherited + 1 new workflow pass on accepted final commit and archives verified",
+  "next_task": "L3-042 NOT STARTED"
+}

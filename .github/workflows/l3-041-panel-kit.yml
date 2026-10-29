@@ -1,0 +1,184 @@
+name: LEGACY 3.0 L3-041 Panel and Card Kit Acceptance
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fixtures:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - name: Checkout L3-041 review source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Clean pinned dependency install
+        run: npm ci --no-audit --no-fund
+      - name: Shared panel-kit contracts, negative cases, contrast and inherited UI tests
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          npm run typecheck:panel-kit
+          npm run test:panel-kit:negative
+          npm run test:panel-kit
+          npm run typecheck:nested-nav
+          npm run test:nested-nav:negative
+          npm run test:nested-nav
+          npm run typecheck:bottom-nav
+          npm run test:bottom-nav:negative
+          npm run test:bottom-nav
+          npm run typecheck:home
+          npm run test:home:negative
+          npm run test:home
+          npm run typecheck:safe-area
+          npm run test:safe-area:negative
+          npm run test:safe-area
+          npm run typecheck:typography
+          npm run test:typography:negative
+          npm run test:typography
+          npm run typecheck:design-tokens
+          npm run test:design-tokens:negative
+          npm run test:design-tokens
+      - name: All L3-020 through L3-040 regressions and genuine Vite build
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          npm run check:vite
+          npm run lint:domains
+          npm run typecheck:clock
+          npm run typecheck:random
+          npm run typecheck:events
+          npm run typecheck:state
+          npm run typecheck:indexeddb
+          npm run typecheck:autosave
+          npm run typecheck:manual-slots
+          npm run typecheck:export-import
+          npm run typecheck:migrations
+          npm run typecheck:fixtures
+          npm run typecheck:build-manifest
+          npm run typecheck:design-tokens
+          npm run typecheck:typography
+          npm run typecheck:bottom-nav
+          npm run test:bottom-nav:negative
+          npm run test:bottom-nav
+          npm run typecheck:panel-kit
+          npm run test:panel-kit:negative
+          npm run test:panel-kit
+          npm run typecheck:nested-nav
+          npm run test:nested-nav:negative
+          npm run test:nested-nav
+          npm run typecheck:home
+          npm run typecheck:safe-area
+          npm run typecheck
+          npm run test:types:negative
+          npm run test:indexeddb:negative
+          npm run test:autosave:negative
+          npm run test:manual-slots:negative
+          npm run test:export-import:negative
+          npm run test:migrations:negative
+          npm run test:fixtures:negative
+          npm run test:build-manifest:negative
+          npm run test:design-tokens:negative
+          npm run test:typography:negative
+          npm run test:home:negative
+          npm run test:safe-area:negative
+          npm run lint
+          npm test
+          npm run build
+          test -f dist/panel-kit-qa.html
+          test -f dist/manifest-qa.html
+          test -f dist/fixtures-qa.html
+          test -f dist/design-tokens-qa.html
+          test -f dist/typography-qa.html
+          test -f dist/safe-area-qa.html
+      - name: Generate and independently verify hashed source/build/test manifest
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          npm run manifest:generate
+          npm run manifest:verify
+          test -f dist/build-manifest.json
+          test -f public/build-manifest.json
+      - name: Install real Chromium test tools
+        shell: bash
+        run: |
+          python -m pip install --disable-pip-version-check playwright==1.55.0
+          python -m playwright install --with-deps chromium
+      - name: Real Chromium light/dark panel kit and all preceding browser regressions
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          mkdir -p l3-041-acceptance/{kit-dev,kit-preview,nested-dev,nested-preview,bottom-dev,bottom-preview,home-dev,home-preview,safe-dev,safe-preview,type-dev,type-preview,design-dev,design-preview,manifest-dev,manifest-preview,fixtures-dev,fixtures-preview,migration-dev,migration-preview,export-dev,export-preview,slots-dev,slots-preview,autosave-dev,autosave-preview,indexeddb-dev,indexeddb-preview,dev-boundary,preview-boundary,dev-vite,preview-vite}
+          npm run dev -- --strictPort > l3-041-acceptance/dev-server.log 2>&1 &
+          dp=$!
+          npm run preview -- --strictPort > l3-041-acceptance/preview-server.log 2>&1 &
+          pp=$!
+          trap 'kill "$dp" "$pp" 2>/dev/null || true' EXIT
+          for port in 5173 4173; do
+            ready=0
+            for i in $(seq 1 45); do
+              if curl -fsS "http://127.0.0.1:$port/" >/dev/null; then ready=1; break; fi
+              sleep 1
+            done
+            test "$ready" = 1 || { echo "Vite server unavailable $port"; exit 1; }
+          done
+          for stage in 'dev 5173' 'preview 4173'; do
+            set -- $stage
+            name=$1; port=$2
+            url="http://127.0.0.1:$port"
+            python scripts/chromium-panel-kit-qa.py --base-url "$url" --out "l3-041-acceptance/kit-$name"
+            python scripts/chromium-nested-nav-qa.py --base-url "$url" --out "l3-041-acceptance/nested-$name"
+            python scripts/chromium-bottom-nav-qa.py --base-url "$url" --out "l3-041-acceptance/bottom-$name"
+            python scripts/chromium-home-screen-qa.py --base-url "$url" --out "l3-041-acceptance/home-$name"
+            python scripts/chromium-safe-area-qa.py --base-url "$url" --out "l3-041-acceptance/safe-$name"
+            python scripts/chromium-typography-qa.py --base-url "$url" --out "l3-041-acceptance/type-$name"
+            python scripts/chromium-design-tokens-qa.py --base-url "$url" --out "l3-041-acceptance/design-$name"
+            python scripts/chromium-build-manifest-qa.py --base-url "$url" --out "l3-041-acceptance/manifest-$name"
+            python scripts/chromium-fixtures-qa.py --base-url "$url" --out "l3-041-acceptance/fixtures-$name"
+            python scripts/chromium-migrations-qa.py --base-url "$url" --out "l3-041-acceptance/migration-$name"
+            python scripts/chromium-export-import-qa.py --base-url "$url" --out "l3-041-acceptance/export-$name"
+            python scripts/chromium-manual-slots-qa.py --base-url "$url" --out "l3-041-acceptance/slots-$name"
+            python scripts/chromium-autosave-qa.py --base-url "$url" --out "l3-041-acceptance/autosave-$name"
+            python scripts/chromium-indexeddb-qa.py --base-url "$url" --out "l3-041-acceptance/indexeddb-$name"
+            python scripts/chromium-boundary-qa.py --base-url "$url" --out "l3-041-acceptance/$name-boundary"
+            python scripts/chromium-vite-qa.py --base-url "$url" --out "l3-041-acceptance/$name-vite"
+          done
+      - name: Preserve acceptance evidence
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p l3-041-acceptance
+          test ! -d dist || cp -a dist l3-041-acceptance/dist
+          cp docs/L3-041-PANEL-KIT.md l3-041-acceptance/contract.md
+          cp docs/L3-041-ACCEPTANCE.json l3-041-acceptance/acceptance.json
+          if test -f dist/build-manifest.json; then cp dist/build-manifest.json l3-041-acceptance/build-manifest.json; fi
+          if test -d l3-034-evidence; then cp -a l3-034-evidence l3-041-acceptance/command-logs; fi
+          cp docs/task-register.json l3-041-acceptance/task-register.json
+          git status --short > l3-041-acceptance/git-status.txt
+          git log --oneline --all > l3-041-acceptance/git-history.txt
+          git bundle create l3-041-acceptance/github-history.bundle --all
+          git bundle verify l3-041-acceptance/github-history.bundle
+          git archive --format=zip HEAD -o l3-041-acceptance/tested-source.zip
+      - name: Upload QA screenshots, build and logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: LEGACY3-L3-041-panel-kit
+          path: l3-041-acceptance/
+          if-no-files-found: warn
+          retention-days: 30

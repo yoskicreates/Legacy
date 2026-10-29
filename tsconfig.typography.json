@@ -1,0 +1,1 @@
+{"extends":"./tsconfig.json","include":["src/design/typography.ts","src/design/typography-preview.ts"],"exclude":["tests/design/typography-negative.ts","node_modules","dist"]}

@@ -1,0 +1,18 @@
+{
+  "task": "L3-036",
+  "status": "REVIEW_PENDING",
+  "parent_accepted_merge": "d03d3efdcf6fc6afa5a3527547a0cfc7bf04e5b4",
+  "scope": "semantic responsive typography only",
+  "local_evidence": {
+    "typography_unit_tests": "21/21 PASS",
+    "design_palette_regression": "22/22 PASS",
+    "negative_types": "7 expected diagnostics",
+    "typography_typecheck": "PASS",
+    "lint": "PASS",
+    "domain_boundary": "PASS"
+  },
+  "cloud_evidence": "PENDING",
+  "chromium": "PENDING",
+  "physical_iphone_safari": "NOT_RUN",
+  "next": "L3-037 NOT_STARTED"
+}

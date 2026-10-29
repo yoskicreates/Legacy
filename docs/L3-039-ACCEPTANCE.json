@@ -1,6 +1,6 @@
 {
   "task": "L3-039",
-  "status": "IN_REVIEW",
+  "status": "ACCEPTED — MERGE PENDING",
   "accepted_baseline": "L3-038 merge 21ae4ec1ae802d165c3fe7f08e8a14a5ff48fca5",
   "scope": "Five native bottom navigation tabs and non-playable preview routes; no L3-040",
   "route_mapping": {
@@ -19,5 +19,40 @@
   },
   "mandatory_cloud_validation": "PENDING",
   "physical_iphone_safari": "NOT_RUN",
-  "merge_allowed": false
+  "merge_allowed": "after metadata-only acceptance commit passes all workflows and backups verified",
+  "verified_review_head": "5b001aa31a7d8c0fd2446067c89b3cf57a967177",
+  "github_review_workflows": "20/20 PASS",
+  "chromium": {
+    "dev": {
+      "widths": [
+        375,
+        390,
+        402,
+        430
+      ],
+      "assertions": 552,
+      "passes": 4
+    },
+    "preview": {
+      "widths": [
+        375,
+        390,
+        402,
+        430
+      ],
+      "assertions": 552,
+      "passes": 4
+    },
+    "browser_exceptions": 0
+  },
+  "clean_npm_ci": "PASS",
+  "typecheck": "PASS",
+  "negative_type_cases": 7,
+  "dedicated_contract_tests": 17,
+  "lint": "PASS",
+  "unit_tests": "PASS",
+  "build": "genuine Vite PASS",
+  "build_manifest": "PASS",
+  "inherited_regressions": "L3-020 through L3-038 PASS",
+  "no_gameplay_or_persistence": true
 }

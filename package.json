@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "LEGACY 3.0 L3-034: reproducible, verifiable source/build manifest (non-playable foundation)",
+  "description": "LEGACY 3.0 L3-035: reusable visual tokens and contrast-verified non-playable preview",
   "engines": {
     "node": ">=22"
   },
@@ -53,7 +53,10 @@
     "test:build-manifest": "node --test tests/build-manifest.test.mjs",
     "test:build-manifest:negative": "node scripts/build-manifest-negative-test.mjs",
     "manifest:generate": "node scripts/build-manifest.mjs generate",
-    "manifest:verify": "node scripts/build-manifest.mjs verify"
+    "manifest:verify": "node scripts/build-manifest.mjs verify",
+    "typecheck:design-tokens": "tsc --project tsconfig.design-tokens.json --noEmit",
+    "test:design-tokens": "node --test tests/design-tokens.test.mjs",
+    "test:design-tokens:negative": "node scripts/design-tokens-negative-test.mjs"
   },
   "devDependencies": {
     "typescript": "5.8.3",

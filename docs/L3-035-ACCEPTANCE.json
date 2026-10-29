@@ -1,0 +1,14 @@
+{
+  "task_id": "L3-035",
+  "status": "COMPLETE",
+  "baseline": "d84e19552280cff101e9315a0580cddb8106160d",
+  "scope": "Typed semantic colors and CSS variables, documented contrast pairs, isolated responsive design preview",
+  "unit_tests": "22/22 PASS",
+  "negative_types": "7/7 expected diagnostics PASS",
+  "real_chromium": "8/8 PASS, 216 assertions on actual Vite dev+preview at 375/390/402/430 CSS px",
+  "prior_regressions": "L3-020 through L3-034; 16/16 review CI workflows PASS",
+  "physical_iphone_safari": "NOT_RUN",
+  "next_task": "L3-036 NOT_STARTED",
+  "github_review_run": 40796194955,
+  "source_checkpoint": "LEGACY_3_0_L3-035_COMPLETE_SOURCE.zip"
+}

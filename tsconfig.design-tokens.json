@@ -1,0 +1,1 @@
+{"extends":"./tsconfig.json","include":["src/design/tokens.ts","src/design/preview.ts"],"exclude":["tests/design/design-tokens-negative.ts","node_modules","dist"]}

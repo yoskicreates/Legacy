@@ -84,3 +84,7 @@ Three strictly typed fixed slot IDs with caller-supplied timestamp, independent 
 ## L3-031 review history (accepted)
 
 Portable SHA-256 validated V1 manual save export/import is under review. It never silently overwrites occupied slots and does not add migration, gameplay, or UI. Acceptance requires all cloud regression and real-browser tests plus immutable source checkpoint. See `docs/L3-031-EXPORT-IMPORT.md`.
+
+## L3-035 — Accepted design token foundation
+
+Typed semantic colors, contrast checked WCAG AA pairings and an isolated mobile-friendly palette preview. See `docs/L3-035-DESIGN-TOKENS.md`, `docs/L3-035-ACCEPTANCE.json` and `design-tokens-qa.html`. No gameplay or L3-036 typography yet.

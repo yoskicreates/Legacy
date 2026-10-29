@@ -1,0 +1,12 @@
+{
+  "task_id":"L3-035",
+  "status":"IN_REVIEW",
+  "baseline":"d84e19552280cff101e9315a0580cddb8106160d",
+  "scope":"Typed semantic colors and CSS variables, documented contrast pairs, isolated responsive design preview",
+  "unit_tests":"22 dedicated tests",
+  "negative_types":"7 expected TypeScript diagnostics",
+  "real_chromium":"PENDING_CI",
+  "prior_regressions":"L3-020 through L3-034 PENDING_CI",
+  "physical_iphone_safari":"NOT_RUN",
+  "next_task":"L3-036 NOT_STARTED"
+}

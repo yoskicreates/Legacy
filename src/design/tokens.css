@@ -1,0 +1,18 @@
+/* L3-035 — source of truth: src/design/tokens.ts. Values synchronized by tests. */
+:root {
+  --legacy-surface-canvas: #101824;
+  --legacy-surface-panel: #172433;
+  --legacy-surface-raised: #223246;
+  --legacy-border-default: #465568;
+  --legacy-border-subtle: #344356;
+  --legacy-text-primary: #F3F5F8;
+  --legacy-text-secondary: #B9C7D4;
+  --legacy-text-subtle: #BECBD7;
+  --legacy-accent-primary: #DDBD82;
+  --legacy-accent-hover: #EBD19E;
+  --legacy-alert-primary: #D97B78;
+  --legacy-alert-hover: #EC9E9B;
+  --legacy-on-accent: #101824;
+  --legacy-on-alert: #101824;
+  --legacy-focus-ring: #EBD19E;
+}

@@ -11,3 +11,6 @@ coverage/
 .DS_Store
 Thumbs.db
 *.log
+l3-034-evidence/
+l3-034-acceptance/
+public/build-manifest.json

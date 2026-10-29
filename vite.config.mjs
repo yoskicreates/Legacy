@@ -13,5 +13,5 @@ export default {
   }},
   server: { host: '127.0.0.1', port: 5173, strictPort: true },
   preview: { host: '127.0.0.1', port: 4173, strictPort: true },
-  build: { target: 'es2022', outDir: 'dist', emptyOutDir: true, rollupOptions: { input: { main: path('./index.html'), indexeddbQa: path('./indexeddb-qa.html'), autosaveQa: path('./autosave-qa.html'), manualSlotsQa: path('./manual-slots-qa.html'), exportImportQa: path('./export-import-qa.html'), migrationsQa: path('./migrations-qa.html'), fixturesQa: path('./fixtures-qa.html') } } }
+  build: { target: 'es2022', outDir: 'dist', emptyOutDir: true, rollupOptions: { input: { main: path('./index.html'), indexeddbQa: path('./indexeddb-qa.html'), autosaveQa: path('./autosave-qa.html'), manualSlotsQa: path('./manual-slots-qa.html'), exportImportQa: path('./export-import-qa.html'), migrationsQa: path('./migrations-qa.html'), fixturesQa: path('./fixtures-qa.html'), manifestQa: path('./manifest-qa.html') } } }
 };

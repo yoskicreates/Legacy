@@ -1,11 +1,9 @@
 # LEGACY 3.0 TASK STATUS
 
-**L3-033 — Create test fixture system: COMPLETE / ACCEPTED**  
-**Progress: 33 accepted / 272**  
-**Next: L3-034 — Create build manifest generator (NOT STARTED)**
+**L3-034 — Create build manifest generator: COMPLETE / ACCEPTED**  
+**Progress: 34 accepted / 272**  
+**Next: L3-035 — Define design tokens (NOT STARTED)**
 
-Test-only pure reusable fake fighters, deterministic V1 career state and manual save slot fixtures, explicit seed/clock/timestamp inputs, seeded PRNG contract, invalid/malformed and boundary cases. Three saved career fixtures remain independent and source values are immutable. The fixture generator never writes actual game or browser save data, and only the separate Chromium QA harness writes test records to verify prior saves remain untouched after fixture generation.
+L3-034 generates a deterministic SHA-256 manifest from actual source and genuine Vite build files, real execution of seven fixed test commands, exact evidence logs, the project version, task ID and known issues. It detects stale or falsified files, commands, log hashes, changed build outputs and missing files. 20 dedicated tests, six deliberate TypeScript rejections, verified Chromium browser results, and all L3-020 through L3-033 regressions PASS in GitHub CI. Source and original local Git history are preserved with immutable numbered checkpoints.
 
-22/22 dedicated Node unit tests, seven deliberately rejected TypeScript contracts, clean npm ci, strict TypeScript, lint, genuine Vite production build, all earlier regressions and **14/14** GitHub workflows passed on review. 8/8 real Chromium fixture checks across Vite dev+preview at 375/390/402/430 CSS px, 208 fixture assertions PASS. Physical iPhone Safari: **NOT_RUN**.
-
-**Not implemented:** production fighter model, actual career gameplay, user-facing fixture controls, auto-injected mock data, L3-034, or a playable MMA simulator. Verified numbered source/repository/QA and complete inherited original local Git history checkpoints preserved in ChatGPT Library `/LEGACY_3_0/`. See [fixture spec](L3-033-FIXTURES.md) and [acceptance report](L3-033-ACCEPTANCE.json).
+No playable MMA system, player-facing manifest UI, L3-035 or actual iPhone Safari QA has been implemented. Generated local evidence is integrity-checked but is not cryptographically signed external provenance.

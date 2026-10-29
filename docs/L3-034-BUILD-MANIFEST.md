@@ -1,0 +1,11 @@
+# LEGACY 3.0 L3-034 — Verified build manifest generator
+
+This task produces a deterministic build record **from actual generated files and commands invoked by the generator**, not from a claimed success field in an external JSON file. The generator reads package version, known issues, hashes all included source and Vite `dist` files, runs a fixed seven-check toolchain, saves the full logs and computes their SHA-256 digests. Any nonzero status, missing/empty log, missing Vite `dist/index.html`, missing file or changed hash causes rejection. The implementation is limited to manifests and QA; no gameplay, design or savings changes are included.
+
+## Run and verify
+
+From project root after `npm ci`: `npm run manifest:generate` then `npm run manifest:verify`. Generate reruns lint, domain boundaries, strict TypeScript, negative TypeScript and fixture negative tests, all unit tests, and genuine Vite build. Exact logs are written to `l3-034-evidence/*.log` and the generated identical manifest appears in `public/build-manifest.json` and `dist/build-manifest.json`; these generated files are not committed and are excluded from recursive self-hashing.
+
+The manifest contains `taskId`, `projectVersion`, format identifier, `knownIssues`, `verification`, `source` and `build` SHA-256 inventory arrays, and actual test command evidence. Entries are sorted by relative path, and no timestamps or random IDs are inserted. The source digest covers the canonical ordered inventory; the Vite output digest covers all actual `dist` artifacts except the manifest itself. Logs are excluded from source inventory and separately integrity checked. Verification reenumerates entire inputs, refuses missing/new/changed files, mismatched checksums, missing log evidence, malformed versions, or changed known-issues declarations. Symlinks are not allowed within source/build inventory.
+
+Limitations: local recorded output is **not a cryptographic signature, trusted remote attestation or proof against an adversary able to rewrite the repository and evidence together**. It cannot establish browser tests run unless these are separately verified in CI; browser regression evidence is provided by GitHub Actions with screenshots. The build is a non-playable technical foundation; actual iPhone Safari is NOT_RUN. No L3-035 design tokens or later gameplay are implemented.

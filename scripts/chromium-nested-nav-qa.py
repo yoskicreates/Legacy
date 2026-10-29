@@ -44,7 +44,7 @@ def run(base,out):
      page.locator('[data-detail-page="root"]').wait_for();checks+=1
      page.locator('#detail-open-'+level1).click()
      page.locator(f'[data-detail-page="{level1}"]').wait_for()
-     assert page.locator('.legacy-breadcrumbs [aria-current="page"]').count()==1
+     assert page.locator('.legacy-breadcrumbs [aria-current="location"]').count()==1
      assert page.locator('#page-title').evaluate('(e)=>e===document.activeElement')
      layout(page);checks+=9
      page.locator('#detail-open-'+level2).click()

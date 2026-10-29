@@ -95,7 +95,7 @@ function Menu({ rendererStatus }: { readonly rendererStatus: RendererStatus }) {
                 const last=index===all.length-1;
                 const label=step===null?activeTab.label:detailDefinition(step).title;
                 return h('span',{class:'legacy-crumb',key:step??'root'}, [
-                  last?h('span',{class:'legacy-crumb-current','aria-current':'page'},label):
+                  last?h('span',{class:'legacy-crumb-current','aria-current':'location'},label):
                     h('button',{type:'button',id:step===null?'detail-crumb-root':`detail-crumb-${step}`,'aria-label':`Return to ${label}`,onClick:()=>goBreadcrumb(step)},label),
                   !last?h('span',{class:'legacy-crumb-divider','aria-hidden':'true'},'›'):null,
                 ]);

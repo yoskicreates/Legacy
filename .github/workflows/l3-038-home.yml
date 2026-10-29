@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Checkout L3-038 review source
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Set up Node.js 22
         uses: actions/setup-node@v4
         with:
@@ -27,7 +29,7 @@ jobs:
           python-version: '3.11'
       - name: Clean pinned dependency install
         run: npm ci --no-audit --no-fund
-      - name: Strict home contracts, seven invalid cases and 22 dedicated tests
+      - name: Strict home contracts, seven invalid cases and dedicated tests
         shell: bash
         run: |
           set -Eeuo pipefail
@@ -146,7 +148,10 @@ jobs:
           if test -d l3-034-evidence; then cp -a l3-034-evidence l3-038-acceptance/command-logs; fi
           cp docs/task-register.json l3-038-acceptance/task-register.json
           git status --short > l3-038-acceptance/git-status.txt
-          git log --oneline -10 > l3-038-acceptance/git-history.txt
+          git log --oneline --all > l3-038-acceptance/git-history.txt
+          git bundle create l3-038-acceptance/github-history.bundle --all
+          git bundle verify l3-038-acceptance/github-history.bundle
+          git archive --format=zip HEAD -o l3-038-acceptance/tested-source.zip
       - name: Upload QA screenshots, build and logs
         if: always()
         uses: actions/upload-artifact@v4

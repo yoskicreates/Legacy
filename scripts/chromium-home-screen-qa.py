@@ -65,6 +65,21 @@ def run(base,out):
                     page.locator('#home-back').click()
                     assert page.locator('.legacy-home[data-home-view="home"]').count()==1
                     assert_layout(page);assertions+=6
+                # Keyboard navigation must follow replaced content and return to its trigger.
+                for action in ACTIONS:
+                    button=page.locator('#home-'+action)
+                    button.focus()
+                    outline=button.evaluate('(el)=>getComputedStyle(el).outlineStyle')
+                    assert outline != 'none',f'missing keyboard focus ring: {action}'
+                    page.keyboard.press('Enter')
+                    page.wait_for_function("document.activeElement?.id==='page-title'")
+                    assert page.locator('#page-title').get_attribute('tabindex')=='-1'
+                    page.keyboard.press('Shift+Tab')
+                    assert page.evaluate('document.activeElement.id')=='home-back'
+                    page.keyboard.press('Space')
+                    page.wait_for_function("document.activeElement?.id==='home-"+action+"'")
+                    assert_layout(page)
+                    assertions+=6
                 page.locator('#check-button').click()
                 assert page.locator('#check-button').get_attribute('aria-pressed')=='true'
                 assert page.locator('#check-result').inner_text()=='Browser module loaded and interaction verified.'

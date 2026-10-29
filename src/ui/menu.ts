@@ -1,6 +1,6 @@
 /** L3-038 Preact home: no navigation router, persistence reads or gameplay. */
 import { h, render } from 'preact';
-import { useState } from 'preact/hooks';
+import { useLayoutEffect, useRef, useState } from 'preact/hooks';
 import { HOME_ACTIONS, HOME_PANELS, type HomeView, type HomeAction } from './home-contract';
 
 export type RendererStatus = 'starting' | 'ready' | 'unavailable' | 'unmounted';
@@ -12,6 +12,15 @@ export interface MenuMount {
 function Menu({ rendererStatus }: { readonly rendererStatus: RendererStatus }) {
   const [verified, setVerified] = useState(false);
   const [view, setView] = useState<HomeView>('home');
+  const previousView = useRef<HomeView>('home');
+  useLayoutEffect(() => {
+    const previous = previousView.current;
+    if (previous === view) return;
+    previousView.current = view;
+    // Move focus with the replaced content; restore the originating control on return.
+    const target = view === 'home' ? `home-${previous}` : 'page-title';
+    document.getElementById(target)?.focus();
+  }, [view]);
   const rendererDescription: Record<RendererStatus, string> = {
     starting: 'Initializing independent PixiJS renderer…',
     ready: 'Independent PixiJS canvas mounted.',
@@ -49,7 +58,7 @@ function Menu({ rendererStatus }: { readonly rendererStatus: RendererStatus }) {
               h('span', { class: 'legacy-home-divider', 'aria-hidden': 'true' }),
               h('span', { class: 'legacy-home-subtitle' }, 'VISUAL FOUNDATION'),
             ]),
-            h('h1', { id: 'page-title', class: 'legacy-home-title' }, ['BUILD YOUR ', h('strong', {}, 'LEGACY.')]),
+            h('h1', { id: 'page-title', tabIndex: -1, class: 'legacy-home-title' }, ['BUILD YOUR ', h('strong', {}, 'LEGACY.')]),
             h('p', { class: 'legacy-home-lede' }, 'Every champion has a beginning. Explore the home-screen design as the career simulator takes shape.'),
             h('div', { class: 'legacy-home-actions', 'aria-label': 'Home actions' }, HOME_ACTIONS.map(action => homeAction(action.id))),
             h('p', { class: 'legacy-home-footnote' }, 'PREVIEW BUILD · No career creation or gameplay is available yet.'),
@@ -57,7 +66,7 @@ function Menu({ rendererStatus }: { readonly rendererStatus: RendererStatus }) {
         : h('div', { key: 'panel', class: 'legacy-home-panel', 'data-panel': view, 'aria-label': `${view} preview` }, [
             h('button', { id: 'home-back', class: 'legacy-home-back', type: 'button', onClick: () => setView('home') }, '← Back to Home'),
             h('span', { class: 'legacy-home-kicker' }, HOME_PANELS[view].note),
-            h('h1', { id: 'page-title', class: 'legacy-home-title' }, HOME_PANELS[view].title),
+            h('h1', { id: 'page-title', tabIndex: -1, class: 'legacy-home-title' }, HOME_PANELS[view].title),
             h('p', { id: 'home-panel-description', role: 'status', 'aria-live': 'polite' }, HOME_PANELS[view].body),
             h('small', {}, 'No game or save state is changed in this preview.'),
           ]),

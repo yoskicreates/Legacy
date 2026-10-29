@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "LEGACY 3.0 L3-037: reusable iPhone safe-area shell and simulated mobile inset QA (non-playable)",
+  "description": "LEGACY 3.0 L3-038: mobile home layout preview and functioning Start, Continue, Settings panels (non-playable)",
   "engines": {
     "node": ">=22"
   },
@@ -62,7 +62,10 @@
     "test:typography:negative": "node scripts/typography-negative-test.mjs",
     "typecheck:safe-area": "tsc --project tsconfig.safe-area.json --noEmit",
     "test:safe-area": "node --test tests/safe-area.test.mjs",
-    "test:safe-area:negative": "node scripts/safe-area-negative-test.mjs"
+    "test:safe-area:negative": "node scripts/safe-area-negative-test.mjs",
+    "typecheck:home": "tsc --project tsconfig.home.json --noEmit",
+    "test:home": "node --test tests/home-screen.test.mjs",
+    "test:home:negative": "node scripts/home-negative-test.mjs"
   },
   "devDependencies": {
     "typescript": "5.8.3",

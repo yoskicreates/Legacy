@@ -1,0 +1,11 @@
+{
+  "task": "L3-038",
+  "status": "REVIEW_PENDING",
+  "scope": "Non-playable Preact Start, Continue and Settings home previews",
+  "requirements": ["three accessible controls", "back-to-home", "375/390/402/430 mobile", "200% text zoom", "simulated safe-area + landscape", "retain renderer and prior browser checks"],
+  "physical_iphone_safari": "NOT_RUN",
+  "start_creates_game": false,
+  "continue_reads_save": false,
+  "settings_persists": false,
+  "merged": false
+}

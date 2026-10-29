@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "LEGACY 3.0 L3-039: five mobile bottom navigation tab previews with typed in-memory route history (non-playable)",
+  "description": "LEGACY 3.0 L3-040: route-scoped nested detail preview navigation (non-playable)",
   "engines": {
     "node": ">=22"
   },
@@ -68,7 +68,10 @@
     "test:home:negative": "node scripts/home-negative-test.mjs",
     "typecheck:bottom-nav": "tsc --project tsconfig.bottom-nav.json --noEmit",
     "test:bottom-nav": "node --test tests/bottom-nav.test.mjs",
-    "test:bottom-nav:negative": "node scripts/bottom-nav-negative-test.mjs"
+    "test:bottom-nav:negative": "node scripts/bottom-nav-negative-test.mjs",
+    "typecheck:nested-nav": "tsc --project tsconfig.nested-nav.json --noEmit",
+    "test:nested-nav": "node --test tests/nested-nav.test.mjs",
+    "test:nested-nav:negative": "node scripts/nested-nav-negative-test.mjs"
   },
   "devDependencies": {
     "typescript": "5.8.3",

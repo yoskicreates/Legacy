@@ -1,0 +1,15 @@
+{
+  "task": "L3-040",
+  "status": "REVIEW_ONLY \u2014 NOT ACCEPTED",
+  "accepted_baseline": "L3-039 PR #20 merge 9cb70cb3873ffb9b0680b1bfd6539f6cb8b5aaa1",
+  "scope": "Route-scoped two-level nested preview pages, breadcrumb navigation, contextual Back/Forward, and tab context; no gameplay or L3-041",
+  "local_evidence": {
+    "dedicated_unit_tests": "17 PASS",
+    "negative_type_cases": "7 rejected",
+    "nested_contract_typecheck": "PASS",
+    "full_dependency_install": "BLOCKED/NOT_RUN locally \u2014 cloud mandatory"
+  },
+  "mandatory_cloud_validation": "PENDING",
+  "physical_iphone_safari": "NOT_RUN",
+  "merge_gate": "all workflows PASS on final review head and verifiable non-overwriting archives saved"
+}

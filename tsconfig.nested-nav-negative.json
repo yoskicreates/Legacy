@@ -1,0 +1,1 @@
+{"extends":"./tsconfig.json","include":["src/ui/nested-nav-contract.ts","tests/ui/nested-nav-negative.ts"],"exclude":["node_modules","dist"],"compilerOptions":{"types":[]}}

@@ -3,6 +3,7 @@ import { h, render } from 'preact';
 import { useLayoutEffect, useRef, useState } from 'preact/hooks';
 import { HOME_ACTIONS, HOME_PANELS, type HomeView, type HomeAction } from './home-contract';
 import { BOTTOM_NAV_ITEMS, tabForRoute, routeForTab, type BottomTabId } from './bottom-nav-contract';
+import { initialNestedState, currentDetail, canDetailBack, canDetailForward, openDetail, detailBack, detailForward, rewindDetail, detailBreadcrumbs, detailDefinition, detailsForParent, type NestedDetailId } from './nested-nav-contract';
 import { initialRouteState, reduceRoute, currentRoute, canGoBack, canGoForward, type RouteAction } from '../navigation/route-state';
 
 export type RendererStatus = 'starting' | 'ready' | 'unavailable' | 'unmounted';
@@ -15,15 +16,29 @@ function Menu({ rendererStatus }: { readonly rendererStatus: RendererStatus }) {
   const [verified, setVerified] = useState(false);
   const [view, setView] = useState<HomeView>('home');
   const [routeState, setRouteState] = useState(() => initialRouteState('home'));
+  const [nestedState, setNestedState] = useState(initialNestedState);
   const activeRoute = currentRoute(routeState);
   const activeTab = tabForRoute(activeRoute);
+  const activeDetail = currentDetail(nestedState, activeRoute);
+  const nestedBackEnabled = canDetailBack(nestedState, activeRoute);
+  const nestedForwardEnabled = canDetailForward(nestedState, activeRoute);
+  const openNestedDetail = (id: NestedDetailId) => setNestedState(old => openDetail(old, activeRoute, id));
+  const goNestedBack = () => nestedBackEnabled ? setNestedState(old => detailBack(old, activeRoute)) : dispatchRoute({type:'back'});
+  const goNestedForward = () => nestedForwardEnabled ? setNestedState(old => detailForward(old, activeRoute)) : dispatchRoute({type:'forward'});
+  const goBreadcrumb = (target: NestedDetailId|null) => setNestedState(old => rewindDetail(old, activeRoute, target));
   const previousRoute = useRef(activeRoute);
+  const previousDetail = useRef(activeDetail);
   const dispatchRoute = (action: RouteAction) => {
     setRouteState(old => reduceRoute(old, action));
     if (action.type === 'navigate' || action.type === 'back' || action.type === 'forward' || action.type === 'reset') setView('home');
   };
   const navigateTab = (id: BottomTabId) => dispatchRoute({type:'navigate', to:routeForTab(id)});
   const previousView = useRef<HomeView>('home');
+  useLayoutEffect(() => {
+    if(previousDetail.current===activeDetail)return;
+    previousDetail.current=activeDetail;
+    document.getElementById('page-title')?.focus();
+  }, [activeDetail]);
   useLayoutEffect(() => {
     const previous = previousView.current;
     if (previous === view) return;
@@ -71,16 +86,31 @@ function Menu({ rendererStatus }: { readonly rendererStatus: RendererStatus }) {
       activeRoute !== 'home' && activeTab
         ? h('div', { class: 'legacy-route-preview', 'data-route-preview': activeTab.id, 'data-route-id': activeRoute }, [
             h('div', { class: 'legacy-route-toolbar' }, [
-              h('button', { id: 'nav-back', type: 'button', class: 'legacy-route-back', disabled: !canGoBack(routeState), onClick: () => dispatchRoute({type:'back'}) }, '← Back'),
-              h('button', { id: 'nav-forward', type: 'button', class: 'legacy-route-forward', disabled: !canGoForward(routeState), onClick: () => dispatchRoute({type:'forward'}) }, 'Forward →'),
+              h('button', { id: 'nav-back', type: 'button', class: 'legacy-route-back', disabled: !nestedBackEnabled && !canGoBack(routeState), onClick: goNestedBack }, '← Back'),
+              h('button', { id: 'nav-forward', type: 'button', class: 'legacy-route-forward', disabled: !nestedForwardEnabled && !canGoForward(routeState), onClick: goNestedForward }, 'Forward →'),
               h('button', { id: 'nav-home', type: 'button', class: 'legacy-route-home', onClick: () => dispatchRoute({type:'navigate',to:'home'}) }, 'Home'),
             ]),
+            h('nav', {class:'legacy-breadcrumbs','aria-label':'Detail breadcrumbs', 'data-detail-depth':String(detailBreadcrumbs(nestedState, activeRoute).length-1)},
+              detailBreadcrumbs(nestedState,activeRoute).map((step,index,all)=>{
+                const last=index===all.length-1;
+                const label=step===null?activeTab.label:detailDefinition(step).title;
+                return h('span',{class:'legacy-crumb',key:step??'root'}, [
+                  last?h('span',{class:'legacy-crumb-current','aria-current':'page'},label):
+                    h('button',{type:'button',id:step===null?'detail-crumb-root':`detail-crumb-${step}`,'aria-label':`Return to ${label}`,onClick:()=>goBreadcrumb(step)},label),
+                  !last?h('span',{class:'legacy-crumb-divider','aria-hidden':'true'},'›'):null,
+                ]);
+              })),
             h('span', { class: 'legacy-home-kicker' }, activeTab.eyebrow),
-            h('h1', { id: 'page-title', tabIndex: -1, class:'legacy-route-title' }, activeTab.title),
-            h('div', { class: 'legacy-route-detail' }, [
-              h('span', { class: 'legacy-route-status' }, 'SECTION PREVIEW'),
-              h('p', { id:'nav-panel-description', role:'status', 'aria-live':'polite' }, activeTab.description),
+            h('h1', { id: 'page-title', tabIndex: -1, class:'legacy-route-title' }, activeDetail===null?activeTab.title:detailDefinition(activeDetail).title),
+            h('div', { class: 'legacy-route-detail', 'data-detail-page':activeDetail??'root' }, [
+              h('span', { class: 'legacy-route-status' }, activeDetail===null?'SECTION PREVIEW':'DETAIL PREVIEW'),
+              h('p', { id:'nav-panel-description', role:'status', 'aria-live':'polite' }, activeDetail===null?activeTab.description:detailDefinition(activeDetail).description),
               h('p', { class: 'legacy-route-note' }, 'Navigation only · No save, career, economy or fight state changes.'),
+              h('div',{class:'legacy-detail-options','aria-label':'Detail preview navigation'},detailsForParent(activeRoute,activeDetail).map(detail=>
+                h('button',{type:'button',id:`detail-open-${detail.id}`,class:'legacy-detail-link',key:detail.id,onClick:()=>openNestedDetail(detail.id)},[
+                  h('span',{class:'legacy-detail-link-label'},detail.title),h('span',{'aria-hidden':'true'},'→')
+                ])
+              )),
             ]),
           ])
         : [
@@ -121,7 +151,7 @@ function Menu({ rendererStatus }: { readonly rendererStatus: RendererStatus }) {
         h('p', { class: 'description' }, 'The Preact menu and PixiJS render surface remain separate. Character creation, fights, and career simulation are not implemented.'),
         h('div', { class: 'state' }, [
           h('span', { class: 'state-dot', 'aria-hidden': 'true' }),
-          h('span', {}, ['FOUNDATION BUILD ', h('span', { class: 'state-secondary' }, '· L3-039')]),
+          h('span', {}, ['FOUNDATION BUILD ', h('span', { class: 'state-secondary' }, '· L3-040')]),
         ]),
         h('button', {
           id: 'check-button', class: 'action', type: 'button',

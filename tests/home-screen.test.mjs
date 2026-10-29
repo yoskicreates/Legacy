@@ -33,4 +33,5 @@ test('mobile menu uses single column and bounded text',()=>{assert.match(css,/@m
 test('buttons meet touch-target heights',()=>{assert.match(css,/min-block-size:96px/);assert.match(css,/min-block-size:84px/);assert.match(css,/min-block-size:44px/)});
 test('focus indication and reduced-motion support present',()=>{assert.match(css,/:focus-visible/);assert.match(css,/@media\(prefers-reduced-motion:reduce\)/)});
 test('home CSS never hides horizontal overflow or suppresses scroll',()=>assert.doesNotMatch(css,/overflow-x\s*:\s*hidden|overflow\s*:\s*hidden|position\s*:\s*fixed/));
+test('back button and panel heading occupy separate rows',()=>{assert.match(css,/\.legacy-home-back \{[^}]*display:flex;/);assert.match(css,/\.legacy-home-panel \.legacy-home-kicker \{display:block/)});
 test('L3-037 safe area source remains unchanged',()=>assert.match(oldSafe,/env\(safe-area-inset-top/));

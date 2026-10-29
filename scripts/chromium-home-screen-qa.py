@@ -56,6 +56,8 @@ def run(base,out):
                     page.locator('#home-'+action).click()
                     page.locator('[data-panel="'+action+'"]').wait_for()
                     assert page.locator('#home-panel-description').count()==1
+                    positions=page.evaluate('''() => {const back=document.querySelector('#home-back').getBoundingClientRect();const label=document.querySelector('.legacy-home-panel .legacy-home-kicker').getBoundingClientRect();return {backBottom:back.bottom,labelTop:label.top}}''')
+                    assert positions['labelTop'] >= positions['backBottom'],f'back button overlaps panel label: {positions}'
                     assert page.locator('#home-panel-description').inner_text().strip()
                     assert 'No game or save state is changed' in page.locator('[data-panel="'+action+'"]').inner_text()
                     assert_layout(page);assertions+=10

@@ -92,3 +92,7 @@ Typed semantic colors, contrast checked WCAG AA pairings and an isolated mobile-
 ## L3-036 accepted — Responsive typography scale
 
 Seven reusable typed typography roles, semantic CSS classes and a non-playable `typography-qa.html` preview; tested at 375/390/402/430px including 200% text resizing. L3-035 contrast palette and all previous behavior preserved. L3-037 not started.
+
+## L3-037 review — safe-area shell (not yet accepted)
+
+Reusable safe-area handling for the non-playable placeholder and isolated `safe-area-qa.html` with simulated notch, Dynamic Island and landscape inset values. Physical iPhone Safari remains NOT_RUN. See `docs/L3-037-SAFE-AREA-SHELL.md`.

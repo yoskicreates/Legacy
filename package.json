@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "LEGACY 3.0 L3-036: responsive semantic typography scale and mobile type preview (non-playable)",
+  "description": "LEGACY 3.0 L3-037: reusable iPhone safe-area shell and simulated mobile inset QA (non-playable)",
   "engines": {
     "node": ">=22"
   },
@@ -59,7 +59,10 @@
     "test:design-tokens:negative": "node scripts/design-tokens-negative-test.mjs",
     "typecheck:typography": "tsc --project tsconfig.typography.json --noEmit",
     "test:typography": "node --test tests/typography.test.mjs",
-    "test:typography:negative": "node scripts/typography-negative-test.mjs"
+    "test:typography:negative": "node scripts/typography-negative-test.mjs",
+    "typecheck:safe-area": "tsc --project tsconfig.safe-area.json --noEmit",
+    "test:safe-area": "node --test tests/safe-area.test.mjs",
+    "test:safe-area:negative": "node scripts/safe-area-negative-test.mjs"
   },
   "devDependencies": {
     "typescript": "5.8.3",

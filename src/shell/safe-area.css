@@ -1,0 +1,31 @@
+/* L3-037 reusable shell. Real Safari viewport-fit env() is the source of truth.
+   Browser QA deliberately injects simulated insets on the preview host only. */
+:root {
+  --legacy-safe-top: env(safe-area-inset-top, 0px);
+  --legacy-safe-right: env(safe-area-inset-right, 0px);
+  --legacy-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --legacy-safe-left: env(safe-area-inset-left, 0px);
+}
+.legacy-safe-shell,
+.app-shell.legacy-safe-shell {
+  box-sizing: border-box;
+  inline-size: 100%;
+  max-inline-size: 1100px;
+  min-inline-size: 0;
+  min-block-size: 100svh;
+  min-block-size: 100dvh;
+  margin-inline: auto;
+  padding-block-start: max(24px, calc(var(--legacy-safe-top) + 12px));
+  padding-inline-end: max(20px, calc(var(--legacy-safe-right) + 16px));
+  padding-block-end: max(24px, calc(var(--legacy-safe-bottom) + 12px));
+  padding-inline-start: max(20px, calc(var(--legacy-safe-left) + 16px));
+  overflow-wrap: anywhere;
+}
+.legacy-safe-shell > * { min-inline-size: 0; }
+@media (orientation: landscape) and (max-height: 500px) {
+  .legacy-safe-shell,
+  .app-shell.legacy-safe-shell {
+    padding-block-start: max(12px, calc(var(--legacy-safe-top) + 8px));
+    padding-block-end: max(12px, calc(var(--legacy-safe-bottom) + 8px));
+  }
+}

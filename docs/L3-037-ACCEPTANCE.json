@@ -1,0 +1,14 @@
+{
+  "task": "L3-037",
+  "status": "IN_PROGRESS / NOT ACCEPTED",
+  "parent_accepted_merge": "a55e8bc771af4715779bbac7266cfa3d4bbe7606",
+  "scope": "Reusable iPhone safe-area shell, genuine env() insets and QA-only simulated scenarios",
+  "conditions": [
+    "Full CI L3-020 through L3-037 regression pass",
+    "Four mobile CSS widths portrait+landscape on dev and preview",
+    "Actual iPhone Safari must be reported NOT_RUN",
+    "Original source and complete Git objects checkpoint verified"
+  ],
+  "physical_iphone_safari": "NOT_RUN",
+  "L3-038": "NOT_STARTED"
+}

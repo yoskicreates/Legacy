@@ -7,7 +7,7 @@ const root=resolve(import.meta.dirname,'..');
 const contract=await readFile(join(root,'src/ui/bottom-nav-contract.ts'),'utf8');
 const router=await readFile(join(root,'src/navigation/route-state.ts'),'utf8');
 const menu=await readFile(join(root,'src/ui/menu.ts'),'utf8');
-const css=await readFile(join(root,'src/ui/home.css'),'utf8');
+const css=await readFile(join(root,'src/ui/bottom-nav.css'),'utf8');
 const tsModule=(src)=>ts.transpileModule(src,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext}}).outputText;
 const data=(src)=>'data:text/javascript;base64,'+Buffer.from(src).toString('base64');
 const rUrl=data(tsModule(router));
@@ -32,4 +32,4 @@ test('nav and five buttons have stable accessible identifiers',()=>{assert.match
 test('back forward home actions are wired',()=>{for(const id of ['nav-back','nav-forward','nav-home']) assert.ok(menu.includes(`id: '${id}'`));for(const action of ["{type:'back'}","{type:'forward'}","{type:'navigate',to:'home'}"])assert.ok(menu.includes(action));});
 test('all tab screens clearly disclose their non-playable status',()=>{for(const item of api.BOTTOM_NAV_ITEMS)assert.match(item.description,/No |not |future|planned|will /i);assert.match(menu,/No save, career, economy or fight state changes/);});
 test('bottom navigation preserves independent render boundary',()=>assert.doesNotMatch(menu,/pixi\.js|@renderer/));
-test('CSS uses 5 bounded columns, accessible touch targets and focus rings',()=>{assert.match(css,/grid-template-columns:repeat\(5,minmax\(0,1fr\)\)/);assert.match(css,/\.legacy-tab:focus-visible/);assert.match(css,/min-block-size:62px/);assert.match(css,/\.legacy-route-toolbar button\{min-block-size:44px/);assert.doesNotMatch(css,/overflow-x\s*:\s*hidden/);});
+test('CSS uses 5 bounded columns, accessible touch targets and focus rings',()=>{assert.match(css,/grid-template-columns:repeat\(5,minmax\(0,1fr\)\)/);assert.match(css,/\.legacy-tab:focus-visible/);assert.match(css,/min-block-size:62px/);assert.match(css,/\.legacy-route-toolbar button\{min-block-size:44px/);assert.match(css,/position:fixed/);assert.doesNotMatch(css,/overflow-x\s*:\s*hidden/);});

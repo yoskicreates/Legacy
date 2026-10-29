@@ -13,6 +13,8 @@ PROBE='''() => {
  clipped:targets.some(r=>r.width<1||r.left< -1||r.right>innerWidth+1),
  undersized:buttons.some(el=>el.getBoundingClientRect().height<44),
  navCount:document.querySelectorAll('.legacy-bottom-nav button').length,
+ navFixed:getComputedStyle(document.querySelector('.legacy-bottom-nav')).position==='fixed',
+ navInViewport:(()=>{const box=document.querySelector('.legacy-bottom-nav').getBoundingClientRect();return box.top>=-1 && box.bottom<=innerHeight+1})(),
  ready:document.querySelector('#menu-root')?.dataset.uiMounted,
  renderer:!!document.querySelector('#renderer-root'),
  viewport:document.querySelector('meta[name="viewport"]')?.content.includes('viewport-fit=cover')};
@@ -20,7 +22,7 @@ PROBE='''() => {
 def assert_layout(page):
  state=page.evaluate(PROBE)
  assert not state['overflow'] and not state['clipped'] and not state['undersized'],state
- assert state['navCount']==5 and state['ready']=='true' and state['renderer'] and state['viewport'],state
+ assert state['navCount']==5 and state['navFixed'] and state['navInViewport'] and state['ready']=='true' and state['renderer'] and state['viewport'],state
 
 def run(base,out):
  out.mkdir(parents=True,exist_ok=True)

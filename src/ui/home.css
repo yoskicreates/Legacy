@@ -37,23 +37,3 @@
   .legacy-home-title {font-size:clamp(2.25rem,10vw,3rem);}
 }
 @media(prefers-reduced-motion:reduce){.legacy-home-action{transition:none;}}
-
-/* L3-039: the sole new feature — readable, accessible in-memory bottom navigation. */
-.legacy-bottom-nav{position:sticky;bottom:0;z-index:5;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px;inline-size:100%;max-inline-size:680px;margin:4px auto 0;padding:7px 5px;border:1px solid var(--legacy-border-default);border-radius:20px;background:var(--legacy-surface-raised);box-shadow:0 8px 24px rgba(0,0,0,.3);min-inline-size:0;}
-.legacy-tab{font-family:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-inline-size:0;min-block-size:62px;padding:8px 2px 7px;border:1px solid transparent;border-radius:14px;cursor:pointer;color:var(--legacy-text-secondary);background:transparent;text-align:center;overflow-wrap:anywhere;}
-.legacy-tab:hover{color:var(--legacy-text-primary);background:var(--legacy-surface-panel);}
-.legacy-tab--active{color:var(--legacy-accent-primary);background:var(--legacy-surface-panel);border-color:var(--legacy-border-default);}
-.legacy-tab-icon{font-size:23px;font-weight:700;line-height:1;}
-.legacy-tab-label{font-size:clamp(.62rem,2.1vw,.78rem);line-height:1.25;font-weight:750;max-inline-size:100%;}
-.legacy-tab:focus-visible,.legacy-route-toolbar button:focus-visible{outline:3px solid var(--legacy-focus-ring);outline-offset:2px;}
-.legacy-route-preview{inline-size:100%;max-inline-size:680px;min-inline-size:0;}
-.legacy-route-toolbar{display:flex;flex-wrap:wrap;gap:9px;justify-content:flex-start;margin-block-end:26px;}
-.legacy-route-toolbar button{min-block-size:44px;padding:10px 13px;border:1px solid var(--legacy-border-default);border-radius:11px;background:var(--legacy-surface-panel);color:var(--legacy-text-primary);font:inherit;font-size:var(--legacy-type-caption-font-size);font-weight:800;cursor:pointer;}
-.legacy-route-toolbar button:disabled{opacity:.35;cursor:not-allowed;}
-.legacy-route-title{font-size:clamp(2.2rem,8vw,4.5rem);line-height:1.08;letter-spacing:-.045em;margin:12px 0 22px;overflow-wrap:anywhere;}
-.legacy-route-detail{border:1px solid var(--legacy-border-default);border-radius:18px;padding:clamp(18px,5vw,30px);background:var(--legacy-surface-panel);}
-.legacy-route-status{font-size:var(--legacy-type-caption-font-size);color:var(--legacy-accent-primary);font-weight:800;letter-spacing:.12em;}
-.legacy-route-detail p{font-size:var(--legacy-type-body-font-size);line-height:var(--legacy-type-body-line-height);color:var(--legacy-text-subtle);}
-.legacy-route-detail .legacy-route-note{color:var(--legacy-accent-primary);font-size:var(--legacy-type-caption-font-size);}
-@media(max-width:430px){.legacy-bottom-nav{border-radius:16px;padding:6px 2px;gap:1px;}.legacy-tab{padding-inline:1px;min-block-size:64px;}.legacy-tab-icon{font-size:21px;}}
-@media(prefers-reduced-motion:reduce){.legacy-tab{transition:none;}}

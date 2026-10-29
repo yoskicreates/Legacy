@@ -1,3 +1,9 @@
+# LEGACY 3.0 — L3-034 Verified Build Manifest (34/272 accepted)
+
+The deterministic manifest generator runs seven actual toolchain commands, records SHA-256 hashes of their logs, source files, and genuine Vite build files, and rejects missing, stale, changed, or unverified evidence. See [manifest contract](docs/L3-034-BUILD-MANIFEST.md) and [acceptance](docs/L3-034-ACCEPTANCE.json). All 15 L3-020–L3-034 workflows passed review CI and eight real Chromium browser configurations confirmed the manifest; physical iPhone Safari NOT_RUN. Next: L3-035 design tokens, NOT_STARTED. No gameplay.
+
+---
+
 # LEGACY 3.0 — L3-033 Fixture System (33/272 accepted)
 
 Test-only seeded fighter metadata, deterministic V1 career and independent manual save fixtures plus invalid/boundary helpers are implemented and tested. **Not a playable game**, and fixtures are never automatically injected into production. Next: **L3-034 — build manifest generator, NOT STARTED**. See [L3-033 acceptance](docs/L3-033-ACCEPTANCE.json), [fixture contract](docs/L3-033-FIXTURES.md), and [task status](docs/STATUS.md).

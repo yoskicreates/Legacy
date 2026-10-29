@@ -1,19 +1,27 @@
 {
   "task_id": "L3-034",
-  "status": "REVIEW",
+  "status": "COMPLETE",
   "baseline": "4d015d3b050c953cdacd688baac63b41da05781c",
-  "scope": "Actual-command-backed deterministic source/build manifest, SHA-256 inventories, recorded known issues and tamper/staleness rejection",
+  "scope": "Fixed executed-command SHA-256 source/Vite build and test manifest, issue reporting and stale/fake evidence rejection",
   "local": {
     "unit_tests": "20/20 PASS",
-    "negative_compiler": "6 expected diagnostics PASS",
-    "strict_scoped_typecheck": "PASS",
+    "negative_type_errors": "6/6 EXPECTED",
+    "strict_typecheck": "PASS",
     "lint": "PASS",
     "domain_boundaries": "PASS",
-    "full_build": "PENDING_CLOUD",
-    "real_browser": "PENDING_CLOUD"
+    "full_suite": "BLOCKED_LOCAL_OFFLINE_DEPENDENCIES; CLOUD_PASS"
   },
-  "cloud": {"status": "PENDING"},
+  "cloud": {
+    "status": "PASS",
+    "review_commit": "73ec446bc681da25ffd3425789faa4b24bac33fe",
+    "workflow_run": 40793396036,
+    "workflows": "15/15 PASS on review",
+    "chromium": "8/8 PASS mobile dev/preview at 375/390/402/430 CSS px",
+    "manifest": "7 executed command logs, genuine Vite build, verified file hashes, no arbitrary PASS input",
+    "regressions": "L3-020 through L3-033 PASS"
+  },
   "physical_iphone_safari": "NOT_RUN",
+  "accepted_total": 34,
   "next_task": "L3-035 NOT_STARTED",
-  "checkpoint": "NOT_CREATED"
+  "checkpoint": "LEGACY_3_0_L3-034_COMPLETE_SOURCE.zip"
 }

@@ -37,9 +37,10 @@
     "L3-030",
     "L3-031",
     "L3-032",
-    "L3-033"
+    "L3-033",
+    "L3-034"
   ],
-  "next_task": "L3-034",
+  "next_task": "L3-035",
   "phases": [
     {
       "id": "01",
@@ -579,7 +580,7 @@
       "build": "Produce task ID, version, hashes, known issues, and test report",
       "test": "Manifest accurately lists verified generated files",
       "depends_on": "L3-033",
-      "status": "planned",
+      "status": "completed",
       "primary_pillar": "P5",
       "supporting_pillar": "P2"
     },

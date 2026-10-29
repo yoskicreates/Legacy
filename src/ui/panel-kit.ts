@@ -1,6 +1,6 @@
 /** L3-041 — reusable, semantic presentation elements, no side effects. */
 import {h, type ComponentChildren, type VNode} from 'preact';
-import {useState} from 'preact/hooks';
+import {useId,useState} from 'preact/hooks';
 import {PANEL_KIT_CATALOG, PANEL_KIT_VERSION, assertPanelKitContrast, type PanelKitTheme} from './panel-kit-contract';
 
 export interface TextCardProps {readonly title:string;readonly body:string;readonly eyebrow?:string}
@@ -24,10 +24,11 @@ export function StatPanel({label,value,detail}:StatPanelProps):VNode {
   ]);
 }
 export function ActionTile({label,description,onActivate,disabled=false}:ActionTileProps):VNode {
-  return h('button',{class:'legacy-kit-card legacy-kit-action',type:'button',onClick:onActivate,disabled,'aria-label':label,'data-kit-component':'action'},[
+  const descriptionId=useId();
+  return h('button',{class:'legacy-kit-card legacy-kit-action',type:'button',onClick:onActivate,disabled,'aria-label':label,'aria-describedby':descriptionId,'data-kit-component':'action'},[
     h('span',{class:'legacy-kit-action-content'},[
       h('span',{class:'legacy-kit-action-title'},label),
-      h('span',{class:'legacy-kit-description'},description),
+      h('span',{class:'legacy-kit-description',id:descriptionId},description),
     ]),h('span',{class:'legacy-kit-arrow','aria-hidden':'true'},'→'),
   ]);
 }

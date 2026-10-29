@@ -15,6 +15,7 @@ return {ready:document.documentElement.dataset.panelKitReady,version:root?.datas
  listItems:document.querySelectorAll('.legacy-kit-list li').length,
  dl:document.querySelectorAll('.legacy-kit-stat dl dt').length,
  cardHeadings:document.querySelectorAll('.legacy-kit h2').length,
+ actionDescription: (()=>{const tile=document.querySelector('.legacy-kit-action');const id=tile?.getAttribute('aria-describedby');const target=id&&document.getElementById(id);return Boolean(id&&target&&tile.contains(target)&&target.textContent?.includes('does not change game state'));})(),
  sliders:document.querySelectorAll('input[type="range"],[role="slider"]').length,
  shadow:getComputedStyle(root).backgroundColor,
  buttonContrast:[...document.querySelectorAll('.legacy-kit button')].map(b=>({fg:getComputedStyle(b).color,bg:getComputedStyle(b).backgroundColor})),
@@ -37,7 +38,7 @@ def check(page,theme):
  assert v['ready']=='true' and v['version']=='L3-041.V1',v
  assert v['theme']==theme and v['noOverflow'] and v['noClipped'] and v['noTiny'],v
  assert v['count']==4 and set(v['types'])=={'text','stat','action','list'},v
- assert v['listItems']==3 and v['dl']==1 and v['cardHeadings']>=2 and v['sliders']==0,v
+ assert v['listItems']==3 and v['dl']==1 and v['cardHeadings']>=2 and v['sliders']==0 and v['actionDescription'],v
  for row in v['buttonContrast']+v['foregrounds']:
   assert contrast(row['fg'],row['bg'])>=4.5,(theme,row,contrast(row['fg'],row['bg']))
  return 12+len(v['buttonContrast'])+len(v['foregrounds'])

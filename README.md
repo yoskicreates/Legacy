@@ -88,3 +88,7 @@ Portable SHA-256 validated V1 manual save export/import is under review. It neve
 ## L3-035 — Accepted design token foundation
 
 Typed semantic colors, contrast checked WCAG AA pairings and an isolated mobile-friendly palette preview. See `docs/L3-035-DESIGN-TOKENS.md`, `docs/L3-035-ACCEPTANCE.json` and `design-tokens-qa.html`. No gameplay or L3-036 typography yet.
+
+## L3-036 accepted — Responsive typography scale
+
+Seven reusable typed typography roles, semantic CSS classes and a non-playable `typography-qa.html` preview; tested at 375/390/402/430px including 200% text resizing. L3-035 contrast palette and all previous behavior preserved. L3-037 not started.

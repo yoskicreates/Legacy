@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "LEGACY 3.0 L3-035: reusable visual tokens and contrast-verified non-playable preview",
+  "description": "LEGACY 3.0 L3-036: responsive semantic typography scale and mobile type preview (non-playable)",
   "engines": {
     "node": ">=22"
   },
@@ -56,7 +56,10 @@
     "manifest:verify": "node scripts/build-manifest.mjs verify",
     "typecheck:design-tokens": "tsc --project tsconfig.design-tokens.json --noEmit",
     "test:design-tokens": "node --test tests/design-tokens.test.mjs",
-    "test:design-tokens:negative": "node scripts/design-tokens-negative-test.mjs"
+    "test:design-tokens:negative": "node scripts/design-tokens-negative-test.mjs",
+    "typecheck:typography": "tsc --project tsconfig.typography.json --noEmit",
+    "test:typography": "node --test tests/typography.test.mjs",
+    "test:typography:negative": "node scripts/typography-negative-test.mjs"
   },
   "devDependencies": {
     "typescript": "5.8.3",

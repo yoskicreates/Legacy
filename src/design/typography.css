@@ -1,0 +1,40 @@
+/* L3-036: generated from the immutable contract in typography.ts, verified by Node tests. */
+:root {
+  --legacy-type-display-font-size: clamp(2.25rem, 8.2vw, 4.25rem);
+  --legacy-type-display-line-height: 1.08;
+  --legacy-type-display-font-weight: 800;
+  --legacy-type-display-letter-spacing: -0.035em;
+  --legacy-type-headline-font-size: clamp(1.625rem, 5.6vw, 2.5rem);
+  --legacy-type-headline-line-height: 1.18;
+  --legacy-type-headline-font-weight: 750;
+  --legacy-type-headline-letter-spacing: -0.025em;
+  --legacy-type-panel-font-size: 1.125rem;
+  --legacy-type-panel-line-height: 1.35;
+  --legacy-type-panel-font-weight: 750;
+  --legacy-type-panel-letter-spacing: -0.01em;
+  --legacy-type-body-font-size: 1rem;
+  --legacy-type-body-line-height: 1.6;
+  --legacy-type-body-font-weight: 400;
+  --legacy-type-body-letter-spacing: 0em;
+  --legacy-type-label-font-size: 0.875rem;
+  --legacy-type-label-line-height: 1.45;
+  --legacy-type-label-font-weight: 700;
+  --legacy-type-label-letter-spacing: 0.015em;
+  --legacy-type-caption-font-size: 0.8125rem;
+  --legacy-type-caption-line-height: 1.5;
+  --legacy-type-caption-font-weight: 550;
+  --legacy-type-caption-letter-spacing: 0.01em;
+  --legacy-type-numeric-font-size: clamp(1.25rem, 5vw, 2rem);
+  --legacy-type-numeric-line-height: 1.2;
+  --legacy-type-numeric-font-weight: 750;
+  --legacy-type-numeric-letter-spacing: -0.015em;
+}
+/* Semantic classes are additive and do not modify the L3-035 color system. */
+.legacy-type-display,.legacy-type-headline,.legacy-type-panel,.legacy-type-body,.legacy-type-label,.legacy-type-caption,.legacy-type-numeric { min-width:0; overflow-wrap:break-word; }
+.legacy-type-display { font-size:var(--legacy-type-display-font-size);line-height:var(--legacy-type-display-line-height);font-weight:var(--legacy-type-display-font-weight);letter-spacing:var(--legacy-type-display-letter-spacing); }
+.legacy-type-headline { font-size:var(--legacy-type-headline-font-size);line-height:var(--legacy-type-headline-line-height);font-weight:var(--legacy-type-headline-font-weight);letter-spacing:var(--legacy-type-headline-letter-spacing); }
+.legacy-type-panel { font-size:var(--legacy-type-panel-font-size);line-height:var(--legacy-type-panel-line-height);font-weight:var(--legacy-type-panel-font-weight);letter-spacing:var(--legacy-type-panel-letter-spacing); }
+.legacy-type-body { font-size:var(--legacy-type-body-font-size);line-height:var(--legacy-type-body-line-height);font-weight:var(--legacy-type-body-font-weight);letter-spacing:var(--legacy-type-body-letter-spacing); }
+.legacy-type-label { font-size:var(--legacy-type-label-font-size);line-height:var(--legacy-type-label-line-height);font-weight:var(--legacy-type-label-font-weight);letter-spacing:var(--legacy-type-label-letter-spacing); }
+.legacy-type-caption { font-size:var(--legacy-type-caption-font-size);line-height:var(--legacy-type-caption-line-height);font-weight:var(--legacy-type-caption-font-weight);letter-spacing:var(--legacy-type-caption-letter-spacing); }
+.legacy-type-numeric { font-size:var(--legacy-type-numeric-font-size);line-height:var(--legacy-type-numeric-line-height);font-weight:var(--legacy-type-numeric-font-weight);letter-spacing:var(--legacy-type-numeric-letter-spacing);font-variant-numeric:tabular-nums lining-nums; font-feature-settings:'tnum' 1,'lnum' 1; }

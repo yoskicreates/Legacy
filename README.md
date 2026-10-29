@@ -1,3 +1,11 @@
+# LEGACY 3.0 — L3-033 Fixture System (33/272 accepted)
+
+Test-only seeded fighter metadata, deterministic V1 career and independent manual save fixtures plus invalid/boundary helpers are implemented and tested. **Not a playable game**, and fixtures are never automatically injected into production. Next: **L3-034 — build manifest generator, NOT STARTED**. See [L3-033 acceptance](docs/L3-033-ACCEPTANCE.json), [fixture contract](docs/L3-033-FIXTURES.md), and [task status](docs/STATUS.md).
+
+Clean GitHub CI including real npm ci, strict TypeScript, negative tests, 22 fixture unit tests, all earlier regressions, genuine Vite production build and 8 real Chromium browser tests on 4 widths in dev+preview: PASS. Physical iPhone Safari NOT_RUN. Source and original Git history checkpoints are preserved in Library /LEGACY_3_0/.
+
+---
+
 ## L3-032 accepted — 32/272 tasks, next L3-033 NOT_STARTED
 Pure synthetic V0→V1 conversion with strict version and corrupt-data rejection, original source and Git history preserved. No automatic database migrations or gameplay. See docs/L3-032-MIGRATIONS.md and docs/L3-032-ACCEPTANCE.json.
 

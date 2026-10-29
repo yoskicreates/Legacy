@@ -1,13 +1,15 @@
 # LEGACY 3.0 TASK STATUS
 
-**L3-038 — Build home screen layout: COMPLETE / ACCEPTED (merged on main)**  
-**Progress: 38 accepted / 272**  
-**Next: L3-039 — NOT STARTED**
+**L3-039 — Build bottom navigation: COMPLETE / ACCEPTED (merge pending)**  
+**Progress: 39 accepted / 272**  
+**Next: L3-040 — NOT STARTED**
 
-L3-038 adds a polished, accessible Preact-owned mobile home screen with **Start Career**, **Continue** and **Settings** controls. Each opens a distinct informational preview, and **Back to Home** restores the menu and keyboard focus. These remain intentionally non-playable previews: Start does **not** create a career, Continue does **not** load a save, and Settings does **not** persist changes.
+The mobile Preact navigation includes **Career**, **Fighter**, **Fight**, **Life**, and **Finances** tabs. They adapt to the existing L3-023 immutable route-state contracts: `career`, `character`, `fight`, `social`, and `economy`. Back, Forward, Home and active-tab states work without introducing a competing router. Focus is managed on route changes, with semantic native buttons and keyboard outlines.
 
-Preserves the L3-035 color tokens, L3-036 typography, L3-037 safe-area shell, the independent PixiJS renderer boundary and the existing check-button interaction. The 375/390/402/430 CSS-pixel browser suite verified touch targets, focus management, keyboard Tab/Enter/Space behavior, text reflow at 200%, simulated device insets, landscape, reload and zero horizontal overflow on genuine Vite dev/preview in Chromium.
+All five tab destinations are explicitly **non-playable previews**; there is no career, created fighter, active fight, relationship, balance, purchase, save mutation, or gameplay. The L3-038 home Start/Continue/Settings panels and all L3-035–037 visual/safe-area tokens remain intact; PixiJS is still independently mounted.
 
-**QA:** 19/19 GitHub workflows successful on review commit e611bb9da03bee5a559296f2d3d82a322bdfbe0d; 23 home contract tests and 7 expected invalid TypeScript cases passed; 8/8 Chromium home browser configurations passed with 1,064 assertions; previous L3-020–L3-037 regressions, clean npm ci, strict typing, lint, production build and verified build manifest passed. Physical iPhone Safari: **NOT_RUN**. See merged PR #19 (merge commit 21ae4ec1ae802d165c3fe7f08e8a14a5ff48fca5) and its GitHub Actions acceptance artifact.
+**Acceptance evidence:** GitHub PR #20 review commit `5b001aa31a7d8c0fd2446067c89b3cf57a967177` passed all 20 GitHub Actions workflows, including clean npm ci, strict TypeScript, seven negative type cases, dedicated navigation tests, lint/domain boundaries, unit tests, genuine Vite build, verified hashed build manifest, and all inherited L3-020–038 workflows. Real Chromium on both Vite dev and preview passed at 375, 390, 402, 430 CSS pixels: 8/8 successful navigation runs and **1,104 assertions**, with zero page exceptions and no horizontal overflow. Includes touch targets, keyboard focus, Back/Forward/Home, 200% text sizing, simulated safe insets, landscape and reload.
 
-Immutable checkpoint archives preserve the original Git history and evidence. Do not implement L3-039 in this task. LEGACY 3.0 remains a non-playable development foundation; fighter creation, full navigation and gameplay are future milestones.
+Physical iPhone Safari: **NOT_RUN**. Simulated safe-area insets are not hardware measurements. The code milestone is accepted for review; merge only after the acceptance-documentation commit itself passes all checks and the verified numbered source/repository/static-preview/QA checkpoints are saved to Library `/LEGACY_3_0/`.
+
+LEGACY 3.0 remains a non-playable visual foundation. **Do not begin L3-040 or other future milestones here.**

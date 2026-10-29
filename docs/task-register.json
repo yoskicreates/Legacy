@@ -2,7 +2,7 @@
   "project": "LEGACY 3.0",
   "blueprint_version": "1.0",
   "created": "2026-10-28",
-  "scope": "L3-038 accepted: responsive accessible home screen with Start, Continue, Settings preview panels; no save creation, preferences, fighter creation or gameplay",
+  "scope": "L3-039 accepted five-tab Preact bottom navigation using existing route-state with non-playable previews; do not begin L3-040",
   "total_tasks": 272,
   "completed": [
     "L3-001",
@@ -42,9 +42,10 @@
     "L3-035",
     "L3-036",
     "L3-037",
-    "L3-038"
+    "L3-038",
+    "L3-039"
   ],
-  "next_task": "L3-039",
+  "next_task": "L3-040",
   "phases": [
     {
       "id": "01",
@@ -649,7 +650,7 @@
       "build": "Create mobile tabs for career, fighter, fight, life, and finances",
       "test": "Each tab opens correct route and back state works",
       "depends_on": "L3-038",
-      "status": "planned",
+      "status": "completed",
       "primary_pillar": "P3",
       "supporting_pillar": "P1"
     },
@@ -3960,5 +3961,23 @@
     "negative_type_cases": 7,
     "physical_iphone_safari": "NOT_RUN",
     "next_task_not_started": "L3-039"
+  },
+  "L3_039_acceptance_evidence": {
+    "status": "ACCEPTED",
+    "pull_request": 20,
+    "verified_review_head": "5b001aa31a7d8c0fd2446067c89b3cf57a967177",
+    "review_workflows": "20/20 PASS",
+    "chromium_widths_css_px": [
+      375,
+      390,
+      402,
+      430
+    ],
+    "chromium_dev_preview_runs": "8/8 PASS",
+    "bottom_nav_browser_assertions": 1104,
+    "negative_types": 7,
+    "dedicated_contract_tests": 17,
+    "physical_iphone_safari": "NOT_RUN",
+    "gameplay": "NOT_IMPLEMENTED"
   }
 }

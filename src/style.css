@@ -2,6 +2,7 @@
 @import "./design/typography.css";
 @import "./shell/safe-area.css";
 @import "./ui/home.css";
+@import "./ui/bottom-nav.css";
 :root { color-scheme: dark; font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background:var(--legacy-surface-canvas); color:var(--legacy-text-primary); font-synthesis: none; }
 *, *::before, *::after { box-sizing:border-box; }
 html, body { padding:0; margin:0; min-height:100%; }

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "LEGACY 3.0 L3-038: mobile home layout preview and functioning Start, Continue, Settings panels (non-playable)",
+  "description": "LEGACY 3.0 L3-039: five mobile bottom navigation tab previews with typed in-memory route history (non-playable)",
   "engines": {
     "node": ">=22"
   },
@@ -65,7 +65,10 @@
     "test:safe-area:negative": "node scripts/safe-area-negative-test.mjs",
     "typecheck:home": "tsc --project tsconfig.home.json --noEmit",
     "test:home": "node --test tests/home-screen.test.mjs",
-    "test:home:negative": "node scripts/home-negative-test.mjs"
+    "test:home:negative": "node scripts/home-negative-test.mjs",
+    "typecheck:bottom-nav": "tsc --project tsconfig.bottom-nav.json --noEmit",
+    "test:bottom-nav": "node --test tests/bottom-nav.test.mjs",
+    "test:bottom-nav:negative": "node scripts/bottom-nav-negative-test.mjs"
   },
   "devDependencies": {
     "typescript": "5.8.3",

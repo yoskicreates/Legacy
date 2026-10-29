@@ -1,0 +1,1 @@
+{"extends":"./tsconfig.json","include":["src/ui/bottom-nav-contract.ts","src/navigation/route-state.ts","tests/ui/bottom-nav-negative.ts"],"exclude":["node_modules","dist"],"compilerOptions":{"types":[]}}

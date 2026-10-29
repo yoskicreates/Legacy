@@ -1,0 +1,1 @@
+{"extends":"./tsconfig.json","include":["src/domain/core/**/*.ts","src/domain/persistence/**/*.ts","src/tooling/fixture-system.ts","src/tooling/fixture-types-smoke.ts"],"compilerOptions":{"types":[]}}

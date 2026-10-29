@@ -1,0 +1,14 @@
+{
+  "task_id": "L3-033",
+  "status": "REVIEW",
+  "baseline": "e0619253a733411f6b65443bcb666389dcf5edd0",
+  "scope": "Pure test-only seeded fighter metadata, V1 career and manual slot fixtures; stable replay and invalid/boundary cases",
+  "unit_tests": "22/22 PASS local",
+  "negative_compiler": "7 expected diagnostics local",
+  "strict_scoped_typecheck": "PASS local",
+  "lint": "PASS local",
+  "cloud": "PENDING",
+  "browser": "PENDING",
+  "physical_iphone_safari": "NOT_RUN",
+  "next_task": "L3-034 NOT_STARTED"
+}

@@ -1,9 +1,11 @@
 # LEGACY 3.0 TASK STATUS
 
-**L3-034 — Create build manifest generator: COMPLETE / ACCEPTED**  
-**Progress: 34 accepted / 272**  
-**Next: L3-035 — Define design tokens (NOT STARTED)**
+**L3-035 — Define design tokens: COMPLETE / ACCEPTED**  
+**Progress: 35 accepted / 272**  
+**Next: L3-036 — Choose typography scale (NOT STARTED)**
 
-L3-034 generates a deterministic SHA-256 manifest from actual source and genuine Vite build files, real execution of seven fixed test commands, exact evidence logs, the project version, task ID and known issues. It detects stale or falsified files, commands, log hashes, changed build outputs and missing files. 20 dedicated tests, six deliberate TypeScript rejections, verified Chromium browser results, and all L3-020 through L3-033 regressions PASS in GitHub CI. Source and original local Git history are preserved with immutable numbered checkpoints.
+A typed color contract provides midnight navy, dark blue-gray, warm gold, muted red, soft white, semantic surfaces, borders, state colors, CSS custom properties and WCAG AA minimum 4.5:1 normal-text contrast for twelve explicitly documented pairings. An isolated non-playable palette preview works at 375/390/402/430px with viewport-fit, safe-area insets, and an interactive contrast-check control. Existing Preact and PixiJS boundaries and the V1 save schema remain unchanged.
 
-No playable MMA system, player-facing manifest UI, L3-035 or actual iPhone Safari QA has been implemented. Generated local evidence is integrity-checked but is not cryptographically signed external provenance.
+22/22 dedicated unit tests, seven invalid TypeScript contracts rejected, 8/8 real Chromium preview runs with 216 assertions, clean GitHub npm ci, genuine Vite build and all 16 L3-020–L3-035 review CI workflows PASS. Numbered complete source/repository/QA checkpoints preserved in Library /LEGACY_3_0/.
+
+This is a non-playable development foundation; no gameplay, typography scale, navigation screens, player-facing save UI or actual iPhone Safari QA yet. Contrast of future artwork and text combinations requires additional tests. L3-036 is not started.

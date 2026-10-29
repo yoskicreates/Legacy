@@ -38,9 +38,10 @@
     "L3-031",
     "L3-032",
     "L3-033",
-    "L3-034"
+    "L3-034",
+    "L3-035"
   ],
-  "next_task": "L3-035",
+  "next_task": "L3-036",
   "phases": [
     {
       "id": "01",
@@ -593,7 +594,7 @@
       "build": "Establish midnight navy, blue-gray, warm gold, muted red, and contrast rules",
       "test": "Theme preview meets palette and contrast specification",
       "depends_on": "L3-034",
-      "status": "planned",
+      "status": "completed",
       "primary_pillar": "P1",
       "supporting_pillar": "P3"
     },
@@ -3903,5 +3904,16 @@
     "github_review_run": 40791294105,
     "physical_iphone_safari": "NOT_RUN",
     "checkpoint_status": "VERIFIED"
+  },
+  "L3_035_acceptance_evidence": {
+    "report": "docs/L3-035-ACCEPTANCE.json",
+    "unit_tests": "22/22 PASS",
+    "negative_type_diagnostics": 7,
+    "contrast_pairs": "12/12 WCAG AA normal-text PASS",
+    "chromium": "8/8 Vite dev+preview 375/390/402/430 PASS; 216 reported design assertions",
+    "review_workflows": "16/16 PASS",
+    "github_review_run": 40796194955,
+    "physical_iphone_safari": "NOT_RUN",
+    "checkpoint": "LEGACY_3_0_L3-035_COMPLETE_SOURCE.zip"
   }
 }

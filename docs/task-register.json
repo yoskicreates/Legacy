@@ -2,7 +2,7 @@
   "project": "LEGACY 3.0",
   "blueprint_version": "1.0",
   "created": "2026-10-28",
-  "scope": "L3-036 accepted: semantic responsive typography tokens and 200% text zoom QA; no L3-037 shell, navigation or gameplay",
+  "scope": "L3-037 accepted: iPhone safe-area host shell with real CSS env() insets and QA-only notch/landscape simulations; no L3-038 navigation or gameplay",
   "total_tasks": 272,
   "completed": [
     "L3-001",
@@ -40,9 +40,10 @@
     "L3-033",
     "L3-034",
     "L3-035",
-    "L3-036"
+    "L3-036",
+    "L3-037"
   ],
-  "next_task": "L3-037",
+  "next_task": "L3-038",
   "phases": [
     {
       "id": "01",
@@ -236,7 +237,7 @@
       "primary_pillar": "P4",
       "supporting_pillar": "P3",
       "deliverable": "LEGACY_3_0_Ten_Year_Career_Map_L3-008.docx",
-      "acceptance": "Ten coherent intervals ages 15\u201325, youth-to-adult gates, conditional states, three alternative arcs, 24 design tests; documentation only"
+      "acceptance": "Ten coherent intervals ages 15–25, youth-to-adult gates, conditional states, three alternative arcs, 24 design tests; documentation only"
     },
     {
       "id": "L3-009",
@@ -621,7 +622,7 @@
       "build": "Implement notch, home-indicator, and viewport insets",
       "test": "375/390/430px screenshots show no obscured controls",
       "depends_on": "L3-036",
-      "status": "planned",
+      "status": "completed",
       "primary_pillar": "P5",
       "supporting_pillar": "P3"
     },
@@ -1450,7 +1451,7 @@
       "phase_title": "Modular character creator",
       "gate": "Visual foundation",
       "title": "Verify visual matrix",
-      "build": "Test face \u00d7 hair \u00d7 physique \u00d7 gear combinations automatically",
+      "build": "Test face × hair × physique × gear combinations automatically",
       "test": "Sample matrix shows no missing assets or crashes",
       "depends_on": "L3-100",
       "status": "planned",
@@ -3683,7 +3684,7 @@
   ],
   "pillar_document": "LEGACY_3_0_Game_Pillars_L3-002.docx",
   "pillar_mapping": "LEGACY_3_0_Pillar_Crosswalk_L3-002.csv",
-  "updated": "2026-10-28",
+  "updated": "2026-10-29",
   "player_fantasy_document": "LEGACY_3_0_Player_Fantasy_L3-003.docx",
   "player_fantasy_spec_version": "1.0 - L3-003 design proposal; content requires user design review",
   "previous_register": "GOVERNANCE/LEGACY_3_0_Task_Register_L3-030.json",
@@ -3758,7 +3759,7 @@
       40774948793
     ],
     "physical_iphone_safari": "NOT_RUN",
-    "calendar_ux_DEC-030": "OPEN \u2014 no selection made"
+    "calendar_ux_DEC-030": "OPEN — no selection made"
   },
   "L3_025_acceptance_evidence": {
     "report": "LEGACY3/docs/L3-025-ACCEPTANCE.json",
@@ -3925,5 +3926,17 @@
     "negative_types": 7,
     "chromium": "8/8 PASS; 208 reported checks across Vite dev/preview",
     "physical_iphone_safari": "NOT_RUN"
+  },
+  "L3_037_acceptance_evidence": {
+    "report": "docs/L3-037-ACCEPTANCE.json",
+    "github_pr": 18,
+    "review_head": "6e8da3e656a285120ca1fc8342c22e7af6c75e1b",
+    "github_review_workflows": "18/18 PASS",
+    "unit_tests": "22/22 PASS",
+    "negative_typescript_cases": 7,
+    "chromium_browser_configurations": "8/8 PASS — dev and preview at 375/390/402/430",
+    "chromium_safe_area_assertions": "728/728 PASS — 7 simulated scenarios per width",
+    "physical_iphone_safari": "NOT_RUN",
+    "checkpoint_status": "verified prior to final CI"
   }
 }

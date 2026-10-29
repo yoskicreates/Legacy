@@ -1,3 +1,9 @@
+# LEGACY 3.0 — L3-037 iPhone Safe-Area Shell (37/272 accepted)
+
+The reusable iPhone safe-area host shell and simulated-notch QA are complete; no playable MMA game or navigation was added. CSS `env(safe-area-inset-*)` manages host insets; separate QA-only presets inject simulated inset measurements for Chromium. Genuine Vite dev and preview, 18 cloud workflows, 22 safe-area tests, seven negative TS cases, and eight real Chromium configurations all PASS (728 assertions). Physical iPhone Safari NOT_RUN. See [task status](docs/STATUS.md), [safe-area design contract](docs/L3-037-SAFE-AREA-SHELL.md), and [acceptance](docs/L3-037-ACCEPTANCE.json). L3-038 NOT_STARTED.
+
+---
+
 # LEGACY 3.0 — L3-034 Verified Build Manifest (34/272 accepted)
 
 The deterministic manifest generator runs seven actual toolchain commands, records SHA-256 hashes of their logs, source files, and genuine Vite build files, and rejects missing, stale, changed, or unverified evidence. See [manifest contract](docs/L3-034-BUILD-MANIFEST.md) and [acceptance](docs/L3-034-ACCEPTANCE.json). All 15 L3-020–L3-034 workflows passed review CI and eight real Chromium browser configurations confirmed the manifest; physical iPhone Safari NOT_RUN. Next: L3-035 design tokens, NOT_STARTED. No gameplay.

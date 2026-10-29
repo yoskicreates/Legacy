@@ -1,14 +1,33 @@
 {
   "task": "L3-037",
-  "status": "IN_PROGRESS / NOT ACCEPTED",
+  "status": "COMPLETE / ACCEPTED \u2014 subject to final CI and GitHub merge",
+  "accepted_count": 37,
+  "next_task": "L3-038",
   "parent_accepted_merge": "a55e8bc771af4715779bbac7266cfa3d4bbe7606",
-  "scope": "Reusable iPhone safe-area shell, genuine env() insets and QA-only simulated scenarios",
-  "conditions": [
-    "Full CI L3-020 through L3-037 regression pass",
-    "Four mobile CSS widths portrait+landscape on dev and preview",
-    "Actual iPhone Safari must be reported NOT_RUN",
-    "Original source and complete Git objects checkpoint verified"
+  "review_head": "6e8da3e656a285120ca1fc8342c22e7af6c75e1b",
+  "github_pr": 18,
+  "github_review_workflows": 18,
+  "github_review_workflows_passed": 18,
+  "safe_area_unit_tests": 22,
+  "negative_typescript_diagnostics": 7,
+  "chromium_browser_configurations": 8,
+  "chromium_dev_preview_widths": [
+    375,
+    390,
+    402,
+    430
   ],
+  "scenarios_per_configuration": 7,
+  "assertions_per_configuration": 91,
+  "total_safe_area_assertions": 728,
+  "real_browser": "headless Chromium",
+  "safe_area_insets": "simulation only in browser QA; CSS env() on production host",
   "physical_iphone_safari": "NOT_RUN",
-  "L3-038": "NOT_STARTED"
+  "scope_exclusions": [
+    "L3-038",
+    "navigation",
+    "gameplay",
+    "character customization"
+  ],
+  "source_and_git_history": "preserved in numbered full checkpoint"
 }

@@ -1,0 +1,23 @@
+/* Isolated safe-area demo — not a navigation or gameplay screen. */
+.safe-demo-shell{max-inline-size:850px;display:flex;flex-direction:column;gap:18px;background:radial-gradient(ellipse at 90% 0%,var(--legacy-surface-raised),transparent 60%),var(--legacy-surface-canvas);color:var(--legacy-text-primary);font-family:system-ui,-apple-system,'Segoe UI',sans-serif}
+.safe-demo-shell *, .safe-demo-shell *::before, .safe-demo-shell *::after{box-sizing:border-box}
+.safe-demo-shell h1,.safe-demo-shell h2,.safe-demo-shell p{margin:0}
+.safe-demo-header,.safe-demo-footer{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.safe-demo-brand{font-weight:800;color:var(--legacy-accent-primary);letter-spacing:.08em}
+.safe-demo-kicker{color:var(--legacy-accent-primary)}
+.safe-demo-header{border-bottom:1px solid var(--legacy-border-subtle);padding-bottom:12px}
+.safe-demo-body{flex:1;display:flex;flex-direction:column;gap:16px}
+.safe-demo-intro{display:grid;gap:12px}
+.safe-demo-intro h1{max-inline-size:650px}
+.safe-demo-intro p{max-inline-size:650px;color:var(--legacy-text-secondary)}
+.safe-demo-panel{padding:18px;background:var(--legacy-surface-panel);border:1px solid var(--legacy-border-default);border-radius:14px;min-inline-size:0}
+.safe-demo-panel h2{margin:0 0 12px}
+.safe-demo-options{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.safe-demo-button{border:1px solid var(--legacy-border-default);border-radius:9px;padding:10px 13px;min-height:44px;background:var(--legacy-surface-raised);color:var(--legacy-text-primary);font:inherit;cursor:pointer;max-inline-size:100%;white-space:normal;text-align:left}
+.safe-demo-button[aria-pressed='true']{border-color:var(--legacy-accent-primary);color:var(--legacy-accent-primary)}
+.safe-demo-button:focus-visible{outline:3px solid var(--legacy-focus-ring);outline-offset:2px}
+.safe-demo-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.safe-demo-metric{border-radius:10px;border:1px solid var(--legacy-border-default);padding:12px;min-inline-size:0;background:var(--legacy-surface-raised)}
+.safe-demo-metric strong{display:block;white-space:normal;overflow-wrap:anywhere;color:var(--legacy-accent-primary)}
+.safe-demo-footer{border-top:1px solid var(--legacy-border-subtle);padding-top:12px;color:var(--legacy-text-secondary)}
+@media(max-width:520px){.safe-demo-metrics{grid-template-columns:1fr}.safe-demo-panel{padding:14px}}

@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src/shell/safe-area.ts",
+    "src/shell/safe-area-preview.ts"
+  ],
+  "exclude": [
+    "tests/shell/safe-area-negative.ts",
+    "node_modules",
+    "dist"
+  ],
+  "compilerOptions": {
+    "types": []
+  }
+}

@@ -69,6 +69,9 @@ def run(base,out):
                 for action in ACTIONS:
                     button=page.locator('#home-'+action)
                     button.focus()
+                    page.keyboard.press('Shift+Tab')
+                    page.keyboard.press('Tab')
+                    assert page.evaluate('document.activeElement.id')=='home-'+action
                     outline=button.evaluate('(el)=>getComputedStyle(el).outlineStyle')
                     assert outline != 'none',f'missing keyboard focus ring: {action}'
                     page.keyboard.press('Enter')

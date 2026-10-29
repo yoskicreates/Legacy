@@ -1,11 +1,34 @@
 {
   "task": "L3-038",
-  "status": "REVIEW_PENDING",
+  "status": "ACCEPTED",
   "scope": "Non-playable Preact Start, Continue and Settings home previews",
-  "requirements": ["three accessible controls", "back-to-home", "375/390/402/430 mobile", "200% text zoom", "simulated safe-area + landscape", "retain renderer and prior browser checks"],
+  "requirements": [
+    "three accessible controls",
+    "back-to-home",
+    "375/390/402/430 mobile",
+    "200% text zoom",
+    "simulated safe-area + landscape",
+    "retain renderer and prior browser checks"
+  ],
   "physical_iphone_safari": "NOT_RUN",
   "start_creates_game": false,
   "continue_reads_save": false,
   "settings_persists": false,
-  "merged": false
+  "merged": false,
+  "source_commit": "e611bb9da03bee5a559296f2d3d82a322bdfbe0d",
+  "cloud_workflows": "19/19 PASS",
+  "test_home": "23 PASS",
+  "negative_type_cases": 7,
+  "browser": {
+    "dev": {
+      "passes": 4,
+      "assertions": 532
+    },
+    "preview": {
+      "passes": 4,
+      "assertions": 532
+    }
+  },
+  "build_manifest": "PASS",
+  "checkpoint_required_before_merge": true
 }

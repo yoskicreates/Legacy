@@ -2,48 +2,10 @@
   "project": "LEGACY 3.0",
   "blueprint_version": "1.0",
   "created": "2026-10-28",
-  "scope": "L3-037 accepted: iPhone safe-area host shell with real CSS env() insets and QA-only notch/landscape simulations; no L3-038 navigation or gameplay",
+  "scope": "L3-038 accepted: responsive accessible home screen with Start, Continue, Settings preview panels; no save creation, preferences, fighter creation or gameplay",
   "total_tasks": 272,
-  "completed": [
-    "L3-001",
-    "L3-002",
-    "L3-003",
-    "L3-004",
-    "L3-005",
-    "L3-006",
-    "L3-007",
-    "L3-008",
-    "L3-009",
-    "L3-010",
-    "L3-011",
-    "L3-012",
-    "L3-013",
-    "L3-014",
-    "L3-015",
-    "L3-016",
-    "L3-017",
-    "L3-018",
-    "L3-019",
-    "L3-020",
-    "L3-021",
-    "L3-022",
-    "L3-023",
-    "L3-024",
-    "L3-025",
-    "L3-026",
-    "L3-027",
-    "L3-028",
-    "L3-029",
-    "L3-030",
-    "L3-031",
-    "L3-032",
-    "L3-033",
-    "L3-034",
-    "L3-035",
-    "L3-036",
-    "L3-037"
-  ],
-  "next_task": "L3-038",
+  "completed": 38,
+  "next_task": "L3-039",
   "phases": [
     {
       "id": "01",
@@ -635,7 +597,7 @@
       "build": "Create start, continue, and settings interface",
       "test": "Home fits smallest supported screen and buttons work",
       "depends_on": "L3-037",
-      "status": "planned",
+      "status": "completed",
       "primary_pillar": "P1",
       "supporting_pillar": "P3"
     },
@@ -3938,5 +3900,26 @@
     "chromium_safe_area_assertions": "728/728 PASS — 7 simulated scenarios per width",
     "physical_iphone_safari": "NOT_RUN",
     "checkpoint_status": "verified prior to final CI"
+  },
+  "L3_038_acceptance_evidence": {
+    "status": "ACCEPTED",
+    "pull_request": 19,
+    "verified_head_sha": "e611bb9da03bee5a559296f2d3d82a322bdfbe0d",
+    "cloud_workflows": "19/19 PASS",
+    "chromium_viewports": [
+      375,
+      390,
+      402,
+      430
+    ],
+    "chromium_modes": [
+      "dev",
+      "preview"
+    ],
+    "browser_assertions": 1064,
+    "contract_tests": 23,
+    "negative_type_cases": 7,
+    "physical_iphone_safari": "NOT_RUN",
+    "next_task_not_started": "L3-039"
   }
 }

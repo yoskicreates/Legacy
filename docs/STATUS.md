@@ -1,11 +1,13 @@
 # LEGACY 3.0 TASK STATUS
 
-**L3-037 — Build iPhone safe-area shell: COMPLETE / ACCEPTED**  
-**Progress: 37 accepted / 272**  
-**Next: L3-038 — NOT STARTED**
+**L3-038 — Build home screen layout: COMPLETE / ACCEPTED (review branch; merge pending)**  
+**Progress: 38 accepted / 272**  
+**Next: L3-039 — NOT STARTED**
 
-L3-037 implements a reusable CSS env(safe-area-inset-*) host shell with viewport-fit=cover, stable 100svh/100dvh sizing, normal-flow padding, and an independent non-playable visual test page. Four QA presets simulate notch, Dynamic Island, neutral and landscape side-insets; these are **not actual device measurements**. The L3-035 palette and L3-036 typography are unchanged.
+L3-038 adds a polished, accessible Preact-owned mobile home screen with **Start Career**, **Continue** and **Settings** controls. Each opens a distinct informational preview, and **Back to Home** restores the menu and keyboard focus. These remain intentionally non-playable previews: Start does **not** create a career, Continue does **not** load a save, and Settings does **not** persist changes.
 
-22 safe-area tests and seven deliberately invalid TypeScript cases passed. GitHub CI passed all 18 L3-020 through L3-037 review workflows including clean npm ci, genuine Vite dev/preview, build-manifest verification, and real Chromium QA across 375/390/402/430 CSS px in portrait and landscape (728 safe-area assertions). **Physical iPhone Safari: NOT_RUN**. Original full source and local Git history are in the immutable L3-037 checkpoint in Library `/LEGACY_3_0/`.
+Preserves the L3-035 color tokens, L3-036 typography, L3-037 safe-area shell, the independent PixiJS renderer boundary and the existing check-button interaction. The 375/390/402/430 CSS-pixel browser suite verified touch targets, focus management, keyboard Tab/Enter/Space behavior, text reflow at 200%, simulated device insets, landscape, reload and zero horizontal overflow on genuine Vite dev/preview in Chromium.
 
-LEGACY 3.0 remains a non-playable development foundation. L3-038, full navigation, illustrated characters, and gameplay are not implemented.
+**QA:** 19/19 GitHub workflows successful on review commit e611bb9da03bee5a559296f2d3d82a322bdfbe0d; 23 home contract tests and 7 expected invalid TypeScript cases passed; 8/8 Chromium home browser configurations passed with 1,064 assertions; previous L3-020–L3-037 regressions, clean npm ci, strict typing, lint, production build and verified build manifest passed. Physical iPhone Safari: **NOT_RUN**. See PR #19 and its GitHub Actions acceptance artifact.
+
+Immutable checkpoint archives preserve the original Git history and evidence. Do not implement L3-039 in this task. LEGACY 3.0 remains a non-playable development foundation; fighter creation, full navigation and gameplay are future milestones.

@@ -1,0 +1,13 @@
+import { makeFighterFixture, makeCareerFixture, makeSaveFixture, makeFixtureBundle, makeInvalidStateFixture, makeBoundaryFixtures } from './fixture-system';
+import type { CareerFixtureOptions, FighterFixture, SaveFixtureOptions, FixtureStyle, FixtureDivision, FixtureInvalidCase } from './fixture-system';
+import type { GameStateV1 } from '@domain/core';
+import type { LoadedManualSlot } from '@domain/persistence/manual-slots';
+const options: CareerFixtureOptions = {seed:42,randomDraws:13};
+const fighter: FighterFixture = makeFighterFixture(42);
+const state: GameStateV1 = makeCareerFixture(options);
+const saveOptions: SaveFixtureOptions = {seed:42,slotId:'slot-1',savedAtEpochMs:1700000000000};
+const slot: LoadedManualSlot = makeSaveFixture(saveOptions);
+const style: FixtureStyle = fighter.style;
+const division: FixtureDivision = fighter.division;
+const invalid: FixtureInvalidCase = 'corrupt-random';
+void [state,slot,style,division,invalid,makeFixtureBundle,makeInvalidStateFixture,makeBoundaryFixtures];

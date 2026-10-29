@@ -1,0 +1,1 @@
+{"extends":"./tsconfig.json","include":["tests/fixtures/invalid-fixture-system-types.ts"],"exclude":["node_modules","dist"],"compilerOptions":{"types":[]}}

@@ -85,8 +85,8 @@ test('forbid UI/renderer aliases, external packages and unsafe dynamic imports, 
 test('L3-022 domains remain isolated through L3-031 export/import milestone', async () => {
   const reg = JSON.parse(await readFile(join(root, 'docs/task-register.json'), 'utf8'));
   assert.equal(reg.total_tasks, 272);
-  assert.ok(['L3-032','L3-033'].includes(reg.next_task));
-  assert.ok([31,32].includes(reg.completed.length));
+  assert.ok(['L3-032','L3-033','L3-034'].includes(reg.next_task));
+  assert.ok([31,32,33].includes(reg.completed.length));
   assert.equal(reg.tasks.find(x => x.id === 'L3-022').status, 'completed');
   assert.equal(reg.tasks.find(x => x.id === 'L3-023').status, 'completed');
   assert.equal(reg.tasks.find(x => x.id === 'L3-024').status, 'completed');

@@ -1,0 +1,30 @@
+{
+  "task_id": "L3-033",
+  "status": "COMPLETE",
+  "baseline": "e0619253a733411f6b65443bcb666389dcf5edd0",
+  "scope": "Test-only synthetic seeded fighter metadata, valid V1 career and three manual slot fixtures, invalid and boundary cases",
+  "local": {
+    "unit_tests": "22/22 PASS",
+    "negative_type_errors": 7,
+    "typecheck": "PASS",
+    "lint": "PASS",
+    "full_suite": "194/195; missing local Preact/Pixi required modules; cloud full test PASS",
+    "npm_ci_offline": "UNAVAILABLE due uncached Vite; cloud clean npm ci PASS"
+  },
+  "cloud": {
+    "status": "PASS",
+    "review_commit": "ae7e175b697d1f849ddb4a97ca4fd2127f5dbd3c",
+    "pr": 14,
+    "workflow_run": 40791294105,
+    "workflows": "14/14 PASS",
+    "browser": "8/8 PASS, 208 fixture assertions, genuine Vite dev+preview",
+    "full_build": "PASS genuine Vite",
+    "negative_types": "7/7 expected",
+    "unit_tests": "22/22 PASS",
+    "regressions": "L3-020 through L3-032 PASS"
+  },
+  "physical_iphone_safari": "NOT_RUN",
+  "next_task": "L3-034 NOT_STARTED",
+  "accepted_total": 33,
+  "checkpoint": "LEGACY_3_0_L3-033_COMPLETE_SOURCE.zip"
+}

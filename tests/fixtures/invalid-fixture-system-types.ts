@@ -1,0 +1,10 @@
+import { makeCareerFixture, makeSaveFixture, makeFighterFixture, makeInvalidStateFixture, makeFixtureBundle } from '../../src/tooling/fixture-system';
+import type { FixtureStyle, SaveFixtureOptions } from '../../src/tooling/fixture-system';
+const invalidStyle: FixtureStyle = 'invisible';
+const badSlot: SaveFixtureOptions = {seed:1,slotId:'slot-4',savedAtEpochMs:0};
+makeCareerFixture({seed:'42'});
+makeSaveFixture({seed:42,slotId:'auto',savedAtEpochMs:10});
+makeFighterFixture('42');
+makeInvalidStateFixture('healthy-state');
+makeFixtureBundle(1,'today');
+void invalidStyle;void badSlot;

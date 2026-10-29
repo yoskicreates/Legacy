@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "LEGACY 3.0 L3-032: ordered pure schema migration harness (non-playable foundation)",
+  "description": "LEGACY 3.0 L3-033: deterministic test-only fighter, career and save fixtures (non-playable foundation)",
   "engines": {
     "node": ">=22"
   },
@@ -45,7 +45,10 @@
     "test:export-import:negative": "node scripts/export-import-negative-test.mjs",
     "typecheck:migrations": "tsc --project tsconfig.migrations.json --noEmit",
     "test:migrations": "node --test tests/migrations.test.mjs",
-    "test:migrations:negative": "node scripts/migrations-negative-test.mjs"
+    "test:migrations:negative": "node scripts/migrations-negative-test.mjs",
+    "typecheck:fixtures": "tsc --project tsconfig.fixtures.json --noEmit",
+    "test:fixtures": "node --test tests/fixture-system.test.mjs",
+    "test:fixtures:negative": "node scripts/fixtures-negative-test.mjs"
   },
   "devDependencies": {
     "typescript": "5.8.3",

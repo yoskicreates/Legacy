@@ -1,7 +1,9 @@
-/** L3-038 Preact home: no navigation router, persistence reads or gameplay. */
+/** L3-039 Preact shell: typed in-memory bottom tab routing, no persistence or gameplay. */
 import { h, render } from 'preact';
 import { useLayoutEffect, useRef, useState } from 'preact/hooks';
 import { HOME_ACTIONS, HOME_PANELS, type HomeView, type HomeAction } from './home-contract';
+import { BOTTOM_NAV_ITEMS, tabForRoute, routeForTab, type BottomTabId } from './bottom-nav-contract';
+import { initialRouteState, reduceRoute, currentRoute, canGoBack, canGoForward, type RouteAction } from '../navigation/route-state';
 
 export type RendererStatus = 'starting' | 'ready' | 'unavailable' | 'unmounted';
 export interface MenuMount {
@@ -12,15 +14,30 @@ export interface MenuMount {
 function Menu({ rendererStatus }: { readonly rendererStatus: RendererStatus }) {
   const [verified, setVerified] = useState(false);
   const [view, setView] = useState<HomeView>('home');
+  const [routeState, setRouteState] = useState(() => initialRouteState('home'));
+  const activeRoute = currentRoute(routeState);
+  const activeTab = tabForRoute(activeRoute);
+  const previousRoute = useRef(activeRoute);
+  const dispatchRoute = (action: RouteAction) => {
+    setRouteState(old => reduceRoute(old, action));
+    if (action.type === 'navigate' || action.type === 'back' || action.type === 'forward' || action.type === 'reset') setView('home');
+  };
+  const navigateTab = (id: BottomTabId) => dispatchRoute({type:'navigate', to:routeForTab(id)});
   const previousView = useRef<HomeView>('home');
   useLayoutEffect(() => {
     const previous = previousView.current;
     if (previous === view) return;
     previousView.current = view;
     // Move focus with the replaced content; restore the originating control on return.
+    if (activeRoute !== 'home') return;
     const target = view === 'home' ? `home-${previous}` : 'page-title';
     document.getElementById(target)?.focus();
-  }, [view]);
+  }, [view, activeRoute]);
+  useLayoutEffect(() => {
+    if (previousRoute.current === activeRoute) return;
+    previousRoute.current = activeRoute;
+    document.getElementById('page-title')?.focus();
+  }, [activeRoute]);
   const rendererDescription: Record<RendererStatus, string> = {
     starting: 'Initializing independent PixiJS renderer…',
     ready: 'Independent PixiJS canvas mounted.',
@@ -50,7 +67,23 @@ function Menu({ rendererStatus }: { readonly rendererStatus: RendererStatus }) {
       h('span', { class: 'wordmark' }, ['LEGACY', h('span', { class: 'wordmark-dot' }, '.')]),
       h('span', { class: 'version' }, 'VERSION 3.0 · FOUNDATION'),
     ]),
-    h('section', { class: 'legacy-home', 'aria-label': 'LEGACY home screen', key: 'home', 'data-home-view': view }, [
+    h('section', { class: 'legacy-home', 'aria-label': activeRoute === 'home' ? 'LEGACY home screen' : 'LEGACY section preview', key: 'home', 'data-home-view': view, 'data-current-route': activeRoute }, [
+      activeRoute !== 'home' && activeTab
+        ? h('div', { class: 'legacy-route-preview', 'data-route-preview': activeTab.id, 'data-route-id': activeRoute }, [
+            h('div', { class: 'legacy-route-toolbar' }, [
+              h('button', { id: 'nav-back', type: 'button', class: 'legacy-route-back', disabled: !canGoBack(routeState), onClick: () => dispatchRoute({type:'back'}) }, '← Back'),
+              h('button', { id: 'nav-forward', type: 'button', class: 'legacy-route-forward', disabled: !canGoForward(routeState), onClick: () => dispatchRoute({type:'forward'}) }, 'Forward →'),
+              h('button', { id: 'nav-home', type: 'button', class: 'legacy-route-home', onClick: () => dispatchRoute({type:'navigate',to:'home'}) }, 'Home'),
+            ]),
+            h('span', { class: 'legacy-home-kicker' }, activeTab.eyebrow),
+            h('h1', { id: 'page-title', tabIndex: -1, class:'legacy-route-title' }, activeTab.title),
+            h('div', { class: 'legacy-route-detail' }, [
+              h('span', { class: 'legacy-route-status' }, 'SECTION PREVIEW'),
+              h('p', { id:'nav-panel-description', role:'status', 'aria-live':'polite' }, activeTab.description),
+              h('p', { class: 'legacy-route-note' }, 'Navigation only · No save, career, economy or fight state changes.'),
+            ]),
+          ])
+        : [
       view === 'home'
         ? h('div', { key: 'home-content' }, [
             h('div', { class: 'legacy-home-top' }, [
@@ -70,6 +103,17 @@ function Menu({ rendererStatus }: { readonly rendererStatus: RendererStatus }) {
             h('p', { id: 'home-panel-description', role: 'status', 'aria-live': 'polite' }, HOME_PANELS[view].body),
             h('small', {}, 'No game or save state is changed in this preview.'),
           ]),
+      ],
+    ]),
+    h('nav', { class:'legacy-bottom-nav', 'aria-label':'Primary game sections', key:'bottom-nav' }, [
+      ...BOTTOM_NAV_ITEMS.map(item => h('button', {
+        id:`nav-${item.id}`, key:item.id, type:'button', class:`legacy-tab${activeTab?.id===item.id?' legacy-tab--active':''}`,
+        'aria-label':item.label, 'aria-current':activeTab?.id===item.id?'page':undefined,
+        onClick:() => navigateTab(item.id),
+      }, [
+        h('span', {class:'legacy-tab-icon', 'aria-hidden':'true'}, item.icon),
+        h('span', {class:'legacy-tab-label'}, item.label),
+      ])),
     ]),
     h('section', { class: 'legacy-dev-check', 'aria-label': 'Development status', key: 'dev' }, [
       h('div', { class: 'intro' }, [
@@ -77,7 +121,7 @@ function Menu({ rendererStatus }: { readonly rendererStatus: RendererStatus }) {
         h('p', { class: 'description' }, 'The Preact menu and PixiJS render surface remain separate. Character creation, fights, and career simulation are not implemented.'),
         h('div', { class: 'state' }, [
           h('span', { class: 'state-dot', 'aria-hidden': 'true' }),
-          h('span', {}, ['FOUNDATION BUILD ', h('span', { class: 'state-secondary' }, '· L3-038')]),
+          h('span', {}, ['FOUNDATION BUILD ', h('span', { class: 'state-secondary' }, '· L3-039')]),
         ]),
         h('button', {
           id: 'check-button', class: 'action', type: 'button',

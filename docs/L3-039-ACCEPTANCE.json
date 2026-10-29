@@ -1,0 +1,23 @@
+{
+  "task": "L3-039",
+  "status": "IN_REVIEW",
+  "accepted_baseline": "L3-038 merge 21ae4ec1ae802d165c3fe7f08e8a14a5ff48fca5",
+  "scope": "Five native bottom navigation tabs and non-playable preview routes; no L3-040",
+  "route_mapping": {
+    "Career": "career",
+    "Fighter": "character",
+    "Fight": "fight",
+    "Life": "social",
+    "Finances": "economy"
+  },
+  "local_evidence": {
+    "bottom_nav_contract_tests": "17 PASS",
+    "invalid_type_cases": "7 rejected",
+    "typescript_contract": "PASS",
+    "home_regressions": "23 PASS",
+    "domain_boundary": "PASS"
+  },
+  "mandatory_cloud_validation": "PENDING",
+  "physical_iphone_safari": "NOT_RUN",
+  "merge_allowed": false
+}

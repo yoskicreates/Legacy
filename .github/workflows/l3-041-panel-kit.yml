@@ -7,6 +7,11 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# Cancel superseded PR browser suites to conserve hosted-runner minutes.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
@@ -23,6 +28,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+          cache: npm
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:

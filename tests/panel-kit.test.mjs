@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
+import {readdirSync,readFileSync} from 'node:fs';
 import {resolve,join} from 'node:path';
 import ts from 'typescript';
 const root=resolve(import.meta.dirname,'..');
@@ -43,3 +44,26 @@ test('panel kit styles use scoped CSS tokens and tactile accessible controls',()
 test('uses native accessibility semantics and live status',()=>{assert.match(components,/role:'group'/);assert.match(components,/aria-label/);assert.match(components,/'aria-live':'polite'/);});
 test('separate Vite QA page and entry preserve existing game renderer',()=>{assert.match(vite,/panelKitQa: path\('\.\/panel-kit-qa\.html'\)/);assert.match(html,/viewport-fit=cover/);assert.match(qa,/PanelKitGallery/);assert.doesNotMatch(qa,/mountRendererViewport|from ['"]@renderer/);assert.doesNotMatch(mainCss,/panel-kit/);});
 test('earlier L3-040 milestone remains accepted and L3-041 not previously completed',()=>{assert.equal(regData.tasks.find(x=>x.id==='L3-040').status,'completed');assert.equal(regData.tasks.find(x=>x.id==='L3-041').status,'planned');});
+
+// Retain inherited regression coverage without paying for 21 duplicate runners per L3-041 PR commit.
+test('L3-041 review skips only redundant inherited jobs, retains regular main and dispatch triggers',()=>{
+  const dir=join(root,'.github/workflows');
+  const files=readdirSync(dir).filter(name=>/^l3-(?:0[23]\d|040)-.+\.yml$/.test(name));
+  assert.equal(files.length,21,'all accepted inherited workflow definitions must remain');
+  for(const name of files){
+    const workflow=readFileSync(join(dir,name),'utf8');
+    assert.ok(workflow.includes("if: ${{ github.event_name != 'pull_request' || github.head_ref != 'l3-041-panel-card-kit' }}"),`${name} must skip only duplicated L3-041 PR runners`);
+    assert.match(workflow,/workflow_dispatch:/,`${name} remains runnable manually`);
+    if(name!=='l3-021-boundary-acceptance.yml') assert.match(workflow,/push:/,`${name} remains active on main`);
+  }
+});
+test('consolidated L3-041 workflow retains inherited test and browser coverage',()=>{
+  const yaml=readFileSync(join(root,'.github/workflows/l3-041-panel-kit.yml'),'utf8');
+  for(const line of ['npm ci --no-audit --no-fund','npm run lint','npm run typecheck','npm run test:types:negative','npm test','npm run build','npm run manifest:verify'])
+    assert.ok(yaml.includes(line),`required acceptance stage ${line}`);
+  for(const old of ['nested-nav','bottom-nav','home-screen','safe-area','typography','design-tokens','build-manifest','fixtures','migrations','export-import','manual-slots','autosave','indexeddb','boundary','vite'])
+    assert.ok(yaml.includes(`chromium-${old}-qa.py`),`missing inherited Chromium regression ${old}`);
+  assert.match(yaml,/chromium-panel-kit-qa.py/);
+  assert.match(yaml,/cancel-in-progress: true/);
+  assert.match(yaml,/cache: npm/);
+});

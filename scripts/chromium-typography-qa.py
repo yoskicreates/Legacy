@@ -7,6 +7,9 @@ WIDTHS=(375,390,402,430)
 JS=r'''()=>{
 const ok=(v,m)=>{if(!v)throw Error(m)};
 const q=window.__LEGACY3_TYPOGRAPHY_QA__,root=document.documentElement;
+// Vite's production CSS minifier may remove leading zeroes from decimals (e.g. -.035em).
+// Normalize equivalent CSS number spellings; do not relax units, roles or actual values.
+const normalizedCss=v=>v.trim().replace(/(^|[^\d])(-?)\.(\d+)/g,(_all,prefix,sign,digits)=>`${prefix}${sign}0.${digits}`).replace(/\s+/g,' ');
 ok(q?.version==='L3-036.V1','missing QA module');ok(q.palette==='L3-035.V1','palette regression');
 ok(q.roles.length===7,'missing semantic roles');
 for(const role of q.roles){
@@ -17,7 +20,7 @@ for(const role of q.roles){
  const line=parseFloat(s.lineHeight);ok(line>=parseFloat(s.fontSize)*1.08,'insufficient line height '+role);
  for(const [name,value] of Object.entries(spec)){
   const cssVar='--legacy-type-'+role+'-'+name.replace(/[A-Z]/g,c=>'-'+c.toLowerCase());
-  ok(getComputedStyle(root).getPropertyValue(cssVar).trim()===value,'CSS drift '+cssVar)
+  ok(normalizedCss(getComputedStyle(root).getPropertyValue(cssVar))===normalizedCss(value),'CSS drift '+cssVar)
  }
 }
 const num=document.querySelector('[data-qa="numeric"]'),style=getComputedStyle(num);

@@ -1,15 +1,40 @@
 {
   "task": "L3-040",
-  "status": "REVIEW_ONLY \u2014 NOT ACCEPTED",
+  "status": "ACCEPTED — MERGE PENDING",
   "accepted_baseline": "L3-039 PR #20 merge 9cb70cb3873ffb9b0680b1bfd6539f6cb8b5aaa1",
   "scope": "Route-scoped two-level nested preview pages, breadcrumb navigation, contextual Back/Forward, and tab context; no gameplay or L3-041",
   "local_evidence": {
     "dedicated_unit_tests": "17 PASS",
     "negative_type_cases": "7 rejected",
     "nested_contract_typecheck": "PASS",
-    "full_dependency_install": "BLOCKED/NOT_RUN locally \u2014 cloud mandatory"
+    "full_dependency_install": "BLOCKED/NOT_RUN locally — cloud mandatory"
   },
   "mandatory_cloud_validation": "PENDING",
   "physical_iphone_safari": "NOT_RUN",
-  "merge_gate": "all workflows PASS on final review head and verifiable non-overwriting archives saved"
+  "merge_gate": "all workflows PASS on final review head and verifiable non-overwriting archives saved",
+  "verified_review_head": "76d943dafa5cdf0bc1b4995878c81e6adc2dad13",
+  "github_workflows": "21/21 PASS",
+  "chromium": {
+    "widths_css_px": [
+      375,
+      390,
+      402,
+      430
+    ],
+    "dev_runs": 4,
+    "preview_runs": 4,
+    "nested_assertions": 1416,
+    "bottom_nav_assertions": 1104,
+    "browser_exceptions": 0
+  },
+  "clean_npm_ci": "PASS",
+  "typecheck": "PASS",
+  "negative_type_cases": 7,
+  "unit_tests": "PASS",
+  "lint": "PASS",
+  "build": "genuine Vite PASS",
+  "build_manifest": "PASS",
+  "inherited_regressions": "L3-020–L3-039 PASS",
+  "merge_allowed": "after final documentation commit passes 21 checks and verified complete checkpoint archives saved",
+  "no_gameplay_or_persistence": true
 }

@@ -2,7 +2,7 @@
   "project": "LEGACY 3.0",
   "blueprint_version": "1.0",
   "created": "2026-10-28",
-  "scope": "L3-039 accepted five-tab Preact bottom navigation using existing route-state with non-playable previews; do not begin L3-040",
+  "scope": "L3-040 accepted: detail previews, accessible breadcrumbs and in-memory route-scoped Back/Forward without gameplay or persistence; do not begin L3-041",
   "total_tasks": 272,
   "completed": [
     "L3-001",
@@ -43,9 +43,10 @@
     "L3-036",
     "L3-037",
     "L3-038",
-    "L3-039"
+    "L3-039",
+    "L3-040"
   ],
-  "next_task": "L3-040",
+  "next_task": "L3-041",
   "phases": [
     {
       "id": "01",
@@ -663,7 +664,7 @@
       "build": "Add detail pages, breadcrumbs where necessary, and back behavior",
       "test": "Navigation returns to prior place without losing state",
       "depends_on": "L3-039",
-      "status": "planned",
+      "status": "completed",
       "primary_pillar": "P3",
       "supporting_pillar": "P1"
     },
@@ -3979,5 +3980,24 @@
     "dedicated_contract_tests": 17,
     "physical_iphone_safari": "NOT_RUN",
     "gameplay": "NOT_IMPLEMENTED"
+  },
+  "L3_040_acceptance_evidence": {
+    "status": "ACCEPTED",
+    "pull_request": 21,
+    "verified_review_head": "76d943dafa5cdf0bc1b4995878c81e6adc2dad13",
+    "github_workflows": "21/21 PASS",
+    "chromium_widths_css_px": [
+      375,
+      390,
+      402,
+      430
+    ],
+    "dev_preview_runs": "8/8 PASS",
+    "nested_browser_assertions": 1416,
+    "previous_bottom_nav_browser_assertions": 1104,
+    "contract_tests": 17,
+    "negative_type_cases": 7,
+    "physical_iphone_safari": "NOT_RUN",
+    "next_milestone": "L3-041 NOT STARTED"
   }
 }

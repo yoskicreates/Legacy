@@ -69,7 +69,7 @@ def interactions(page):
  page.keyboard.press('Tab');page.keyboard.press('Shift+Tab')
  assert striker.evaluate('(e)=>e===document.activeElement') and striker.evaluate('(e)=>getComputedStyle(e).outlineStyle')!='none';checks+=2
  page.keyboard.press('Enter');page.wait_for_function("document.querySelector('[data-selection-choice=striking]').getAttribute('aria-pressed')==='true'")
- assert page.locator('[data-selection-component="choice-group"]').get_attribute('data-selection-selected')=='striking';checks+=2
+ assert page.locator('[data-selection-component="choice-group"]').first.get_attribute('data-selection-selected')=='striking';checks+=2
  assert 'Striking focus selected' in page.locator('.legacy-selection-live').inner_text();checks+=1
  grappler.focus();page.keyboard.press('Space')
  page.wait_for_function("document.querySelector('[data-selection-choice=grappling]').getAttribute('aria-pressed')==='true'")
@@ -88,7 +88,7 @@ def interactions(page):
  assert page.locator('[data-selection-choice]').count()==2;checks+=1
  page.locator('[data-selection-swap="true"]').click()
  assert page.locator('[data-selection-choice="striking"]').get_attribute('aria-pressed')=='false';checks+=1
- assert page.locator('[data-selection-component="choice-group"]').get_attribute('data-selection-selected')=='none';checks+=1
+ assert page.locator('[data-selection-component="choice-group"]').first.get_attribute('data-selection-selected')=='none';checks+=1
  page.locator('button').filter(has_text='Light preview').first.click()
  assert page.locator('main.legacy-selection-gallery').get_attribute('data-kit-theme')=='light';checks+=1
  return checks
@@ -118,7 +118,7 @@ def run(base,out):
     page.set_viewport_size({'width':844,'height':width});count+=layout(page,'light')
     page.screenshot(path=str(out/f'selection-landscape-{width}.png'),full_page=True)
     page.reload(wait_until='load');page.wait_for_function("document.documentElement.dataset.selectionCardReady==='true'")
-    assert page.locator('[data-selection-component="choice-group"]').get_attribute('data-selection-selected')=='none';count+=1
+    assert page.locator('[data-selection-component="choice-group"]').first.get_attribute('data-selection-selected')=='none';count+=1
     count+=layout(page,'dark')
     assert not errors,errors
     records.append({'width':width,'status':'PASS','assertions':count,'javascript_errors':errors})

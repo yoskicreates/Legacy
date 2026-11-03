@@ -1,0 +1,1 @@
+{"extends":"./tsconfig.json","include":["src/ui/panel-kit.ts","src/ui/panel-kit-contract.ts","src/design/tokens.ts","src/panel-kit-qa.ts"],"exclude":["tests/ui/panel-kit-negative.ts","node_modules","dist"],"compilerOptions":{"types":[]}}

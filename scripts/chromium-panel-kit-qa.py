@@ -66,7 +66,8 @@ def check(page,theme):
     assert v['ready']=='true' and v['version']=='L3-041.V1',v
     assert v['theme']==theme and v['noOverflow'] and v['noClipped'] and v['noTiny'],v
     assert v['count']==len(COMPONENTS)+3 and set(v['types'])==COMPONENTS,v
-    assert v['listItems']==3 and v['dl']==1 and v['cardHeadings']>=8,v
+    # Both the primary StatPanel and its progress-variant example expose a native <dl>.
+    assert v['listItems']==3 and v['dl']==2 and v['cardHeadings']>=8,v
     assert v['disabledCount']==1 and v['enabledCount']==1 and v['emptyState'],v
     assert v['mainVisibleName'] and v['variantsVisibleName'] and v['actionVisibleLabel'] and v['actionDescription'],v
     assert v['themeButtons']==2 and v['statusRegion']==1 and v['searchInput']==1 and v['checkboxes']==3,v

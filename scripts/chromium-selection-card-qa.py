@@ -70,7 +70,7 @@ def interactions(page):
  assert striker.evaluate('(e)=>e===document.activeElement') and striker.evaluate('(e)=>getComputedStyle(e).outlineStyle')!='none';checks+=2
  page.keyboard.press('Enter');page.wait_for_function("document.querySelector('[data-selection-choice=striking]').getAttribute('aria-pressed')==='true'")
  assert page.locator('[data-selection-component="choice-group"]').first.get_attribute('data-selection-selected')=='striking';checks+=2
- assert 'Striking focus selected' in page.locator('.legacy-selection-live').inner_text();checks+=1
+ assert 'Striking focus selected' in page.locator('.legacy-selection-live').first.inner_text();checks+=1
  grappler.focus();page.keyboard.press('Space')
  page.wait_for_function("document.querySelector('[data-selection-choice=grappling]').getAttribute('aria-pressed')==='true'")
  assert striker.get_attribute('aria-pressed')=='false' and page.locator('[aria-pressed="true"][data-selection-choice]').count()==1;checks+=2

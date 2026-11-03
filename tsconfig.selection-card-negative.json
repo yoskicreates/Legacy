@@ -1,0 +1,1 @@
+{"extends":"./tsconfig.selection-card.json","include":["src/ui/selection-card.ts","src/ui/selection-card-contract.ts","tests/ui/selection-card-negative.ts"],"exclude":["node_modules","dist"]}

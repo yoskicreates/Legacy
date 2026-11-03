@@ -24,6 +24,13 @@ export const PANEL_KIT_CATALOG = Object.freeze([
   {id:'stat',label:'Stat panel',semantics:'description list'},
   {id:'action',label:'Action tile',semantics:'button'},
   {id:'list',label:'List panel',semantics:'section with native list'},
+  {id:'disclosure',label:'Expandable card',semantics:'native details and summary'},
+  {id:'notice',label:'Dismissible notice',semantics:'labelled note and optional button'},
+  {id:'search-list',label:'Searchable list card',semantics:'labelled native search input and filtered list'},
+  {id:'segmented-info',label:'Segmented information card',semantics:'native pressed buttons with labelled information region'},
+  {id:'checklist',label:'Checklist card',semantics:'native checkboxes with progress and local-only state'},
+  {id:'timeline',label:'Event timeline card',semantics:'ordered date list, accessible selection and local-only detail region'},
+  {id:'comparison',label:'Comparison card',semantics:'native comparison table with accessible differences-only filter'},
 ] as const);
 export type PanelKitId = typeof PANEL_KIT_CATALOG[number]['id'];
 export function assertPanelKitContrast(theme: PanelKitTheme): true {
@@ -33,4 +40,16 @@ export function assertPanelKitContrast(theme: PanelKitTheme): true {
     if (contrastRatio(palette[fg],palette[bg]) < 4.5) throw new Error(`L3-041 ${theme}: ${fg} on ${bg} fails WCAG AA`);
   }
   return true;
+}
+
+/** Pure, nonmutating filter for reusable, presentation-only list cards. */
+export function filterPanelListItems<T extends {readonly label:string;readonly description?:string}>(items:readonly T[], query:string):readonly T[] {
+  const needle=query.trim().normalize('NFKC').toLocaleLowerCase();
+  if(!needle)return items;
+  return items.filter(item=>`${item.label} ${item.description??''}`.normalize('NFKC').toLocaleLowerCase().includes(needle));
+}
+
+/** Presentation-only comparison filtering; returns existing items without mutating caller data. */
+export function filterComparisonDifferences<T extends {readonly left:string;readonly right:string}>(metrics:readonly T[], differencesOnly:boolean):readonly T[] {
+  return differencesOnly?metrics.filter(metric=>metric.left!==metric.right):metrics;
 }

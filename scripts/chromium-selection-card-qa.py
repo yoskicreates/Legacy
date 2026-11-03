@@ -64,6 +64,9 @@ def interactions(page):
  disabled=page.locator('[data-selection-choice="later"]')
  assert disabled.is_disabled() and disabled.get_attribute('aria-pressed')=='false';checks+=2
  striker.focus()
+ # The theme switch click leaves Chromium in pointer-input mode. Traverse
+ # with keyboard Tab and Shift+Tab before testing the focus-visible ring.
+ page.keyboard.press('Tab');page.keyboard.press('Shift+Tab')
  assert striker.evaluate('(e)=>e===document.activeElement') and striker.evaluate('(e)=>getComputedStyle(e).outlineStyle')!='none';checks+=2
  page.keyboard.press('Enter');page.wait_for_function("document.querySelector('[data-selection-choice=striking]').getAttribute('aria-pressed')==='true'")
  assert page.locator('[data-selection-component="choice-group"]').get_attribute('data-selection-selected')=='striking';checks+=2
@@ -74,12 +77,17 @@ def interactions(page):
  assert page.locator('.legacy-selection-feedback').inner_text().startswith('Selection changes in this preview: 2');checks+=1
  # Selecting the same option again must not generate a second event.
  grappler.click();assert 'preview: 2.' in page.locator('.legacy-selection-feedback').inner_text();checks+=1
- # Replace/reinsert the previous option IDs; no old selection may silently return.
+ # First select an ID that is absent from the alternate dataset. Shared IDs
+ # must stay selected; only removed IDs should be pruned on prop replacement.
+ striker.click()
+ assert striker.get_attribute('aria-pressed')=='true'
+ assert 'preview: 3.' in page.locator('.legacy-selection-feedback').inner_text();checks+=2
+ # Replace/reinsert the removed option ID; it must never silently reappear.
  page.locator('[data-selection-swap="true"]').click()
  page.wait_for_function("document.querySelector('[data-selection-component=choice-group]').getAttribute('data-selection-selected')==='none'")
  assert page.locator('[data-selection-choice]').count()==2;checks+=1
  page.locator('[data-selection-swap="true"]').click()
- assert page.locator('[data-selection-choice="grappling"]').get_attribute('aria-pressed')=='false';checks+=1
+ assert page.locator('[data-selection-choice="striking"]').get_attribute('aria-pressed')=='false';checks+=1
  assert page.locator('[data-selection-component="choice-group"]').get_attribute('data-selection-selected')=='none';checks+=1
  page.locator('button').filter(has_text='Light preview').first.click()
  assert page.locator('main.legacy-selection-gallery').get_attribute('data-kit-theme')=='light';checks+=1

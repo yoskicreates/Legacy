@@ -100,3 +100,16 @@ test('isolated scripts expose strict typecheck and negative test',()=>{
  for(const k of ['typecheck:selection-card','test:selection-card:negative','test:selection-card'])assert.ok(packageJson.scripts[k]);
  assert.match(read('scripts/selection-card-negative-test.mjs'),/errors\.length!==7/);
 });
+
+
+test('Chromium focus check first enters real keyboard modality',()=>{
+ const browser=read('scripts/chromium-selection-card-qa.py');
+ assert.match(browser,/page\.keyboard\.press\('Tab'\);page\.keyboard\.press\('Shift\+Tab'\)/);
+ assert.match(browser,/outlineStyle/);
+});
+test('Chromium prop-swap test removes selected ID before checking stale selection',()=>{
+ const browser=read('scripts/chromium-selection-card-qa.py');
+ assert.match(browser,/striker\.click\(\)/);
+ assert.match(browser,/preview: 3\./);
+ assert.match(browser,/data-selection-selected/);
+});

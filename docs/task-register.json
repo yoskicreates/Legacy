@@ -2,7 +2,7 @@
   "project": "LEGACY 3.0",
   "blueprint_version": "1.0",
   "created": "2026-10-28",
-  "scope": "L3-040 accepted: detail previews, accessible breadcrumbs and in-memory route-scoped Back/Forward without gameplay or persistence; do not begin L3-041",
+  "scope": "L3-041 accepted by owner: shared semantic panel/card kit with isolated light/dark gallery; L3-042 planned but NOT STARTED. No gameplay, deployment, or persistence changes.",
   "total_tasks": 272,
   "completed": [
     "L3-001",
@@ -44,9 +44,10 @@
     "L3-037",
     "L3-038",
     "L3-039",
-    "L3-040"
+    "L3-040",
+    "L3-041"
   ],
-  "next_task": "L3-041",
+  "next_task": "L3-042",
   "phases": [
     {
       "id": "01",
@@ -677,7 +678,7 @@
       "build": "Create shared text cards, stat panels, action tiles, and lists",
       "test": "Components render correctly in light/dark contrast tests",
       "depends_on": "L3-040",
-      "status": "planned",
+      "status": "completed",
       "primary_pillar": "P1",
       "supporting_pillar": "P3"
     },
@@ -3687,7 +3688,7 @@
   ],
   "pillar_document": "LEGACY_3_0_Game_Pillars_L3-002.docx",
   "pillar_mapping": "LEGACY_3_0_Pillar_Crosswalk_L3-002.csv",
-  "updated": "2026-10-29",
+  "updated": "2026-11-03",
   "player_fantasy_document": "LEGACY_3_0_Player_Fantasy_L3-003.docx",
   "player_fantasy_spec_version": "1.0 - L3-003 design proposal; content requires user design review",
   "previous_register": "GOVERNANCE/LEGACY_3_0_Task_Register_L3-030.json",
@@ -3999,5 +4000,32 @@
     "negative_type_cases": 7,
     "physical_iphone_safari": "NOT_RUN",
     "next_milestone": "L3-041 NOT STARTED"
+  },
+  "L3_041_acceptance_evidence": {
+    "status": "ACCEPTED",
+    "owner_visual_approval": "APPROVED 2026-11-03 (owner response: I approve)",
+    "owner_merge_authorization": "YES 2026-11-03; explicit authorization to merge PR #26 and formally accept 41/272",
+    "pull_request": 26,
+    "review_source_head": "1847157c1b67bcf45ab5bbf47b2eaef007939200",
+    "review_source_tree": "65c1961778c360fad1f48746f6af63237e414bb4",
+    "local_r27_commit": "95a4a8f04b76b886ce8e9bbfd494dd7534cf9a59",
+    "github_workflows": "22/22 PASS (exact R27 review source)",
+    "github_actions_run": 41712746053,
+    "genuine_vite_chromium_widths_css_px": [
+      375,
+      390,
+      402,
+      430
+    ],
+    "dev_preview_runs": "8/8 PASS",
+    "chromium_assertions": 4448,
+    "javascript_errors": 0,
+    "source_integrity": "285/285 R27 source files byte-matched CI artifact",
+    "additional_offline_checks": "2,224 offline interaction + 56 owner-diagnostic + 288 accessibility assertions (Chromium; NOT Safari)",
+    "complete_source_history_and_qa": "Preserved as non-overwriting numbered artifacts in ChatGPT Library /LEGACY_3_0/",
+    "physical_iphone_safari": "NOT_RUN — not claimed as passed; owner explicitly approved acceptance without a recorded device test",
+    "historical_provenance": "P8 original Git bundle recovered and verified; R14/R17 original Git history unavailable and not claimed reconciled",
+    "no_gameplay_persistence_or_deployment": true,
+    "next_milestone": "L3-042 PLANNED — NOT STARTED"
   }
 }

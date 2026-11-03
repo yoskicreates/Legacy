@@ -25,6 +25,6 @@ The branch contains only the confirmed L3-041 kit, its strict typing fix, and re
 - Clean `npm ci --no-audit --no-fund` succeeded without changing dependency manifests.
 - `npm run verify` passed: lint, domain boundaries, strict TypeScript, negative type checks, all 356 unit tests, and Vite production build.
 - Per-milestone TypeScript and negative checks for L3-020–041 passed.
-- `npm run manifest:generate` and `npm run manifest:verify` passed (275 source files, 50 build files, 7 logged checks).
+- `npm run manifest:generate` and `npm run manifest:verify` passed on the committed tree (276 source files, 50 build files, 7 logged checks).
 - Vite dev and preview Chromium runs passed for the panel kit and inherited browser regressions at 375, 390, 402, and 430 CSS px. The panel-kit checks covered both themes, contrast, keyboard behavior, accessibility relations, and horizontal overflow. Local screenshots/results were generated under `/tmp/l3-041-acceptance`.
 - The prior R16 Actions run [41695134241](https://github.com/yoskicreates/Legacy/actions/runs/41695134241) succeeded on commit `19a92a2`; artifact `13261550925` is available. That run and artifact predate this isolated branch and are not evidence of a CI run on its eventual integration commit. Keep the current PR draft until a fresh run and the missing R17 archive are reviewed.

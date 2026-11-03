@@ -1,5 +1,5 @@
 /** L3-041 — reusable, semantic presentation elements, no side effects. */
-import {h, type ComponentChildren, type VNode} from 'preact';
+import {h, type ComponentChildren} from 'preact';
 import {useId,useState} from 'preact/hooks';
 import {PANEL_KIT_CATALOG, PANEL_KIT_VERSION, assertPanelKitContrast, type PanelKitTheme} from './panel-kit-contract';
 
@@ -9,13 +9,13 @@ export interface ActionTileProps {readonly label:string;readonly description:str
 export interface PanelListItem {readonly id:string;readonly label:string;readonly description?:string}
 export interface PanelListProps {readonly title:string;readonly items:readonly PanelListItem[]}
 
-export function TextCard({title,body,eyebrow}:TextCardProps):VNode {
+export function TextCard({title,body,eyebrow}:TextCardProps){
   return h('article',{class:'legacy-kit-card legacy-kit-text','aria-label':title,'data-kit-component':'text'},[
     eyebrow?h('span',{class:'legacy-kit-eyebrow'},eyebrow):null,
     h('h2',{class:'legacy-kit-heading'},title),h('p',{class:'legacy-kit-description'},body),
   ]);
 }
-export function StatPanel({label,value,detail}:StatPanelProps):VNode {
+export function StatPanel({label,value,detail}:StatPanelProps){
   return h('section',{class:'legacy-kit-card legacy-kit-stat','aria-label':label,'data-kit-component':'stat'},[
     h('dl',{},[h('div',{},[
       h('dt',{class:'legacy-kit-eyebrow'},label),
@@ -23,7 +23,7 @@ export function StatPanel({label,value,detail}:StatPanelProps):VNode {
     ])]),detail?h('p',{class:'legacy-kit-description'},detail):null,
   ]);
 }
-export function ActionTile({label,description,onActivate,disabled=false}:ActionTileProps):VNode {
+export function ActionTile({label,description,onActivate,disabled=false}:ActionTileProps){
   const descriptionId=useId();
   return h('button',{class:'legacy-kit-card legacy-kit-action',type:'button',onClick:onActivate,disabled,'aria-label':label,'aria-describedby':descriptionId,'data-kit-component':'action'},[
     h('span',{class:'legacy-kit-action-content'},[
@@ -32,7 +32,7 @@ export function ActionTile({label,description,onActivate,disabled=false}:ActionT
     ]),h('span',{class:'legacy-kit-arrow','aria-hidden':'true'},'→'),
   ]);
 }
-export function PanelList({title,items}:PanelListProps):VNode {
+export function PanelList({title,items}:PanelListProps){
   return h('section',{class:'legacy-kit-card legacy-kit-list','aria-label':title,'data-kit-component':'list'},[
     h('h2',{class:'legacy-kit-heading'},title),
     h('ul',{},items.length?items.map(item=>h('li',{key:item.id},[
@@ -41,7 +41,7 @@ export function PanelList({title,items}:PanelListProps):VNode {
     ])):h('li',{},'No preview items.')),
   ]);
 }
-export function PanelKitGallery():VNode {
+export function PanelKitGallery(){
   const [theme,setTheme]=useState<PanelKitTheme>('dark');
   const [actionCount,setActionCount]=useState(0);
   assertPanelKitContrast(theme);

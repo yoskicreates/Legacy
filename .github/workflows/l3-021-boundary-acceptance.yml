@@ -10,6 +10,9 @@ permissions:
 
 jobs:
   boundary:
+    # L3-041 consolidates all inherited regression coverage into one job.
+    # Avoid duplicate jobs only for this review PR, not main or other branches.
+    if: ${{ github.event_name != 'pull_request' || github.head_ref != 'l3-041-panel-card-kit' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 35
     steps:

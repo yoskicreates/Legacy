@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "LEGACY 3.0 L3-040: route-scoped nested detail preview navigation (non-playable)",
+  "description": "LEGACY 3.0 L3-041: semantic shared panel/card kit with isolated light/dark previews (non-playable)",
   "engines": {
     "node": ">=22"
   },
@@ -71,7 +71,10 @@
     "test:bottom-nav:negative": "node scripts/bottom-nav-negative-test.mjs",
     "typecheck:nested-nav": "tsc --project tsconfig.nested-nav.json --noEmit",
     "test:nested-nav": "node --test tests/nested-nav.test.mjs",
-    "test:nested-nav:negative": "node scripts/nested-nav-negative-test.mjs"
+    "test:nested-nav:negative": "node scripts/nested-nav-negative-test.mjs",
+    "typecheck:panel-kit": "tsc --project tsconfig.panel-kit.json --noEmit",
+    "test:panel-kit": "node --test tests/panel-kit.test.mjs",
+    "test:panel-kit:negative": "node scripts/panel-kit-negative-test.mjs"
   },
   "devDependencies": {
     "typescript": "5.8.3",

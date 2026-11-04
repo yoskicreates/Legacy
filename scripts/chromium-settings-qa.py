@@ -49,6 +49,21 @@ with sync_playwright() as p:
    page.screenshot(path=str(out/f'settings-{width}-{"forced" if forced else "normal"}.png'),full_page=True)
    results.append({'width':width,'forced_colors':forced,'passed':True})
    ctx.close()
+ # Actual application integration: home Settings must render functional controls.
+ app=browser.new_context(viewport={'width':390,'height':844},is_mobile=True,has_touch=True)
+ page=app.new_page()
+ app_errors=[]
+ page.on('pageerror',lambda error:app_errors.append(str(error)))
+ page.goto(args.base_url+'/',wait_until='networkidle')
+ page.locator('#home-settings').click()
+ assert page.locator('[data-panel="settings"] [data-settings-group]').count()==3
+ page.locator('[data-panel="settings"] [data-setting="motion"][data-value="reduced"]').click()
+ assert page.locator('[data-panel="settings"] [data-setting="motion"][data-value="reduced"]').get_attribute('aria-pressed')=='true'
+ assert page.evaluate('document.documentElement.dataset.legacyMotion')=='reduced'
+ assert page.evaluate('document.documentElement.scrollWidth<=window.innerWidth+1')
+ assert not app_errors,app_errors
+ results.append({'width':390,'actual_app_settings':True,'passed':True})
+ app.close()
  # Privacy mode: blocked storage must not crash the settings screen.
  privacy=browser.new_context(viewport={'width':375,'height':844},is_mobile=True,has_touch=True)
  privacy.add_init_script("""Object.defineProperty(window,'localStorage',{get(){throw new DOMException('Blocked','SecurityError')}});""")

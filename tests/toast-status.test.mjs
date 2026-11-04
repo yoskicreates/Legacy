@@ -93,12 +93,12 @@ test('Node can directly execute pure TypeScript factory (actual output)',()=>{
 });
 
 
-test('L3-044 recorded with standing approval only, next L3-045 remains unstarted',async()=>{
+test('L3-044 acceptance is intact after L3-045; L3-046 remains planned',async()=>{
  const reg=JSON.parse(await read('docs/task-register.json'));
- assert.equal(reg.completed.length,44);
- assert.equal(reg.next_task,'L3-045');
+ assert.equal(reg.completed.length,45);
+ assert.equal(reg.next_task,'L3-046');
  for(const id of ['L3-041','L3-042','L3-043','L3-044'])assert.equal(reg.tasks.find(x=>x.id===id)?.status,'completed');
- assert.equal(reg.tasks.find(x=>x.id==='L3-045')?.status,'planned');
+ assert.equal(reg.tasks.find(x=>x.id==='L3-045')?.status,'completed');
  assert.match(reg.L3_044_acceptance_evidence.physical_iphone_safari,/NOT_RUN/);
  assert.match(reg.L3_044_acceptance_evidence.review_github_workflows,/25\/25 PASS/);
  assert.equal(reg.L3_044_acceptance_evidence.browser_assertions,1760);

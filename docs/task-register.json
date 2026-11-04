@@ -2,7 +2,7 @@
   "project": "LEGACY 3.0",
   "blueprint_version": "1.0",
   "created": "2026-10-28",
-  "scope": "L3-042 accepted under owner standing auto-approval: accessible illustrated selection-card control; L3-043 planned, not started. No fighter artwork, gameplay, persistence or deployment changes.",
+  "scope": "L3-043 accepted under standing owner auto-approval: accessible confirmation pop-up; cancel leaves state unchanged and confirm records a preview action exactly once. No gameplay, saved data, approved fighter artwork or deployment changes. L3-044 planned only.",
   "total_tasks": 272,
   "completed": [
     "L3-001",
@@ -46,9 +46,10 @@
     "L3-039",
     "L3-040",
     "L3-041",
-    "L3-042"
+    "L3-042",
+    "L3-043"
   ],
-  "next_task": "L3-043",
+  "next_task": "L3-044",
   "phases": [
     {
       "id": "01",
@@ -705,7 +706,7 @@
       "build": "Define confirmations for irreversible actions",
       "test": "Cancel leaves state unchanged; confirm records action",
       "depends_on": "L3-042",
-      "status": "planned",
+      "status": "completed",
       "primary_pillar": "P3",
       "supporting_pillar": "P1"
     },
@@ -4046,5 +4047,27 @@
     "no_gameplay_fighter_art_storage_or_deployment_changes": true,
     "preserved_source_and_full_git_history": "ChatGPT Library /LEGACY_3_0/LEGACY3_L3-042_PR27_78E75F_VERIFIED_* and S18/S19 QA checkpoints",
     "next_task": "L3-043 PLANNED — NOT STARTED"
+  },
+  "L3_043_acceptance_evidence": {
+    "status": "OWNER AUTO-APPROVED — acceptance-record merge pending fresh GitHub CI",
+    "baseline_accepted_commit": "222762b692b901ec1f6ccdd0fccdd6cd479d23f6",
+    "pull_request": 28,
+    "verified_implementation_head": "9606fa3a65dbfe809930e91979a173f45e8943c6",
+    "implementation_tree": "8785b7b312069deb5baaa67ea9be27cb5330091e",
+    "dedicated_github_actions": "PASS",
+    "negative_type_contracts": "8/8 invalid typings rejected",
+    "focused_local_unit_tests": "45/45 PASS",
+    "real_chromium": "32/32 PASS on actual Vite dev and preview, 375/390/402/430, standard and high contrast, dark and light",
+    "chromium_assertions": 2624,
+    "screenshots": 64,
+    "cancel_never_confirms": true,
+    "confirm_at_most_once_per_open": true,
+    "escape_maps_to_cancel": true,
+    "no_gameplay_saves_art_changes": true,
+    "physical_iphone_safari": "NOT_RUN — user defers first physical iPhone testing to approximately task 136",
+    "owner_authorization": "Standing automatic approval for tested milestones and merges; user explicitly deferred physical iPhone testing until approximately 136/272",
+    "source_and_full_git_history": "/LEGACY_3_0/LEGACY3_L3-043_S02_GITHUB_TESTED_SOURCE.zip and LEGACY3_L3-043_S02_GITHUB_FULL_HISTORY.bundle",
+    "next_task": "L3-044 PLANNED — NOT STARTED",
+    "github_workflows": "24/24 PASS on exact L3-043 implementation review commit 9606fa3a65dbfe809930e91979a173f45e8943c6"
   }
 }

@@ -91,11 +91,11 @@ test('forced colors, visible focus, and reduced motion are explicit',()=>{
 test('no slider controls or suppressed overflow hacks',()=>{
  assert.doesNotMatch(code+page+styles,/type=['"]range|role=['"]slider|overflow-x\s*:\s*hidden/);
 });
-test('owner-authorized L3-042 acceptance preserves predecessor and keeps L3-043 planned',()=>{
- assert.equal(reg.completed.length,42);assert.equal(reg.next_task,'L3-043');
+test('owner-authorized L3-042 acceptance remains preserved after L3-043',()=>{
+ assert.equal(reg.completed.length,43);assert.equal(reg.next_task,'L3-044');
  assert.equal(reg.tasks.find(x=>x.id==='L3-041').status,'completed');
  assert.equal(reg.tasks.find(x=>x.id==='L3-042').status,'completed');
- assert.equal(reg.tasks.find(x=>x.id==='L3-043').status,'planned');
+ assert.equal(reg.tasks.find(x=>x.id==='L3-043').status,'completed');assert.equal(reg.tasks.find(x=>x.id==='L3-044').status,'planned');
  assert.match(reg.L3_042_acceptance_evidence.physical_iphone_safari,/NOT_RUN/);
 });
 test('isolated scripts expose strict typecheck and negative test',()=>{

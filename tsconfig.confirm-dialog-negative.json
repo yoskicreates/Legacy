@@ -1,0 +1,5 @@
+{
+  "extends":"./tsconfig.confirm-dialog.json",
+  "include":["src/ui/confirm-dialog.ts","src/ui/confirm-dialog-contract.ts","tests/ui/confirm-dialog-negative.ts"],
+  "exclude":["node_modules","dist"]
+}

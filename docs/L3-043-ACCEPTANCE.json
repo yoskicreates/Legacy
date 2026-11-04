@@ -1,0 +1,22 @@
+{
+  "task": "L3-043",
+  "status": "ACCEPTED — subject to fresh final CI and merge",
+  "owner_approval": "standing automatic approval for tested milestones",
+  "accepted_baseline": "222762b692b901ec1f6ccdd0fccdd6cd479d23f6",
+  "scope": "Native HTML confirmation dialog, preview-only Cancel and Confirm. Cancel and Escape have no Confirm effect; Confirm triggers callback once per open, with safe Cancel focus and accessible names. No gameplay or persistence integration.",
+  "review_commit": "9606fa3a65dbfe809930e91979a173f45e8943c6",
+  "source_tree": "8785b7b312069deb5baaa67ea9be27cb5330091e",
+  "github_workflows": "24/24 PASS on exact L3-043 implementation review commit 9606fa3a65dbfe809930e91979a173f45e8943c6 (before acceptance-only commit)",
+  "dedicated_confirm_browser": "32/32 PASS, 2624 assertions; real Vite dev and preview; mobile 375/390/402/430 px, dark/light, high contrast and reduced motion",
+  "type_tests": "strict TypeScript, 8 negative TypeScript cases rejected",
+  "local_unit_tests": "45/45 PASS",
+  "screenshots": 64,
+  "prior_acceptance": "L3-042 ACCEPTED (42/272 starting point)",
+  "physical_iphone_safari": "NOT_RUN (owner asked to defer until around task 136)",
+  "artwork_gameplay_save_mutation": false,
+  "source_checkpoint": "/LEGACY_3_0/LEGACY3_L3-043_S02_GITHUB_TESTED_SOURCE.zip",
+  "history_checkpoint": "/LEGACY_3_0/LEGACY3_L3-043_S02_GITHUB_FULL_HISTORY.bundle",
+  "qa_checkpoint": "/LEGACY_3_0/LEGACY3_L3-043_S02_GITHUB_QA_64_SCREENSHOTS.zip",
+  "deployment": "NOT_DONE",
+  "next_task": "L3-044 PLANNED — NOT STARTED"
+}

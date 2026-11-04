@@ -1,0 +1,1 @@
+{"extends":"./tsconfig.json","include":["src/ui/loading-empty-states.ts","src/loading-empty-qa.ts"],"exclude":["node_modules","dist"],"compilerOptions":{"types":[]}}

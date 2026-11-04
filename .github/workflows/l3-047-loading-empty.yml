@@ -1,0 +1,72 @@
+name: LEGACY 3.0 L3-047 Loading and Empty States Acceptance
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  placeholders:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Clean install and complete inherited regressions
+        run: |
+          set -Eeuo pipefail
+          npm ci --no-audit --no-fund
+          npm run check:vite
+          npm run typecheck
+          npx tsc -p tsconfig.loading-empty.json --noEmit
+          npm run test:types:negative
+          npm run lint
+          npm run lint:domains
+          npm test
+          npm run build
+          test -f dist/loading-empty-qa.html
+          npm run manifest:generate
+          npm run manifest:verify
+      - name: Install real Chromium
+        run: |
+          python -m pip install playwright==1.55.0
+          python -m playwright install --with-deps chromium
+      - name: Test real Vite development and production preview
+        run: |
+          set -Eeuo pipefail
+          mkdir -p l3-047-qa
+          npm run dev -- --strictPort > /tmp/legacy-047-dev.log 2>&1 & dp=$!
+          npm run preview -- --strictPort > /tmp/legacy-047-preview.log 2>&1 & pp=$!
+          trap 'kill "$dp" "$pp" 2>/dev/null || true' EXIT
+          for port in 5173 4173; do
+            ready=0
+            for i in $(seq 1 45); do
+              if curl -fsS "http://127.0.0.1:$port/loading-empty-qa.html" >/dev/null; then ready=1;break;fi
+              sleep 1
+            done
+            test "$ready" = 1
+          done
+          python scripts/chromium-loading-empty-qa.py --base-url http://127.0.0.1:5173 --out l3-047-qa/dev
+          python scripts/chromium-loading-empty-qa.py --base-url http://127.0.0.1:4173 --out l3-047-qa/preview
+      - name: Preserve source, full history and QA
+        if: always()
+        run: |
+          mkdir -p l3-047-qa
+          git log --oneline --all > l3-047-qa/history.txt
+          git bundle create l3-047-qa/history.bundle --all
+          git archive --format=zip HEAD -o l3-047-qa/source.zip
+          cp /tmp/legacy-047-*.log l3-047-qa/ 2>/dev/null || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: LEGACY3-L3-047-loading-empty-QA
+          path: l3-047-qa/
+          retention-days: 30

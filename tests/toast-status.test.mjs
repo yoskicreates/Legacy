@@ -57,13 +57,19 @@ test('navy/gold and light styling use inherited variables',()=>{
  for(const token of ['--kit-panel','--kit-accent','--kit-ink','--kit-border','--kit-focus'])assert.ok(css.includes(token),token);
  assert.match(component,/'data-kit-theme':theme/);
 });
-test('safe-area, small viewport, contrast and motion considerations',()=>{
- assert.match(css,/safe-area-inset-right/);
- assert.match(css,/safe-area-inset-bottom/);
+test('safe-area, small viewport, contrast and motion considerations',async()=>{
+ const shellCss=await read('src/ui/panel-kit.css');
+ assert.match(shellCss,/safe-area-inset-right/);
+ assert.match(shellCss,/safe-area-inset-bottom/);
  assert.match(css,/@media\(max-width:600px\)/);
  assert.match(css,/@media\(forced-colors:active\)/);
  assert.match(css,/@media\(prefers-reduced-motion:reduce\)/);
  assert.match(css,/min-block-size:44px/);
+});
+test('notification cards remain in flow, never covering action buttons',()=>{
+ assert.match(css,/\.legacy-toast-stack\{position:relative/);
+ assert.doesNotMatch(css,/\.legacy-toast-stack\{position:fixed/);
+ assert.match(css,/overflow-y:auto/);
 });
 test('no sliders or gameplay state changes',()=>{
  assert.doesNotMatch(component,/<input|type:'range'|indexedDB|localStorage|gameState|sessionStorage/);

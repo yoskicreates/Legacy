@@ -59,6 +59,7 @@ def run(browser,base,out,width,theme,forced,reduced):
         page.locator('[data-demo-toast="locked"]').click()
         n+=ensure(page.locator('.legacy-toast').count()==3,'Queue did not drop oldest message')
         n+=ensure(page.locator('.legacy-toast').last.get_attribute('data-toast-kind')=='locked','Locked notice missing')
+        n+=ensure(page.locator('.legacy-toast-stack').evaluate('(e)=>{const actions=document.querySelector(".legacy-toast-demo-actions").getBoundingClientRect();const alerts=e.getBoundingClientRect();return alerts.top>=actions.bottom-1;}'),'Notification cards cover action buttons')
         n+=ensure(page.locator('[data-toast-kind="preview-saved"]').count()==0,'Oldest item not removed')
         n+=ensure(page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),'Notice caused horizontal overflow')
         page.screenshot(path=str(out/f'toast-{key}-open.png'),full_page=True)

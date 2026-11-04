@@ -47,3 +47,6 @@ h1 {font-size:var(--legacy-type-display-font-size);line-height:var(--legacy-type
 .description {font-size:var(--legacy-type-body-font-size);line-height:var(--legacy-type-body-line-height)}
 .render-caption,#check-result {font-size:var(--legacy-type-caption-font-size);line-height:var(--legacy-type-caption-line-height)}
 
+
+/* L3-048: apply the selected text size across the interface, not only the settings panel. */
+html{font-size:calc(100% * var(--legacy-user-text-scale,1))}

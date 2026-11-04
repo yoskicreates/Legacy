@@ -1,0 +1,18 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const read=path=>readFileSync(new URL('../'+path,import.meta.url),'utf8');
+const contract=read('src/ui/loading-empty-states.ts');
+const styles=read('src/ui/loading-empty-states.css');
+const qa=read('src/loading-empty-qa.ts');
+const html=read('loading-empty-qa.html');
+test('four explicit purpose-built states',()=>{for(const state of ['loading','no-save','no-events','missing-asset'])assert.ok(contract.includes("'"+state+"'"));});
+test('every state has explanatory content',()=>{for(const title of ['Preparing your career','No saved career yet','Nothing scheduled','Illustration unavailable'])assert.ok(contract.includes(title));});
+test('no automatic save or game mutation',()=>assert.doesNotMatch(contract+qa,/localStorage|indexedDB|fetch\(|XMLHttpRequest|gameState\.set/));
+test('loading is announced accessibly',()=>{assert.match(contract,/aria-busy/);assert.match(contract,/role:'status'/);assert.match(contract,/aria-live/);});
+test('action is explicit and optional',()=>{assert.match(contract,/content\.action&&onAction/);assert.match(contract,/onClick:onAction/);});
+test('QA provides all four states without a slider',()=>{assert.match(qa,/data-switch-state/);assert.doesNotMatch(qa+html,/type="range"|type:'range'/);});
+test('CSS has visible keyboard focus and high contrast support',()=>{assert.match(styles,/:focus-visible/);assert.match(styles,/@media\(forced-colors:active\)/);});
+test('CSS supports reduced motion and mobile wrapping',()=>{assert.match(styles,/@media\(prefers-reduced-motion:reduce\)/);assert.match(styles,/overflow-wrap:anywhere/);});
+test('QA entry is an actual Vite page',()=>{assert.match(html,/src\/loading-empty-qa.ts/);assert.match(read('vite.config.mjs'),/loadingEmptyQa/);});
+test('Task 47 remains provisional until accepted',()=>{const reg=JSON.parse(read('docs/task-register.json'));assert.equal(reg.next_task,'L3-047');assert.equal(reg.tasks.find(x=>x.id==='L3-047').status,'planned');});

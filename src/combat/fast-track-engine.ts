@@ -50,7 +50,8 @@ export function tick(fight:Fight,seconds=1):Fight {
     const fighters=state.fighters.map(f=>({...f})) as [Fighter,Fighter];
     const log=[...state.log];
     for(let attacker=0;attacker<2;attacker++){
-      const a=fighters[attacker],d=fighters[1-attacker];
+      const a=attacker===0?fighters[0]:fighters[1];
+      const d=attacker===0?fighters[1]:fighters[0];
       const tactic=attacker===0?state.playerTactic:state.opponentTactic;
       let r;[seed,r]=random(seed);
       const frequency=tactic==='pressure'?.42:tactic==='counter'?.23:.32;

@@ -1,0 +1,16 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const read=x=>readFileSync(new URL('../'+x,import.meta.url),'utf8');
+const qa=read('scripts/chromium-confirm-dialog-qa.py');
+const workflow=read('.github/workflows/l3-043-confirm-dialog.yml');
+test('real mobile Chromium suite includes all four approved widths',()=>assert.match(qa,/WIDTHS=\(375,390,402,430\)/));
+test('Cancel must never increment confirmed count',()=>assert.match(qa,/wait_counter\(page,0,1\)/));
+test('double Confirm is asserted once',()=>{assert.match(qa,/n\.click\(\);n\.click\(\)/);assert.match(qa,/wait_counter\(page,1,1\)/);});
+test('Escape maps to cancellation',()=>{assert.match(qa,/page\.keyboard\.press\('Escape'\)/);assert.match(qa,/wait_counter\(page,1,2\)/);});
+test('keyboard Tab and Space activate only intended button',()=>{assert.match(qa,/page\.keyboard\.press\('Tab'\)/);assert.match(qa,/page\.keyboard\.press\('Space'\)/);});
+test('native modal provides accessible title and description',()=>{assert.match(qa,/aria-describedby/);assert.match(qa,/aria-labelledby/);assert.match(qa,/:modal/);});
+test('high-contrast and reduced-motion cases are exercised',()=>{assert.match(qa,/forced_colors='active'/);assert.match(qa,/reduced_motion='reduce'/);});
+test('no overflow and touch controls verified',()=>{assert.match(qa,/scrollWidth<=window\.innerWidth/);assert.match(qa,/r\.height>=44/);});
+test('real Vite dev and preview are mandatory',()=>{assert.match(workflow,/npm run dev/);assert.match(workflow,/npm run preview/);assert.match(workflow,/chromium-confirm-dialog-qa\.py/g);});
+test('CI has complete source bundle and retains screenshots',()=>{assert.match(workflow,/git bundle create/);assert.match(workflow,/git archive --format=zip/);assert.match(workflow,/actions\/upload-artifact@v4/);});

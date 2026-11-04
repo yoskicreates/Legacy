@@ -6,7 +6,6 @@ let running=false;
 let speed=1;
 let careerWins=0;
 let careerLosses=0;
-let elapsed=0;
 function bar(label:string,value:number){return '<label>'+label+' <meter min="0" max="100" value="'+value.toFixed(1)+'">'+value.toFixed(0)+'</meter></label>';}
 function fighter(index:0|1){const f=fight.fighters[index];return '<section class="fighter '+(index===0?'left':'right')+'" aria-label="'+f.id+'"><div class="silhouette" aria-hidden="true"><div class="head"></div><div class="torso"></div><div class="arm a"></div><div class="arm b"></div><div class="legs"></div></div><h2>'+f.id+'</h2>'+bar('Health',f.health)+bar('Stamina',f.stamina)+bar('Guard',f.guard)+'<p>Strikes: '+f.landed+'/'+f.strikes+'</p></section>';}
 function render(){
@@ -17,11 +16,11 @@ function render(){
  if(action==='play'&&fight.phase==='fighting')running=!running;
  if(action==='step'){running=false;advance();}
  if(action==='speed')speed=speed===1?2:speed===2?5:10;
- if(action==='restart'){running=false;fight=newFight((Date.now()>>>0));elapsed=0;}
+ if(action==='restart'){running=false;fight=newFight((Date.now()>>>0));}
  if(b.dataset.tactic){fight=setCornerTactic(fight,b.dataset.tactic as Tactic);}
  render();
  }));
 }
-function advance(){const previous=fight.phase;fight=tick(fight);elapsed++;if(fight.phase!=='fighting')running=false;if(previous!=='finished'&&fight.phase==='finished'){if(fight.winner==='player')careerWins++;if(fight.winner==='opponent')careerLosses++;}}
+function advance(){const previous=fight.phase;fight=tick(fight);if(fight.phase!=='fighting')running=false;if(previous!=='finished'&&fight.phase==='finished'){if(fight.winner==='player')careerWins++;if(fight.winner==='opponent')careerLosses++;}}
 setInterval(()=>{if(running&&fight.phase==='fighting'){for(let i=0;i<speed&&fight.phase==='fighting';i++)advance();render();}},1000);
 render();

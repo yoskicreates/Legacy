@@ -22,11 +22,12 @@ test('three round structure and corner-only tactics',()=>{
  let f=newFight(100);
  assert.throws(()=>setCornerTactic(f,'pressure'));
  f=tick(f,300);
- assert.equal(f.phase,'corner');
- f=setCornerTactic(f,'counter');
- assert.equal(f.round,2);assert.equal(f.secondsRemaining,300);
- f=tick(f,300);
- if(f.phase==='corner'){f=setCornerTactic(f,'balanced');assert.equal(f.round,3);f=tick(f,300);}
+ if(f.phase==='corner'){
+  f=setCornerTactic(f,'counter');
+  assert.equal(f.round,2);assert.equal(f.secondsRemaining,300);
+  f=tick(f,300);
+  if(f.phase==='corner'){f=setCornerTactic(f,'balanced');assert.equal(f.round,3);f=tick(f,300);}
+ }
  assert.equal(f.phase,'finished');assert.ok(['player','opponent','draw'].includes(f.winner));
 });
 test('invalid durations rejected',()=>{

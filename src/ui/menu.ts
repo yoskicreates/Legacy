@@ -1,5 +1,7 @@
 /** L3-039 Preact shell: typed in-memory bottom tab routing, no persistence or gameplay. */
 import { h, render } from 'preact';
+import { SettingsShell } from './settings-shell';
+import './settings-shell.css';
 import { useLayoutEffect, useRef, useState } from 'preact/hooks';
 import { HOME_ACTIONS, HOME_PANELS, type HomeView, type HomeAction } from './home-contract';
 import { BOTTOM_NAV_ITEMS, tabForRoute, routeForTab, type BottomTabId } from './bottom-nav-contract';
@@ -130,7 +132,8 @@ function Menu({ rendererStatus }: { readonly rendererStatus: RendererStatus }) {
             h('button', { id: 'home-back', class: 'legacy-home-back', type: 'button', onClick: () => setView('home') }, '← Back to Home'),
             h('span', { class: 'legacy-home-kicker' }, HOME_PANELS[view].note),
             h('h1', { id: 'page-title', tabIndex: -1, class: 'legacy-home-title' }, HOME_PANELS[view].title),
-            h('p', { id: 'home-panel-description', role: 'status', 'aria-live': 'polite' }, HOME_PANELS[view].body),
+            h('p', { id: 'home-panel-description', role: 'status', 'aria-live': 'polite' }, view === 'settings' ? 'Change audio, motion, and text-size preferences below. Career saves remain untouched.' : HOME_PANELS[view].body),
+            view === 'settings' ? h(SettingsShell, {}) : null,
             h('small', {}, 'No game or save state is changed in this preview.'),
           ]),
       ],

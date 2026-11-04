@@ -20,7 +20,7 @@ function exportSettings(preferences:SettingsPreferences):void {
  try{const a=document.createElement('a');a.href=url;a.download='LEGACY3-settings.json';a.click();}
  finally{URL.revokeObjectURL(url);}
 }
-export function SettingsShell({storage=defaultStorage()}:{readonly storage?:StorageLike}) {
+export function SettingsShell({storage=defaultStorage()}:{readonly storage:StorageLike|undefined}) {
  const [preferences,setPreferences]=useState<SettingsPreferences>(()=>read(storage));
  const [notice,setNotice]=useState('Settings ready');
  useEffect(()=>{

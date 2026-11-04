@@ -20,6 +20,8 @@ with sync_playwright() as p:
    page.goto(args.base_url+'/settings-qa.html',wait_until='networkidle')
    assert page.locator('[data-settings-group]').count()==3
    assert page.locator('input[type="range"]').count()==0
+   assert page.locator('fieldset legend').count()==3
+   assert page.locator('[role="status"][aria-live="polite"]').count()==1
    for group,value in [('audio','off'),('motion','reduced'),('textSize','largest')]:
     button=page.locator('[data-setting="'+group+'"][data-value="'+value+'"]')
     button.click()
@@ -28,6 +30,7 @@ with sync_playwright() as p:
    assert page.evaluate('document.documentElement.dataset.legacyAudio')=='off'
    assert page.evaluate('getComputedStyle(document.documentElement).getPropertyValue("--legacy-user-text-scale").trim()')=='1.25'
    page.reload(wait_until='networkidle')
+   assert page.evaluate('document.documentElement.dataset.legacyMotion')=='reduced'
    assert page.locator('[data-setting="audio"][data-value="off"]').get_attribute('aria-pressed')=='true'
    assert page.locator('[data-setting="textSize"][data-value="largest"]').get_attribute('aria-pressed')=='true'
    with page.expect_download() as d:

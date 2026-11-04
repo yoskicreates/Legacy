@@ -6,7 +6,7 @@ on:
     branches: [main]
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 jobs:
   combat:
     runs-on: ubuntu-24.04
@@ -56,3 +56,24 @@ jobs:
           git archive --format=zip HEAD -o fast-track-qa/source.zip
       # Artifact upload temporarily disabled: GitHub Actions storage quota exceeded.
       # Evidence is generated within the job but not retained remotely until quota is restored.
+      - name: Publish standalone Pages branch after all combat checks pass
+        if: github.event_name == 'push' && github.ref == 'refs/heads/fast-track/playable-combat-s01'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          if git ls-remote --exit-code --heads origin legacy-fast-track-pages >/dev/null 2>&1; then
+            echo 'Existing preview branch preserved; no overwrite.'
+            exit 0
+          fi
+          mkdir -p /tmp/legacy-personal-site
+          cp -a dist/. /tmp/legacy-personal-site/
+          cd /tmp/legacy-personal-site
+          touch .nojekyll
+          git init -b legacy-fast-track-pages
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git add -A
+          git commit -m 'Publish isolated LEGACY combat Safari preview'
+          git push origin HEAD:refs/heads/legacy-fast-track-pages

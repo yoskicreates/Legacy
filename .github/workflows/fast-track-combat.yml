@@ -2,6 +2,8 @@ name: LEGACY fast-track combat prototype QA
 on:
   push:
     branches: [fast-track/playable-combat-s01]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read

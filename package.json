@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "LEGACY 3.0 L3-042: isolated illustrated selection-card control (non-playable)",
+  "description": "LEGACY 3.0 L3-043 provisional isolated confirmation modal UI (non-playable)",
   "engines": {
     "node": ">=22"
   },
@@ -77,7 +77,9 @@
     "test:panel-kit:negative": "node scripts/panel-kit-negative-test.mjs",
     "typecheck:selection-card": "tsc --project tsconfig.selection-card.json --noEmit",
     "test:selection-card:negative": "node scripts/selection-card-negative-test.mjs",
-    "test:selection-card": "node --test tests/selection-card.test.mjs"
+    "test:selection-card": "node --test tests/selection-card.test.mjs",
+    "typecheck:confirm-dialog": "tsc --project tsconfig.confirm-dialog.json --noEmit",
+    "test:confirm-dialog": "node --test tests/confirm-dialog.test.mjs"
   },
   "devDependencies": {
     "typescript": "5.8.3",

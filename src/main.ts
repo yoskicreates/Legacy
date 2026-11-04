@@ -1,10 +1,10 @@
 /** L3-021 integration: Preact and PixiJS share only a narrow host lifecycle. */
 import { mountMenu, type MenuMount, type RendererStatus } from '@ui/menu';
 import { mountRendererViewport, type RendererMount } from '@renderer/viewport';
-import { DEFAULT_SETTINGS, parseSettings, SETTINGS_STORAGE_KEY, textScale } from '@ui/settings-contract';
+import { DEFAULT_SETTINGS, parseSettings, SETTINGS_STORAGE_KEY, textScale, type SettingsPreferences } from '@ui/settings-contract';
 
 // Apply persisted interface preferences before the first menu render.
-let initialPreferences = DEFAULT_SETTINGS;
+let initialPreferences: SettingsPreferences = DEFAULT_SETTINGS;
 try { initialPreferences = parseSettings(window.localStorage.getItem(SETTINGS_STORAGE_KEY)); }
 catch { /* Private browsing can deny storage; defaults remain safe. */ }
 document.documentElement.dataset.legacyMotion = initialPreferences.motion;

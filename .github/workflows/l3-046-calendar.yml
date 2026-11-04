@@ -1,0 +1,71 @@
+name: LEGACY 3.0 L3-046 Calendar Preview Acceptance
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  calendar:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Clean pinned install and full regressions
+        run: |
+          set -Eeuo pipefail
+          npm ci --no-audit --no-fund
+          npm run check:vite
+          npm run typecheck
+          npx tsc -p tsconfig.calendar.json --noEmit
+          npm run test:types:negative
+          npm run lint
+          npm run lint:domains
+          npm test
+          npm run build
+          test -f dist/calendar-qa.html
+          npm run manifest:generate
+          npm run manifest:verify
+      - name: Install real browser
+        run: |
+          python -m pip install playwright==1.55.0
+          python -m playwright install --with-deps chromium
+      - name: Verify Vite development and preview at phone widths
+        run: |
+          set -Eeuo pipefail
+          npm run dev -- --strictPort > /tmp/legacy-calendar-dev.log 2>&1 & dp=$!
+          npm run preview -- --strictPort > /tmp/legacy-calendar-preview.log 2>&1 & pp=$!
+          trap 'kill "$dp" "$pp" 2>/dev/null || true' EXIT
+          for port in 5173 4173; do
+            ready=0
+            for i in $(seq 1 45); do
+              if curl -fsS "http://127.0.0.1:$port/calendar-qa.html" >/dev/null; then ready=1;break;fi
+              sleep 1
+            done
+            test "$ready" = 1
+          done
+          python scripts/chromium-calendar-qa.py --base-url http://127.0.0.1:5173 --out l3-046-qa/dev
+          python scripts/chromium-calendar-qa.py --base-url http://127.0.0.1:4173 --out l3-046-qa/preview
+      - name: Preserve QA and complete history
+        if: always()
+        run: |
+          mkdir -p l3-046-qa
+          git log --oneline --all > l3-046-qa/history.txt
+          git bundle create l3-046-qa/history.bundle --all
+          git archive --format=zip HEAD -o l3-046-qa/source.zip
+          cp /tmp/legacy-calendar-*.log l3-046-qa/ 2>/dev/null || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: LEGACY3-L3-046-calendar-QA
+          path: l3-046-qa/
+          retention-days: 30

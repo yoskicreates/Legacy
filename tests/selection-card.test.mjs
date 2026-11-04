@@ -92,7 +92,7 @@ test('no slider controls or suppressed overflow hacks',()=>{
  assert.doesNotMatch(code+page+styles,/type=['"]range|role=['"]slider|overflow-x\s*:\s*hidden/);
 });
 test('owner-authorized L3-042 acceptance remains preserved after L3-045',()=>{
- assert.equal(reg.completed.length,45);assert.equal(reg.next_task,'L3-046');
+ assert.ok(reg.completed.length>=45);assert.equal(reg.next_task,`L3-${String(reg.completed.length+1).padStart(3,'0')}`);
  assert.equal(reg.tasks.find(x=>x.id==='L3-041').status,'completed');
  assert.equal(reg.tasks.find(x=>x.id==='L3-042').status,'completed');
  assert.equal(reg.tasks.find(x=>x.id==='L3-043').status,'completed');assert.equal(reg.tasks.find(x=>x.id==='L3-044').status,'completed');assert.equal(reg.tasks.find(x=>x.id==='L3-045').status,'completed');

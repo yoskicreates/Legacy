@@ -1,0 +1,51 @@
+name: LEGACY personal combat GitHub Pages preview
+on:
+  push:
+    branches:
+      - fast-track/playable-combat-s01
+    paths:
+      - '.github/workflows/fast-track-pages.yml'
+      - 'src/combat/**'
+      - 'fast-track-fight.html'
+      - 'vite.config.mjs'
+      - 'package*.json'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build
+      - name: Verify built combat page
+        run: |
+          test -s dist/fast-track-fight.html
+          test -d dist/assets
+      - name: Publish isolated branch without touching main
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          if git ls-remote --exit-code --heads origin legacy-fast-track-pages >/dev/null 2>&1; then
+            echo 'STOP: preview branch already exists; will not overwrite it.'
+            exit 1
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          mkdir -p /tmp/legacy-personal-site
+          cp -a dist/. /tmp/legacy-personal-site/
+          cd /tmp/legacy-personal-site
+          git init -b legacy-fast-track-pages
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git add -A
+          git commit -m 'Publish verified personal combat preview'
+          git push origin HEAD:refs/heads/legacy-fast-track-pages
+          echo 'Preview branch published. Repository owner must configure GitHub Pages to serve branch legacy-fast-track-pages at / (root).'

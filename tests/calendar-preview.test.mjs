@@ -7,7 +7,7 @@ import {join} from 'node:path';
 import {pathToFileURL} from 'node:url';
 const temp=mkdtempSync(join(tmpdir(),'legacy-calendar-'));
 try {
- execFileSync('tsc',['--target','ES2022','--module','commonjs','--moduleResolution','node','--skipLibCheck','--outDir',temp,'src/ui/calendar-preview-contract.ts'],{stdio:'pipe'});
+ execFileSync('tsc',['--target','ES2022','--module','commonjs','--moduleResolution','node','--skipLibCheck','--rootDir','src','--outDir',temp,'src/ui/calendar-preview-contract.ts'],{stdio:'pipe'});
  const compiled=readFileSync(join(temp,'ui','calendar-preview-contract.js'),'utf8');
  const path=join(temp,'calendar-preview-contract.cjs');writeFileSync(path,compiled);
  const {dayAt,validateCalendar,SAMPLE_CALENDAR}=await import(pathToFileURL(path).href);

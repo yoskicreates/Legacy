@@ -1,8 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {build} from 'esbuild';
-const output=await build({entryPoints:['src/combat/fast-track-engine.ts'],bundle:true,platform:'node',format:'esm',write:false});
-const url='data:text/javascript;base64,'+Buffer.from(output.outputFiles[0].text).toString('base64');
+import {readFileSync} from 'node:fs';
+import ts from 'typescript';
+const source=readFileSync('src/combat/fast-track-engine.ts','utf8');
+const compiled=ts.transpileModule(source,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext}});
+const url='data:text/javascript;base64,'+Buffer.from(compiled.outputText).toString('base64');
 const {newFight,tick,setCornerTactic}=await import(url);
 test('initial round is five minutes and all meters full',()=>{
  const f=newFight(123);

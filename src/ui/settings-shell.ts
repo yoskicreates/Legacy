@@ -4,6 +4,10 @@ import {useEffect,useState} from 'preact/hooks';
 import {DEFAULT_SETTINGS,parseSettings,serializeSettings,SETTINGS_STORAGE_KEY,textScale} from './settings-contract';
 import type {SettingsPreferences} from './settings-contract';
 type StorageLike=Pick<Storage,'getItem'|'setItem'>;
+function defaultStorage():StorageLike|undefined {
+ try{return typeof window==='undefined'?undefined:window.localStorage;}
+ catch{return undefined;}
+}
 function read(storage:StorageLike|undefined):SettingsPreferences {
  try{return parseSettings(storage?.getItem(SETTINGS_STORAGE_KEY)??null);}catch{return DEFAULT_SETTINGS;}
 }
@@ -16,7 +20,7 @@ function exportSettings(preferences:SettingsPreferences):void {
  try{const a=document.createElement('a');a.href=url;a.download='LEGACY3-settings.json';a.click();}
  finally{URL.revokeObjectURL(url);}
 }
-export function SettingsShell({storage=typeof window==='undefined'?undefined:window.localStorage}:{readonly storage?:StorageLike}) {
+export function SettingsShell({storage=defaultStorage()}:{readonly storage?:StorageLike}) {
  const [preferences,setPreferences]=useState<SettingsPreferences>(()=>read(storage));
  const [notice,setNotice]=useState('Settings ready');
  useEffect(()=>{

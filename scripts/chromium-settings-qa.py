@@ -49,6 +49,20 @@ with sync_playwright() as p:
    page.screenshot(path=str(out/f'settings-{width}-{"forced" if forced else "normal"}.png'),full_page=True)
    results.append({'width':width,'forced_colors':forced,'passed':True})
    ctx.close()
+ # Privacy mode: blocked storage must not crash the settings screen.
+ privacy=browser.new_context(viewport={'width':375,'height':844},is_mobile=True,has_touch=True)
+ privacy.add_init_script("""Object.defineProperty(window,'localStorage',{get(){throw new DOMException('Blocked','SecurityError')}});""")
+ page=privacy.new_page()
+ privacy_errors=[]
+ page.on('pageerror',lambda error:privacy_errors.append(str(error)))
+ page.goto(args.base_url+'/settings-qa.html',wait_until='networkidle')
+ assert page.locator('[data-settings-group]').count()==3
+ page.locator('[data-setting="audio"][data-value="off"]').click()
+ assert page.locator('[data-setting="audio"][data-value="off"]').get_attribute('aria-pressed')=='true'
+ assert 'storage unavailable' in page.locator('[data-settings-status]').inner_text().lower()
+ assert not privacy_errors,privacy_errors
+ results.append({'width':375,'storage_blocked':True,'passed':True})
+ privacy.close()
  browser.close()
 (out/'results.json').write_text(json.dumps(results,indent=2))
 print(f'{len(results)}/{len(results)} real Chromium settings cases passed')

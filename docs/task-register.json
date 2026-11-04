@@ -2,7 +2,7 @@
   "project": "LEGACY 3.0",
   "blueprint_version": "1.0",
   "created": "2026-10-28",
-  "scope": "L3-043 accepted under standing owner auto-approval: accessible confirmation pop-up; cancel leaves state unchanged and confirm records a preview action exactly once. No gameplay, saved data, approved fighter artwork or deployment changes. L3-044 planned only.",
+  "scope": "L3-044 accepted under standing owner auto-approval: honest accessible notifications for real completed saves, errors and locked features, plus clearly labeled practice-only examples. Toasts do not cover other buttons, never claim a practice save, and require a confirmed write receipt for a real Saved message. L3-045 planned only; no gameplay, approved fighter artwork, persistence integration or deployment changes.",
   "total_tasks": 272,
   "completed": [
     "L3-001",
@@ -47,9 +47,10 @@
     "L3-040",
     "L3-041",
     "L3-042",
-    "L3-043"
+    "L3-043",
+    "L3-044"
   ],
-  "next_task": "L3-044",
+  "next_task": "L3-045",
   "phases": [
     {
       "id": "01",
@@ -243,7 +244,7 @@
       "primary_pillar": "P4",
       "supporting_pillar": "P3",
       "deliverable": "LEGACY_3_0_Ten_Year_Career_Map_L3-008.docx",
-      "acceptance": "Ten coherent intervals ages 15–25, youth-to-adult gates, conditional states, three alternative arcs, 24 design tests; documentation only"
+      "acceptance": "Ten coherent intervals ages 15\u201325, youth-to-adult gates, conditional states, three alternative arcs, 24 design tests; documentation only"
     },
     {
       "id": "L3-009",
@@ -719,7 +720,7 @@
       "build": "Show saved, error, locked, and success states honestly",
       "test": "Messages correspond to real operations",
       "depends_on": "L3-043",
-      "status": "planned",
+      "status": "completed",
       "primary_pillar": "P3",
       "supporting_pillar": "P1"
     },
@@ -1457,7 +1458,7 @@
       "phase_title": "Modular character creator",
       "gate": "Visual foundation",
       "title": "Verify visual matrix",
-      "build": "Test face × hair × physique × gear combinations automatically",
+      "build": "Test face \u00d7 hair \u00d7 physique \u00d7 gear combinations automatically",
       "test": "Sample matrix shows no missing assets or crashes",
       "depends_on": "L3-100",
       "status": "planned",
@@ -3690,7 +3691,7 @@
   ],
   "pillar_document": "LEGACY_3_0_Game_Pillars_L3-002.docx",
   "pillar_mapping": "LEGACY_3_0_Pillar_Crosswalk_L3-002.csv",
-  "updated": "2026-11-03",
+  "updated": "2026-11-04",
   "player_fantasy_document": "LEGACY_3_0_Player_Fantasy_L3-003.docx",
   "player_fantasy_spec_version": "1.0 - L3-003 design proposal; content requires user design review",
   "previous_register": "GOVERNANCE/LEGACY_3_0_Task_Register_L3-030.json",
@@ -3765,7 +3766,7 @@
       40774948793
     ],
     "physical_iphone_safari": "NOT_RUN",
-    "calendar_ux_DEC-030": "OPEN — no selection made"
+    "calendar_ux_DEC-030": "OPEN \u2014 no selection made"
   },
   "L3_025_acceptance_evidence": {
     "report": "LEGACY3/docs/L3-025-ACCEPTANCE.json",
@@ -3940,8 +3941,8 @@
     "github_review_workflows": "18/18 PASS",
     "unit_tests": "22/22 PASS",
     "negative_typescript_cases": 7,
-    "chromium_browser_configurations": "8/8 PASS — dev and preview at 375/390/402/430",
-    "chromium_safe_area_assertions": "728/728 PASS — 7 simulated scenarios per width",
+    "chromium_browser_configurations": "8/8 PASS \u2014 dev and preview at 375/390/402/430",
+    "chromium_safe_area_assertions": "728/728 PASS \u2014 7 simulated scenarios per width",
     "physical_iphone_safari": "NOT_RUN",
     "checkpoint_status": "verified prior to final CI"
   },
@@ -4025,13 +4026,13 @@
     "source_integrity": "285/285 R27 source files byte-matched CI artifact",
     "additional_offline_checks": "2,224 offline interaction + 56 owner-diagnostic + 288 accessibility assertions (Chromium; NOT Safari)",
     "complete_source_history_and_qa": "Preserved as non-overwriting numbered artifacts in ChatGPT Library /LEGACY_3_0/",
-    "physical_iphone_safari": "NOT_RUN — not claimed as passed; owner explicitly approved acceptance without a recorded device test",
+    "physical_iphone_safari": "NOT_RUN \u2014 not claimed as passed; owner explicitly approved acceptance without a recorded device test",
     "historical_provenance": "P8 original Git bundle recovered and verified; R14/R17 original Git history unavailable and not claimed reconciled",
     "no_gameplay_persistence_or_deployment": true,
-    "next_milestone": "L3-042 PLANNED — NOT STARTED"
+    "next_milestone": "L3-042 PLANNED \u2014 NOT STARTED"
   },
   "L3_042_acceptance_evidence": {
-    "status": "ACCEPTED — subject to successful CI for this acceptance-record update and verified merge",
+    "status": "ACCEPTED \u2014 subject to successful CI for this acceptance-record update and verified merge",
     "owner_authorization": "Standing auto-approval for completed tested milestones and merges (2026-11-03 19:18 America/New_York); do not claim specific hands-on L3-042 visual inspection",
     "pull_request": 27,
     "verified_review_head": "78e75f7892ffe53ce1fc2c43601f763f2479474a",
@@ -4046,10 +4047,10 @@
     "physical_iphone_safari": "NOT_RUN; user chose to defer physical testing until approximately task 136/272",
     "no_gameplay_fighter_art_storage_or_deployment_changes": true,
     "preserved_source_and_full_git_history": "ChatGPT Library /LEGACY_3_0/LEGACY3_L3-042_PR27_78E75F_VERIFIED_* and S18/S19 QA checkpoints",
-    "next_task": "L3-043 PLANNED — NOT STARTED"
+    "next_task": "L3-043 PLANNED \u2014 NOT STARTED"
   },
   "L3_043_acceptance_evidence": {
-    "status": "OWNER AUTO-APPROVED — acceptance-record merge pending fresh GitHub CI",
+    "status": "OWNER AUTO-APPROVED \u2014 acceptance-record merge pending fresh GitHub CI",
     "baseline_accepted_commit": "222762b692b901ec1f6ccdd0fccdd6cd479d23f6",
     "pull_request": 28,
     "verified_implementation_head": "9606fa3a65dbfe809930e91979a173f45e8943c6",
@@ -4064,10 +4065,33 @@
     "confirm_at_most_once_per_open": true,
     "escape_maps_to_cancel": true,
     "no_gameplay_saves_art_changes": true,
-    "physical_iphone_safari": "NOT_RUN — user defers first physical iPhone testing to approximately task 136",
+    "physical_iphone_safari": "NOT_RUN \u2014 user defers first physical iPhone testing to approximately task 136",
     "owner_authorization": "Standing automatic approval for tested milestones and merges; user explicitly deferred physical iPhone testing until approximately 136/272",
     "source_and_full_git_history": "/LEGACY_3_0/LEGACY3_L3-043_S02_GITHUB_TESTED_SOURCE.zip and LEGACY3_L3-043_S02_GITHUB_FULL_HISTORY.bundle",
-    "next_task": "L3-044 PLANNED — NOT STARTED",
+    "next_task": "L3-044 PLANNED \u2014 NOT STARTED",
     "github_workflows": "24/24 PASS on exact L3-043 implementation review commit 9606fa3a65dbfe809930e91979a173f45e8943c6"
+  },
+  "L3_044_acceptance_evidence": {
+    "status": "OWNER AUTO-APPROVED \u2014 merge after final acceptance-only CI passes",
+    "accepted_baseline": "b5298aef92d0cee83c7863106a45cb0739aad575",
+    "pull_request": 29,
+    "verified_implementation_commit": "555fd6117913ed4539f94df14306770820931526",
+    "verified_source_tree": "9db386f267bed7f7ac4d1025d7c7f426cab5b83b",
+    "review_github_workflows": "25/25 PASS on exact S02 implementation commit",
+    "focus_tests": "20/20 PASS local before review; whole GitHub suite passed",
+    "type_checks": "strict TypeScript PASS, eight invalid save/notices contracts rejected",
+    "browser": "32/32 PASS on genuine Vite dev and preview at 375/390/402/430 CSS px, dark/light, normal and forced-colors/reduced-motion",
+    "browser_assertions": 1760,
+    "real_screenshots": 64,
+    "first_browser_issue": "S01 fixed-position notifications intercepted a mobile action button; corrected in S02 normal-flow layout and retested",
+    "saved_truthfulness": "Demo always explicitly says no data saved; actual Saved requires persisted write receipt",
+    "no_gameplay_artwork_or_storage_changes": true,
+    "physical_iphone_safari": "NOT_RUN \u2014 owner defers testing until about task 136/272",
+    "owner_authorization": "Standing automatic approval for fully tested milestones/merges; separate deployment approval required",
+    "checkpoint_source": "/LEGACY_3_0/LEGACY3_L3-044_S02_GITHUB_TESTED_SOURCE.zip",
+    "checkpoint_full_history": "/LEGACY_3_0/LEGACY3_L3-044_S02_GITHUB_FULL_HISTORY.bundle",
+    "checkpoint_qa": "/LEGACY_3_0/LEGACY3_L3-044_S02_GITHUB_QA_64_SCREENSHOTS.zip",
+    "deployment": "NOT_DONE",
+    "next_task": "L3-045 PLANNED \u2014 NOT STARTED"
   }
 }

@@ -42,7 +42,7 @@ const expectations=[
 ['Gallery has standalone root',()=>assert.match(gallery,/confirm-dialog-root/)],
 ['No range slider UI',()=>assert.doesNotMatch(page+c+css,/type=['"]range|role=['"]slider/)],
 ['No actual fighter images changed by modal',()=>assert.doesNotMatch(c,/from ['"]@(?:game|domain)|playerSave|combat\//i)],
-['L3-043 standing owner acceptance advances only the register and leaves L3-044 planned',()=>{assert.equal(reg.completed.length,43);assert.equal(reg.next_task,'L3-044');assert.equal(reg.tasks.find(x=>x.id==='L3-043').status,'completed');assert.equal(reg.tasks.find(x=>x.id==='L3-044').status,'planned');assert.match(reg.L3_043_acceptance_evidence.physical_iphone_safari,/NOT_RUN/);}],
+['L3-043 acceptance stays intact after L3-044; L3-045 remains planned',()=>{assert.equal(reg.completed.length,44);assert.equal(reg.next_task,'L3-045');assert.equal(reg.tasks.find(x=>x.id==='L3-043').status,'completed');assert.equal(reg.tasks.find(x=>x.id==='L3-044').status,'completed');assert.equal(reg.tasks.find(x=>x.id==='L3-045').status,'planned');assert.match(reg.L3_043_acceptance_evidence.physical_iphone_safari,/NOT_RUN/);}],
 ['Scripts explicitly reserve dedicated QA entry',()=>assert.ok(pkg.scripts['typecheck:confirm-dialog']&&pkg.scripts['test:confirm-dialog'])],
 ];
 for(const [name,fn] of expectations)test(name,fn);

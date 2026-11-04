@@ -1,0 +1,1 @@
+{"extends":"./tsconfig.json","include":["src/ui/toast-status-contract.ts","tests/ui/toast-status-negative.ts"],"exclude":["node_modules","dist"],"compilerOptions":{"types":[]}}

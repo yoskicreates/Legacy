@@ -1,0 +1,20 @@
+{
+  "task": "L3-044",
+  "status": "OWNER AUTO-APPROVED \u2014 pending acceptance-only CI and merge",
+  "baseline_accepted_main": "b5298aef92d0cee83c7863106a45cb0739aad575",
+  "scope": "Reusable accessible toast/status system: success, locked, error, saved based on a committed save receipt; practice-only examples explicitly say no real save. Dismissible notification stack does not cover controls. No game save integration, gameplay or art changes.",
+  "review_commit": "555fd6117913ed4539f94df14306770820931526",
+  "review_tree": "9db386f267bed7f7ac4d1025d7c7f426cab5b83b",
+  "github_workflows": "25/25 PASS on exact implementation revision",
+  "browser_qa": "32/32 PASS; 1760 actual Chromium assertions on genuine Vite dev and preview at 375/390/402/430; 64 real screenshots",
+  "type_tests": "Strict TypeScript PASS; 8/8 negative save contracts rejected",
+  "previous_stages_preserved": true,
+  "first_browser_failure": "S01 notification overlay blocked demo button; corrected in S02 and 32/32 retested",
+  "physical_iphone_safari": "NOT_RUN (owner requested deferral until around task 136)",
+  "deployment": "NOT_DONE",
+  "source_checkpoint": "/LEGACY_3_0/LEGACY3_L3-044_S02_GITHUB_TESTED_SOURCE.zip",
+  "history_checkpoint": "/LEGACY_3_0/LEGACY3_L3-044_S02_GITHUB_FULL_HISTORY.bundle",
+  "qa_checkpoint": "/LEGACY_3_0/LEGACY3_L3-044_S02_GITHUB_QA_64_SCREENSHOTS.zip",
+  "official_progress_after_merge": "44/272",
+  "next_task": "L3-045 PLANNED, NOT STARTED"
+}

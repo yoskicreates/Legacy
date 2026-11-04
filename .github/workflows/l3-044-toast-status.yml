@@ -1,0 +1,109 @@
+name: LEGACY 3.0 L3-044 Toast and Status Acceptance
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  notifications:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - name: Checkout full source and history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Use Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Clean pinned dependency installation
+        run: npm ci --no-audit --no-fund
+      - name: Check truthful toast outcomes and inherited regressions
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          npm run check:vite
+          npm run typecheck
+          npm run typecheck:toast-status
+          npm run test:toast-status:negative
+          npm run test:toast-status
+          npm run typecheck:confirm-dialog
+          npm run test:confirm-dialog:negative
+          npm run test:confirm-dialog
+          npm run lint:domains
+          npm run lint
+          npm run test:types:negative
+          npm test
+          npm run build
+          test -f dist/toast-status-qa.html
+          test -f dist/confirm-dialog-qa.html
+      - name: Generate and verify hashed source and build manifest
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          npm run manifest:generate
+          npm run manifest:verify
+          test -f dist/build-manifest.json
+      - name: Install real Chromium
+        shell: bash
+        run: |
+          python -m pip install --disable-pip-version-check playwright==1.55.0
+          python -m playwright install --with-deps chromium
+      - name: Test genuine Vite dev and preview at mobile widths
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          mkdir -p l3-044-acceptance/{dev,preview}
+          npm run dev -- --strictPort > l3-044-acceptance/dev-server.log 2>&1 &
+          dp=$!
+          npm run preview -- --strictPort > l3-044-acceptance/preview-server.log 2>&1 &
+          pp=$!
+          trap 'kill "$dp" "$pp" 2>/dev/null || true' EXIT
+          for port in 5173 4173; do
+            ready=0
+            for i in $(seq 1 45); do
+              if curl -fsS "http://127.0.0.1:$port/toast-status-qa.html" >/dev/null; then ready=1; break; fi
+              sleep 1
+            done
+            test "$ready" = 1 || { echo "Vite unavailable $port"; exit 1; }
+          done
+          python scripts/chromium-toast-status-qa.py --base-url http://127.0.0.1:5173 --out l3-044-acceptance/dev
+          python scripts/chromium-toast-status-qa.py --base-url http://127.0.0.1:4173 --out l3-044-acceptance/preview
+      - name: Preserve source, complete history and QA artifacts
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p l3-044-acceptance
+          test ! -d dist || cp -a dist l3-044-acceptance/dist
+          test ! -f dist/build-manifest.json || cp dist/build-manifest.json l3-044-acceptance/build-manifest.json
+          cp docs/L3-044-TOAST-STATUS.md l3-044-acceptance/contract.md
+          cp docs/task-register.json l3-044-acceptance/task-register.json
+          git status --short > l3-044-acceptance/git-status.txt
+          git log --oneline --all > l3-044-acceptance/git-history.txt
+          git bundle create l3-044-acceptance/complete-history.bundle --all
+          git bundle verify l3-044-acceptance/complete-history.bundle
+          git archive --format=zip HEAD -o l3-044-acceptance/tested-source.zip
+      - name: Upload genuine QA evidence and screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: LEGACY3-L3-044-toast-status
+          path: l3-044-acceptance/
+          if-no-files-found: warn
+          retention-days: 30

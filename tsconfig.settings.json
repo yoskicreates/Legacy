@@ -1,0 +1,1 @@
+{"extends":"./tsconfig.json","include":["src/ui/settings-contract.ts","src/ui/settings-shell.ts","src/settings-qa.ts"],"exclude":["node_modules","dist"],"compilerOptions":{"types":[]}}

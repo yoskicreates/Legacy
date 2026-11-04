@@ -60,6 +60,10 @@ with sync_playwright() as p:
  page.locator('[data-panel="settings"] [data-setting="motion"][data-value="reduced"]').click()
  assert page.locator('[data-panel="settings"] [data-setting="motion"][data-value="reduced"]').get_attribute('aria-pressed')=='true'
  assert page.evaluate('document.documentElement.dataset.legacyMotion')=='reduced'
+ page.reload(wait_until='networkidle')
+ page.locator('#home-settings').click()
+ assert page.locator('[data-panel="settings"] [data-setting="motion"][data-value="reduced"]').get_attribute('aria-pressed')=='true'
+ assert page.evaluate('document.documentElement.dataset.legacyMotion')=='reduced'
  assert page.evaluate('document.documentElement.scrollWidth<=window.innerWidth+1')
  assert not app_errors,app_errors
  results.append({'width':390,'actual_app_settings':True,'passed':True})

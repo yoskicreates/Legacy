@@ -1,0 +1,1 @@
+import{G as r}from"./state-schema-CzP6L-oZ.js";import{r as o,w as s}from"./indexeddb-Dic9_s3y.js";async function n(e,a={}){const t=await s(e,a);return t.ok?Object.freeze({ok:!0,value:Object.freeze({committed:!0,schemaVersion:r})}):t}function i(e={}){return o(e)}export{n as a,i as r};

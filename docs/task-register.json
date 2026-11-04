@@ -2,7 +2,7 @@
   "project": "LEGACY 3.0",
   "blueprint_version": "1.0",
   "created": "2026-10-28",
-  "scope": "L3-046 accepted after all 27 GitHub Actions workflows passed on commit 06375740199f392114cb76bf263281208def039b, including genuine Vite development/preview and Chromium phone-width QA. Fixture-only calendar preview shows game-clock dates, upcoming fictional events and selectable details without mutating saves. L3-047 not yet accepted; no deployment.",
+  "scope": "L3-047 acceptance candidate: four fixture-only loading/empty states, including no-save, no-events and missing-asset. All 28 GitHub Actions checks passed at initial PR commit 233289a034e76eec821197379b029a19426d160c, including dedicated Vite/Chromium QA. Final register update must pass fresh CI before merge. No deployment or physical iPhone QA.",
   "total_tasks": 272,
   "completed": [
     "L3-001",
@@ -50,9 +50,10 @@
     "L3-043",
     "L3-044",
     "L3-045",
-    "L3-046"
+    "L3-046",
+    "L3-047"
   ],
-  "next_task": "L3-047",
+  "next_task": "L3-048",
   "phases": [
     {
       "id": "01",
@@ -762,9 +763,10 @@
       "build": "Make purposeful screens for no-save, no-events, and missing assets",
       "test": "Nothing appears as broken or silently blank",
       "depends_on": "L3-046",
-      "status": "planned",
+      "status": "completed",
       "primary_pillar": "P3",
-      "supporting_pillar": "P1"
+      "supporting_pillar": "P1",
+      "acceptance": "28/28 initial PR-triggered GitHub Actions workflows passed at 233289a034e76eec821197379b029a19426d160c. Dedicated run 41842431637 passed genuine Vite dev/preview, Chromium 375/390/402/430, forced colors, reduced motion, keyboard focus styling, and mobile overflow; CI artifacts preserve source and full history. Final register update requires a fresh all-green run."
     },
     {
       "id": "L3-048",

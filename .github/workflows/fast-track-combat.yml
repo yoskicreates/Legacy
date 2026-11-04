@@ -54,9 +54,5 @@ jobs:
           git log --oneline --all > fast-track-qa/history.txt
           git bundle create fast-track-qa/full-history.bundle --all
           git archive --format=zip HEAD -o fast-track-qa/source.zip
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: LEGACY-fast-track-combat-QA
-          path: fast-track-qa/
-          retention-days: 30
+      # Artifact upload temporarily disabled: GitHub Actions storage quota exceeded.
+      # Evidence is generated within the job but not retained remotely until quota is restored.

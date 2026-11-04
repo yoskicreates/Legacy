@@ -1,0 +1,1 @@
+{"extends":"./tsconfig.json","include":["src/ui/selection-card.ts","src/ui/selection-card-contract.ts","src/ui/panel-kit-contract.ts","src/panel-kit-qa.ts","src/selection-card-qa.ts"],"exclude":["tests/ui/selection-card-negative.ts","node_modules","dist"],"compilerOptions":{"types":[]}}

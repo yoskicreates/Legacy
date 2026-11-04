@@ -2,7 +2,7 @@
   "project": "LEGACY 3.0",
   "blueprint_version": "1.0",
   "created": "2026-10-28",
-  "scope": "L3-041 accepted by owner: shared semantic panel/card kit with isolated light/dark gallery; L3-042 planned but NOT STARTED. No gameplay, deployment, or persistence changes.",
+  "scope": "L3-042 accepted under owner standing auto-approval: accessible illustrated selection-card control; L3-043 planned, not started. No fighter artwork, gameplay, persistence or deployment changes.",
   "total_tasks": 272,
   "completed": [
     "L3-001",
@@ -45,9 +45,10 @@
     "L3-038",
     "L3-039",
     "L3-040",
-    "L3-041"
+    "L3-041",
+    "L3-042"
   ],
-  "next_task": "L3-042",
+  "next_task": "L3-043",
   "phases": [
     {
       "id": "01",
@@ -691,7 +692,7 @@
       "build": "Create accessible illustrated choice buttons without sliders",
       "test": "Touch, keyboard, and screen reader states work",
       "depends_on": "L3-041",
-      "status": "planned",
+      "status": "completed",
       "primary_pillar": "P3",
       "supporting_pillar": "P5"
     },
@@ -4027,5 +4028,23 @@
     "historical_provenance": "P8 original Git bundle recovered and verified; R14/R17 original Git history unavailable and not claimed reconciled",
     "no_gameplay_persistence_or_deployment": true,
     "next_milestone": "L3-042 PLANNED — NOT STARTED"
+  },
+  "L3_042_acceptance_evidence": {
+    "status": "ACCEPTED — subject to successful CI for this acceptance-record update and verified merge",
+    "owner_authorization": "Standing auto-approval for completed tested milestones and merges (2026-11-03 19:18 America/New_York); do not claim specific hands-on L3-042 visual inspection",
+    "pull_request": 27,
+    "verified_review_head": "78e75f7892ffe53ce1fc2c43601f763f2479474a",
+    "review_source_tree": "43ae31dda9ae8e2365e9984fa206b33a20f32d31",
+    "github_workflows": "23/23 PASS on exact review commit",
+    "node_tests": "416/416 PASS",
+    "genuine_vite_browser": "8/8 PASS across dev and preview at 375/390/402/430 CSS px",
+    "browser_assertions": 1608,
+    "javascript_errors": 0,
+    "extra_accessibility": "600/600 offline compiled Chromium checks; not actual Safari",
+    "extra_state_lifecycle": "2904/2904 offline compiled Chromium checks; not actual Safari",
+    "physical_iphone_safari": "NOT_RUN; user chose to defer physical testing until approximately task 136/272",
+    "no_gameplay_fighter_art_storage_or_deployment_changes": true,
+    "preserved_source_and_full_git_history": "ChatGPT Library /LEGACY_3_0/LEGACY3_L3-042_PR27_78E75F_VERIFIED_* and S18/S19 QA checkpoints",
+    "next_task": "L3-043 PLANNED — NOT STARTED"
   }
 }

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "LEGACY 3.0 L3-041: semantic shared panel/card kit with isolated light/dark previews (non-playable)",
+  "description": "LEGACY 3.0 L3-042: isolated illustrated selection-card control (non-playable)",
   "engines": {
     "node": ">=22"
   },
@@ -74,7 +74,10 @@
     "test:nested-nav:negative": "node scripts/nested-nav-negative-test.mjs",
     "typecheck:panel-kit": "tsc --project tsconfig.panel-kit.json --noEmit",
     "test:panel-kit": "node --test tests/panel-kit.test.mjs",
-    "test:panel-kit:negative": "node scripts/panel-kit-negative-test.mjs"
+    "test:panel-kit:negative": "node scripts/panel-kit-negative-test.mjs",
+    "typecheck:selection-card": "tsc --project tsconfig.selection-card.json --noEmit",
+    "test:selection-card:negative": "node scripts/selection-card-negative-test.mjs",
+    "test:selection-card": "node --test tests/selection-card.test.mjs"
   },
   "devDependencies": {
     "typescript": "5.8.3",

@@ -1,0 +1,23 @@
+{
+  "task": "L3-042",
+  "status": "ACCEPTED \u2014 owner standing approval; merge after acceptance commit CI",
+  "task_register": "42/272 on PR branch; merge into main pending verification",
+  "scope": "Accessible illustration-decorated choice buttons in a stand-alone Preact gallery; three abstract pictograms; native button/ARIA group semantics; dark/light navy/gold theme; empty, disabled, replacement states; no fighter redesign, gameplay, persistence, slides or deployment",
+  "accepted_baseline": "L3-041 merge ddacc1a0bb09c02ed06758616c038e682cee1b7f",
+  "review_head": "78e75f7892ffe53ce1fc2c43601f763f2479474a",
+  "review_tree": "43ae31dda9ae8e2365e9984fa206b33a20f32d31",
+  "github_actions": "23/23 PASS",
+  "node_tests": "416/416 PASS",
+  "negative_types": "PASS (7 invalid cases rejected)",
+  "lint": "PASS",
+  "vite_dev_build_preview": "PASS",
+  "browser": "8/8 dev and preview at four CSS widths; 1608/1608 assertions PASS; zero JS errors and no horizontal overflow",
+  "additional_QA": "600 accessibility and 2904 state-lifecycle Chromium assertions passed on exact compiled review UI (not Safari)",
+  "owner_authorization": "2026-11-03 standing auto-approval to accept and merge verified milestones; no separate task-specific visual inspection claimed",
+  "owner_physical_testing": "DEFERRED until about task 136/272 by user instruction",
+  "physical_iphone_safari": "NOT_RUN (not claimed passed)",
+  "source_and_full_git_history": "Preserved as separate numbered ZIP and bundle in ChatGPT Library /LEGACY_3_0/",
+  "merge_deployment": "Merge not yet performed in this staged record; deployment not authorized",
+  "next_task": "L3-043 PLANNED \u2014 NOT STARTED",
+  "notes": "The status and test expectations were updated after source CI; a fresh 23-job CI check of the acceptance commit is required before merge. No L3-042 application component changes."
+}

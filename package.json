@@ -85,7 +85,10 @@
     "typecheck:toast-status": "tsc --project tsconfig.toast-status.json --noEmit",
     "test:toast-status": "node --test tests/toast-status.test.mjs",
     "test:toast-status:negative": "node scripts/toast-status-negative-test.mjs",
-    "typecheck:toast-status:negative": "tsc --project tsconfig.toast-status-negative.json --noEmit"
+    "typecheck:toast-status:negative": "tsc --project tsconfig.toast-status-negative.json --noEmit",
+    "typecheck:dashboard": "tsc --project tsconfig.dashboard.json --noEmit",
+    "test:dashboard": "node --test tests/dashboard.test.mjs",
+    "test:dashboard:negative": "node scripts/dashboard-negative-test.mjs"
   },
   "devDependencies": {
     "typescript": "5.8.3",

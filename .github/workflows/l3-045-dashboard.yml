@@ -1,0 +1,105 @@
+name: LEGACY 3.0 L3-045 Dashboard Shell Acceptance
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  dashboard:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - name: Checkout complete source and Git history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Clean pinned dependency install
+        run: npm ci --no-audit --no-fund
+      - name: Strict types, 8 negative fixtures and inherited game tests
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          npm run check:vite
+          npm run typecheck
+          npm run typecheck:dashboard
+          npm run test:dashboard:negative
+          npm run test:dashboard
+          npm run lint
+          npm run lint:domains
+          npm run test:types:negative
+          npm test
+          npm run build
+          test -f dist/dashboard-qa.html
+          test -f dist/toast-status-qa.html
+      - name: Verify independently hashed build manifest
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          npm run manifest:generate
+          npm run manifest:verify
+          test -f dist/build-manifest.json
+      - name: Install real Chromium
+        shell: bash
+        run: |
+          python -m pip install --disable-pip-version-check playwright==1.55.0
+          python -m playwright install --with-deps chromium
+      - name: Test genuine Vite dev and preview on phone screens
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          mkdir -p l3-045-qa/{dev,preview}
+          npm run dev -- --strictPort > l3-045-qa/dev-server.log 2>&1 &
+          dp=$!
+          npm run preview -- --strictPort > l3-045-qa/preview-server.log 2>&1 &
+          pp=$!
+          trap 'kill "$dp" "$pp" 2>/dev/null || true' EXIT
+          for port in 5173 4173; do
+            ready=0
+            for i in $(seq 1 45); do
+              if curl -fsS "http://127.0.0.1:$port/dashboard-qa.html" >/dev/null; then ready=1;break;fi
+              sleep 1
+            done
+            test "$ready" = 1 || { echo "Vite unavailable $port";exit 1; }
+          done
+          python scripts/chromium-dashboard-qa.py --base-url http://127.0.0.1:5173 --out l3-045-qa/dev
+          python scripts/chromium-dashboard-qa.py --base-url http://127.0.0.1:4173 --out l3-045-qa/preview
+      - name: Save true source, complete Git history and QA
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p l3-045-qa
+          test ! -d dist || cp -a dist l3-045-qa/dist
+          test ! -f dist/build-manifest.json || cp dist/build-manifest.json l3-045-qa/build-manifest.json
+          cp docs/L3-045-DASHBOARD-PREVIEW.md l3-045-qa/task-contract.md
+          git status --short > l3-045-qa/git-status.txt
+          git log --oneline --all > l3-045-qa/git-history.txt
+          git bundle create l3-045-qa/complete-history.bundle --all
+          git bundle verify l3-045-qa/complete-history.bundle
+          git archive --format=zip HEAD -o l3-045-qa/tested-source.zip
+      - name: Upload actual QA and screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: LEGACY3-L3-045-dashboard
+          path: l3-045-qa/
+          if-no-files-found: warn
+          retention-days: 30

@@ -1,0 +1,1 @@
+{"extends":"./tsconfig.json","include":["src/ui/dashboard.ts","src/ui/dashboard-contract.ts","src/dashboard-qa.ts"],"exclude":["tests/ui/dashboard-negative.ts","node_modules","dist"],"compilerOptions":{"types":[]}}

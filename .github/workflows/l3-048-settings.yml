@@ -1,0 +1,66 @@
+name: LEGACY 3.0 L3-048 Settings Shell Acceptance
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  settings:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Clean install and inherited checks
+        run: |
+          set -Eeuo pipefail
+          npm ci --no-audit --no-fund
+          npm run check:vite
+          npm run typecheck
+          npx tsc -p tsconfig.settings.json --noEmit
+          npm run test:types:negative
+          npm run lint
+          npm run lint:domains
+          npm test
+          npm run build
+          test -f dist/settings-qa.html
+          npm run manifest:generate
+          npm run manifest:verify
+      - name: Install genuine Chromium
+        run: |
+          python -m pip install playwright==1.55.0
+          python -m playwright install --with-deps chromium
+      - name: Real Vite dev and preview browser checks
+        run: |
+          set -Eeuo pipefail
+          mkdir -p l3-048-qa
+          npm run dev -- --strictPort > /tmp/legacy-048-dev.log 2>&1 & dp=$!
+          npm run preview -- --strictPort > /tmp/legacy-048-preview.log 2>&1 & pp=$!
+          trap 'kill "$dp" "$pp" 2>/dev/null || true' EXIT
+          for port in 5173 4173; do
+            ready=0
+            for i in $(seq 1 45); do
+              if curl -fsS "http://127.0.0.1:$port/settings-qa.html" >/dev/null; then ready=1;break;fi
+              sleep 1
+            done
+            test "$ready" = 1
+          done
+          python scripts/chromium-settings-qa.py --base-url http://127.0.0.1:5173 --out l3-048-qa/dev
+          python scripts/chromium-settings-qa.py --base-url http://127.0.0.1:4173 --out l3-048-qa/preview
+      - name: Preserve Git history and QA in runner logs
+        if: always()
+        run: |
+          git rev-parse HEAD
+          git log -5 --oneline
+          test ! -f l3-048-qa/dev/results.json || cat l3-048-qa/dev/results.json
+          test ! -f l3-048-qa/preview/results.json || cat l3-048-qa/preview/results.json
+          echo 'Artifact upload intentionally deferred because GitHub reported an artifact-storage quota error; source and full Git history remain in the repository.'

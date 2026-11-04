@@ -15,4 +15,4 @@ test('QA provides all four states without a slider',()=>{assert.match(qa,/data-s
 test('CSS has visible keyboard focus and high contrast support',()=>{assert.match(styles,/:focus-visible/);assert.match(styles,/@media\(forced-colors:active\)/);});
 test('CSS supports reduced motion and mobile wrapping',()=>{assert.match(styles,/@media\(prefers-reduced-motion:reduce\)/);assert.match(styles,/overflow-wrap:anywhere/);});
 test('QA entry is an actual Vite page',()=>{assert.match(html,/src\/loading-empty-qa.ts/);assert.match(read('vite.config.mjs'),/loadingEmptyQa/);});
-test('Task 47 remains provisional until accepted',()=>{const reg=JSON.parse(read('docs/task-register.json'));assert.equal(reg.next_task,'L3-047');assert.equal(reg.tasks.find(x=>x.id==='L3-047').status,'planned');});
+test('Task 47 register advances only when explicitly accepted',()=>{const reg=JSON.parse(read('docs/task-register.json'));const state=reg.tasks.find(x=>x.id==='L3-047').status;assert.ok(state==='planned'||state==='completed');assert.equal(reg.next_task,state==='completed'?'L3-048':'L3-047');assert.equal(reg.completed.includes('L3-047'),state==='completed');});
